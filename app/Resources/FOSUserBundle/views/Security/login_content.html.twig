@@ -1,0 +1,41 @@
+{% trans_default_domain 'FOSUserBundle' %}
+<div class="container">
+<div class="row vdivide-light login">
+    <div class="col-lg-6 ">
+{% if error %}
+    <div class="alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+{% endif %}
+
+<form action="{{ path("fos_user_security_check") }}" method="post">
+
+    {% if csrf_token %}
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+    {% endif %}
+    <div class="form-group">
+    <label for="username">{{ 'security.login.username'|trans }}</label>
+    <input type="text" id="username" class="form-control" name="_username" value="{{ last_username }}" required="required" />
+    </div>
+    <div class="form-group">
+    <label for="password">{{ 'security.login.password'|trans }}</label>
+    <input type="password" id="password" class="form-control" name="_password" required="required" />
+    </div>
+    <div class="form-check">
+    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+    <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+    </div>
+    <input type="submit" id="_submit" class="btn btn-primary" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+</form>
+    </div>
+    <div class="col-lg-6 text-center">
+        <div>
+            Nie masz jeszcze konta?
+            <p><a href="{{ path('fos_user_registration_register') }}" class="btn btn-success">Zarejestruj się</a></p>
+        </div>
+        <hr>
+        <div >
+            Zapomniałeś hasła?
+            <p><a href="{{ path('fos_user_resetting_check_email') }}" class="btn btn-primary">Przypomnij hasło</a></p>
+        </div>
+    </div>
+</div>
+</div>

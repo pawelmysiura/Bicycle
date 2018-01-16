@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %} {% endblock %} | Ścieżka rowerowa</title>
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/fontawesome-all.css') }}">
+</head>
+<body>
+<div class="wrap">
+{% block content %}
+
+{% endblock %}
+</div>
+{% block footer %}
+{% if noFooter is not defined %}
+
+<footer class="footer bg-dark">
+
+    <div class="container">
+        <div class="row vdivide-dark-dark align-items-center mt-4">
+            <div class="col-sm-6">
+                <nav class="nav flex-column">
+                    <a class="footer-link" href="#">Active</a>
+                    <a class="footer-link" href="#">Link</a>
+                    <a class="footer-link" href="#">Link</a>
+                </nav>
+            </div>
+            <div class="col-sm-6 text-center">
+                Vestibulum in laoreet arcu. Maecenas pharetra at enim quis laoreet.
+                <p>Paweł Mysiura <span class="fas fa-copyright"></span> 2018</p>
+            </div>
+        </div>
+    </div>
+
+</footer>
+
+{% endif %}
+{% endblock %}
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+</body>
+</html>

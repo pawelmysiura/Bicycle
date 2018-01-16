@@ -1,0 +1,167 @@
+html, body {
+    height: 100%;
+}
+#wrap {
+    min-height: 100%;
+}
+#main {
+    overflow: auto;
+    padding-bottom: 220px;
+}
+.footer {
+    position: relative;
+    margin-top: -200px;
+    height: 200px;
+    clear: both;
+    padding-top: 20px;
+    color: grey;
+}
+.vdivide-dark [class*='col-']:not(:last-child):after {
+    background: grey;
+    width: 1px;
+    content: "";
+    display:block;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    right: 0;
+    min-height: 70px;
+}
+.vdivide-light [class*='col-']:not(:last-child):after {
+    background: rgba(89, 91, 96, 0.23);
+    width: 1px;
+    content: "";
+    display:block;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    right: 0;
+    min-height: 70px;
+}
+.vr{
+    border-left:1px solid darkgray;
+    height:30px;
+}
+.navbar-link{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.footer-link{
+    color: grey;
+    padding-bottom: 7px;
+    position: center;
+}
+.footer-link:hover{
+    color: grey;
+    text-decoration: none;
+}
+.login{
+    padding-top: 13rem;
+}
+.register{
+    padding-top: 6rem;
+}
+
+.sidenav{
+    height: 100%;
+    position: fixed;
+    top: 0;
+    overflow: auto;
+    padding-top: 20px;
+    background-color: #171a1d;
+    color: darkgray;
+    width: 200px;
+}
+.sidenav .menu-top{
+    display: block;
+    background-color: #171a1d;
+    text-align: center;
+    height: 40px;
+}
+.sidenav .toggle-btn{
+    display: none;
+}
+.sidenav ul,
+.sidenav li{
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+    line-height: 35px;
+}
+.sidenav li{
+    background-color: rgba(28, 33, 34, 0.91);
+    padding-left: 5px;
+}
+
+.sidenav li:hover{
+    background-color: #2c3336;
+
+}
+.sidenav li.active{
+    background-color: #394246;
+}
+.sidenav li a{
+    text-decoration: none;
+    display: block;
+    color: darkgray;
+}
+.sidenav li a:hover{
+    text-decoration: none;
+    display: block;
+    color: white;
+}
+
+@media (max-width: 767px) {
+    .sidenav{
+        position: relative;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .sidenav .toggle-btn{
+        display: block;
+        cursor: pointer;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        z-index: 10 !important;
+        padding: 3px;
+        background-color: rgba(6, 6, 6, 0.56);
+        color: #636363;
+        width: 40px;
+        text-align: center;
+        }
+        .menu-top{
+        text-align: left !important;
+        font-size: 22px;
+        padding-left: 20px;
+        }
+}
+@media (min-width: 767px) {
+    .sidenav .menu-list .menu-content {
+        display: block;
+    }
+    #wrapper{
+        padding: 20px 20px 20px 220px;
+    }
+}
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+.article a{
+    text-decoration: none;
+    color: #171a1d;
+}
+.article a:hover{
+    text-decoration: none;
+    color: #606b78;
+}
+.link a{
+    text-decoration: none;
+    color: #171a1d;
+}
+.link a:hover{
+    text-decoration: none;
+    color: #606b78;
+}
