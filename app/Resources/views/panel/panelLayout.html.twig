@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+
+    <div class="sidenav">
+        <div class="menu-top">Twoja ścieżka rowerowa</div>
+        <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu"></i>
+        <div  class="menu-list">
+            <ul id="menu" class="menu-content collapse out">
+                <div class="text-center"><h1><i class="fa fa-user-circle"></i></h1> </div>
+                <li><a href="#">Ustawienia użytkownika</a></li>
+                <li><a href="#">Wyloguj</a></li>
+                <hr style="background-color: gray">
+                <li class="active"><a href="#">Co nowego?</a></li>
+                <li><a href="#">Ścieżki rowerowe</a></li>
+                <li><a href="#">Dodaj ścieżkę rowerową</a></li>
+                <li><a href="#">Ulubione</a></li>
+            </ul>
+        </div>
+    </div>
+    <div id="main">
+    <div id="wrapper" class="container-fluid">
+
+    {% block panelContent %}
+        {% endblock %}
+    </div>
+    </div>
+{% endblock %}
