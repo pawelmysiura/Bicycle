@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Post;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,6 +30,69 @@ class PostController extends Controller
         ], $page, $this->limit);
 
         return $this->render('panel/post/panel.html.twig', [
+            'pagionator' => $pagination
+        ]);
+    }
+
+    /**
+     * @Route("/panel/post/{slug}",
+     *     name="panel_post"
+     * )
+     * @ParamConverter("post", class="AppBundle\Entity\Post", options={"mapping": {"slug": "slug"}})
+     * @param Post $post
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function postAction(Post $post)
+    {
+        return $this->render('panel/post/post.html.twig', [
+            'post' => $post
+        ]);
+    }
+
+    /**
+     * @Route("/panel/postcategory/{slug}/{page}",
+     *     name="panel_post_category",
+     *     defaults={"page" = 1},
+     *     requirements={"page" = "\d+"}
+     * )
+     * @param $slug
+     * @param $page
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function categoryAction($slug, $page)
+    {
+        $pagination = $this->getPaginator([
+            'status' => 'published',
+            'orderBy' => 'p.publishDate',
+            'order' => 'DESC',
+            'categorySlug' => $slug
+        ], $page, $this->limit);
+
+        return $this->render('panel/post/category.html.twig', [
+            'pagionator' => $pagination
+        ]);
+    }
+
+    /**
+     * @Route("/panel/postctag/{slug}/{page}",
+     *     name="panel_post_tag",
+     *     defaults={"page" = 1},
+     *     requirements={"page" = "\d+"}
+     * )
+     * @param $slug
+     * @param $page
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function tagAction($slug, $page)
+    {
+        $pagination = $this->getPaginator([
+            'status' => 'published',
+            'orderBy' => 'p.publishDate',
+            'order' => 'DESC',
+            'tagSlug' => $slug
+        ], $page, $this->limit);
+
+        return $this->render('panel/post/tag.html.twig', [
             'pagionator' => $pagination
         ]);
     }
