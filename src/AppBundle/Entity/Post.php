@@ -129,6 +129,15 @@ class Post
     private $updatedAt;
 
     /**
+     * @ORM\OneToMany(
+     *     targetEntity="AppBundle\Entity\Comment",
+     *     mappedBy="post"
+     * )
+     * @ORM\OrderBy({"createDate" = "DESC"})
+     */
+    private $comment;
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -326,4 +335,21 @@ class Post
     {
         return $this->imageSize;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * @param mixed $comment
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+    }
+
 }

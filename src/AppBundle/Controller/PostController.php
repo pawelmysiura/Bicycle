@@ -2,7 +2,10 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Comment;
 use AppBundle\Entity\Post;
+use AppBundle\Form\Type\ContactType;
+use AppBundle\Form\Type\PostCommentType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -40,12 +43,38 @@ class PostController extends Controller
      * )
      * @ParamConverter("post", class="AppBundle\Entity\Post", options={"mapping": {"slug": "slug"}})
      * @param Post $post
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function postAction(Post $post)
+    public function postAction(Post $post, Request $request)
     {
+        if ($post === null)
+        {
+            throw $this->createNotFoundException('Artykułu nie znaleziono');
+        }
+        $comment = new Comment();
+        $comment->setAuthor($this->getUser());
+        $comment->setPost($post);
+        $comment->setCreateDate(new \DateTime());
+        $form = $this->createForm(PostCommentType::class, $comment);
+        if ($request->isMethod('POST'))
+        {
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid())
+            {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($comment);
+                $em->flush();
+
+                $this->addFlash('success', 'Wiadomość wysłana');
+                return $this->redirectToRoute('panel_post', [
+                    'slug' => $post->getSlug()
+                ]);
+            }
+        }
         return $this->render('panel/post/post.html.twig', [
-            'post' => $post
+            'post' => $post,
+            'form' => $form->createView()
         ]);
     }
 
