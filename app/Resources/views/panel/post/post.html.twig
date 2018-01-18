@@ -1,6 +1,6 @@
 {% extends 'panel/panelLayout.html.twig' %}
 {% block panelContent %}
-
+    {% include 'template/flashMsg.html.twig' %}
         <div class="article bg-white">
             <div class="row mt-2">
                 <div class="col-lg-12">
@@ -30,38 +30,29 @@
                 Napisz komentarz:
             </div>
             <div class="col-lg-8">
-                <textarea class="form-control" rows="3" title="Komentarz"></textarea>
+                {{ form_start(form) }}
+                {{ form_widget(form.comment) }}
             </div>
             <div class="col-lg-2 pt-3">
-                <a class="btn btn-primary">Wyslij</a>
+                {{ form_widget(form.submit) }}
+                {{ form_end(form) }}
             </div>
         </div>
+
+    {% for comment in post.comment %}
         <div class="row mt-2 bg-white p-2">
             <div class="col-lg-2 text-center">
-                Avatar
+                {{ comment.author.username }}
                 <br><h1>
                     <i class="fa fa-user-circle"></i>
                 </h1>
+                <br>
+                {{ comment.createDate|date('d.n.Y H:m:s') }}
             </div>
             <div class="col-lg-10 mt-4">
-                Komentarz komentarz komentarz Komentarz komentarz komentarz Komentarz komentarz komentarz
+                {{ comment.comment }}
             </div>
         </div>
-        <div class="row mt-2 bg-white p-2">
-            <div class="col-lg-2">
-                Avatar
-            </div>
-            <div class="col-lg-10">
-                Komentarz komentarz komentarz Komentarz komentarz komentarz Komentarz komentarz komentarz
-            </div>
-        </div>
-        <div class="row mt-2 bg-white p-2">
-            <div class="col-lg-2">
-                Avatar
-            </div>
-            <div class="col-lg-10">
-                Komentarz komentarz komentarz Komentarz komentarz komentarz Komentarz komentarz komentarz
-            </div>
-        </div>
+        {% endfor %}
 
 {% endblock %}
