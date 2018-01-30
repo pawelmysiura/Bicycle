@@ -8,6 +8,9 @@ html, body {
     overflow: auto;
     padding-bottom: 220px;
 }
+#map {
+    height: 400px;
+}
 .footer {
     position: relative;
     margin-top: -200px;
