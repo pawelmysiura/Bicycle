@@ -6,6 +6,7 @@ use AppBundle\Entity\Comment;
 use AppBundle\Entity\Map;
 use AppBundle\Entity\Post;
 use AppBundle\Form\Type\ContactType;
+use AppBundle\Form\Type\CreateMapType;
 use AppBundle\Form\Type\PostCommentType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -24,21 +25,19 @@ class MapController extends Controller
      */
     public function createMapAction(Request $request)
     {
-        $response = new Response();
-        $response->headers->set('Content-Type', 'application/json');
-            $content = $request->request->get('data');
-            if (!empty($content)) {
-                $data = json_decode($content, true);
-                $map = new Map();
-                $map->setStart($data['start']);
-                $map->setEnd($data['end']);
-                $map->setWaypoints($data['waypoints']);
+        $map = new Map();
+        $form = $this->createForm(CreateMapType::class, $map);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid())
+        {
 
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($map);
-                $em->flush();
-                return $this->redirectToRoute('panel_create_map');
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($map);
+            $em->flush();
+            return $this->redirectToRoute('panel_create_map');
             }
-        return $this->render('panel/map/createMap.html.twig');
+        return $this->render('panel/map/createMap.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 }

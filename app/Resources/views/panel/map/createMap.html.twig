@@ -1,4 +1,10 @@
 {% extends 'panel/panelLayout.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {#<script src="{{ asset('js/map/google-map-api.js') }}"></script>#}
+{% endblock javascripts %}
+
 {% block panelContent %}
 
     <div class="row bg-white pt-3">
@@ -9,38 +15,36 @@
     <div class="link bg-white">
         <div class="row mt-2">
             <div class="col-lg-12">
-                <div class="form-group">
-                    Z, do stopień trudności, opis, mapa
+                <div class="form-group start">
+                    <div id="map" style="height: 400px">
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <div class="form-group" id="map" style="height: 400px">
+                {{ form(form) }}
                 </div>
             </div>
         </div>
-        <div class="row mt-2">
-            <div class="col-lg-12">
-                <a class="btn btn-primary" onclick="save()">Wyślij</a>
-            </div>
-        </div>
+        {#<div class="row mt-2">#}
+            {#<div class="col-lg-12">#}
+                {#<a class="btn btn-primary" id="send-button" onclick="save()">Wyślij</a>#}
+            {#</div>#}
+        {#</div>#}
     </div>
-
     <script>
         var marker1,
             marker2,
             directionsDisplay,
             directionsService,
-            str,
             data = {};
-        var xhr = new XMLHttpRequest();
         function initMap() {
             directionsDisplay = new google.maps.DirectionsRenderer;
             directionsService = new google.maps.DirectionsService;
             var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 4,
-                center: {lat: 51.51054, lng: 19.201806}
+                zoom: 6,
+                center: {lat: 51.51054, lng: 19.201806},
+                gestureHandling: 'greedy'
             });
             directionsDisplay = new google.maps.DirectionsRenderer({
                 'draggable': true
@@ -69,12 +73,11 @@
                     title: 'marker2',
                     draggable: null
                 });
+                calculateRoute(directionsService, directionsDisplay);
             }
-            calculateRoute(directionsService, directionsDisplay);
         }
 
         function calculateRoute(directionsService, directionsDisplay) {
-            if (marker2) {
                 directionsService.route({
                     origin: marker1.getPosition(),
                     destination: marker2.getPosition(),
@@ -87,8 +90,10 @@
                         window.alert('Directions request failed due to ' + status);
                     }
                 });
-            }
         }
+
+        document.getElementById('create_map_send').addEventListener('click', save);
+
         function save() {
             var waypoint = {},
                 wp;
@@ -97,32 +102,24 @@
             data.end = {'lat': rleg.end_location.lat(), 'lng': rleg.end_location.lng()}
             wp = rleg.via_waypoints;
             for (i = 0; i<wp.length;i++){
-                // waypoint[i] = [{'lat': wp[i].lat(), 'lng': wp[i].lng()}]
                 waypoint[i] = {'lat': wp[i].lat(), 'lng': wp[i].lng()}
             }
             data.waypoints = waypoint;
 
             data.end = JSON.stringify(data.end);
-            data.start = JSON.stringify(data.start);
+            //data.start = JSON.stringify(data.start);
             data.waypoints = JSON.stringify(data.waypoints);
 
-            $.ajax({
-                type: 'POST',
-                url: "{{ path('panel_create_map') }}",
-                data: {data: JSON.stringify(data)},
-                dataType: 'json'
-            });
-            {#xhr.open("POST", "{{ path('panel_create_map') }}", true);#}
+            $('#create_map_start').val(JSON.stringify(data.start));
+            $('#create_map_end').val(JSON.stringify(data.end));
+            $('#create_map_waypoints').val(JSON.stringify(data.waypoints));
 
-            {#xhr.onreadystatechange = function () {#}
-                {#if (this.readyState === 4 && this.status === 200 ) {#}
-                    {#console.log(JSON.stringify(data))#}
-                {#}#}
-            {#};#}
-            {#xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");#}
-
-            {#xhr.send(JSON.stringify(data))#}
-
+            {#$.ajax({#}
+                {#type: 'POST',#}
+                {#url: "{{ path('panel_create_map') }}",#}
+                {#data: {data: JSON.stringify(data)},#}
+                {#dataType: 'json'#}
+            {#});#}
         }
     </script>
     {% if data is defined %}

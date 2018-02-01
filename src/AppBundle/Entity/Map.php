@@ -21,6 +21,23 @@ class Map
     private $id;
 
     /**
+     * @ORM\Column(type="string", length=150)
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *     max="150"
+     * )
+     */
+    private $name;
+
+    /**
+     * @ORM\Column(type="text", length=300)
+     * @Assert\Length(
+     *     max="300"
+     * )
+     */
+    private $description;
+
+    /**
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
      */
@@ -51,6 +68,38 @@ class Map
     public function setId($id)
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param mixed $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
     }
 
     /**
