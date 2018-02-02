@@ -55,6 +55,15 @@ class Map
     private $waypoints;
 
     /**
+     * @ORM\OneToMany(
+     *     targetEntity="AppBundle\Entity\CommentMap",
+     *     mappedBy="map"
+     * )
+     * @ORM\OrderBy({"createDate" = "DESC"})
+     */
+    private $comment;
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -149,6 +158,23 @@ class Map
     {
         $this->waypoints = $waypoints;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * @param mixed $comment
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+    }
+
 
 
 }
