@@ -8,6 +8,7 @@ use AppBundle\Form\Type\ContactType;
 use AppBundle\Form\Type\CreateMapType;
 use AppBundle\Form\Type\MapCommentType;
 use AppBundle\Form\Type\PostCommentType;
+use AppBundle\Repository\MapRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -18,6 +19,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class MapController extends Controller
 {
+
+    protected $limit = 5;
+
     /**
      * @Route("panel/map/create", name="panel_create_map")
      * @param Request $request
@@ -30,7 +34,7 @@ class MapController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
-
+            $map->setAuthor($this->getUser());
             $em = $this->getDoctrine()->getManager();
             $em->persist($map);
             $em->flush();
@@ -80,5 +84,28 @@ class MapController extends Controller
             'map' => $map,
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("panel/maps/{page}", name="panel_maps", defaults={"page" = 1}, requirements={"page" = "\d+"})
+     * @param $page
+     * @return Response
+     */
+    public function allMapsAction($page)
+    {
+        $paginator = $this->getMapsPaginator($page);
+
+        return $this->render('panel/map/mapsList.html.twig', [
+            'paginator' => $paginator
+        ]);
+    }
+
+    public function getMapsPaginator($page)
+    {
+        $reposiotry = $this->getDoctrine()->getRepository(Map::class);
+        $qb = $reposiotry->findAll();
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($qb, $page, $this->limit);
+        return $pagination;
     }
 }

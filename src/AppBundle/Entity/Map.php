@@ -38,6 +38,18 @@ class Map
     private $description;
 
     /**
+     * @ORM\ManyToOne(
+     *     targetEntity="AppBundle\Entity\User"
+     * )
+     * @ORM\JoinColumn(
+     *     name="author_id",
+     *     referencedColumnName="id",
+     *     nullable=false
+     * )
+     */
+    private $author;
+
+    /**
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
      */
@@ -110,6 +122,24 @@ class Map
     {
         $this->description = $description;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * @param mixed $author
+     */
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+    }
+
+
 
     /**
      * @return mixed

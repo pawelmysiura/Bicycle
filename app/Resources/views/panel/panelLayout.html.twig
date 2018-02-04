@@ -8,11 +8,11 @@
             <ul id="menu" class="menu-content collapse out">
                 <div class="text-center"><h1><i class="fa fa-user-circle"></i></h1> </div>
                 <li><a href="#">Ustawienia użytkownika</a></li>
-                <li><a href="#">Wyloguj</a></li>
+                <li><a href="{{ path('fos_user_security_logout') }}">Wyloguj</a></li>
                 <hr style="background-color: gray">
-                <li class="active"><a href="#">Co nowego?</a></li>
-                <li><a href="#">Ścieżki rowerowe</a></li>
-                <li><a href="#">Dodaj ścieżkę rowerową</a></li>
+                <li class="active"><a href="{{ path('panel') }}">Co nowego?</a></li>
+                <li><a href="{{ path('panel_maps') }}">Ścieżki rowerowe</a></li>
+                <li><a href="{{ path('panel_create_map') }}">Dodaj ścieżkę rowerową</a></li>
                 <li><a href="#">Ulubione</a></li>
             </ul>
         </div>
