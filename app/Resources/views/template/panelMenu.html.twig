@@ -1,0 +1,15 @@
+<ul id="menu" class="menu-content collapse out">
+    <div class="text-center"><h1><i class="fa fa-user-circle"></i></h1> </div>
+{% for name, route in panelMenu %}
+    {% if app.request.get('_route') == route  %}
+    <li class="active">
+        {% else %}
+    <li>
+    {% endif %}
+    <a href="{{ path(route) }}">{{ name }}</a>
+    </li>
+    {% if name == 'Wyloguj' %}
+        <hr style="background-color: gray">
+    {% endif %}
+{% endfor %}
+</ul>

@@ -30,7 +30,7 @@ class MapController extends Controller
      */
     public function createMapAction(Request $request)
     {
-        $map = new Map();
+        $map = new Map(null);
         $form = $this->createForm(CreateMapType::class, $map);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
