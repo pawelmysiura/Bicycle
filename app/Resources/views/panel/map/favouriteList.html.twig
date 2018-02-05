@@ -1,0 +1,52 @@
+{% extends 'panel/panelLayout.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {#<script src="{{ asset('js/map/google-map-api.js') }}"></script>#}
+{% endblock javascripts %}
+
+{% block panelContent %}
+    {% include 'template/flashMsg.html.twig' %}
+    <div class="row bg-white pt-3">
+        <div class="col-lg-7 float-left">
+            <h3>Twoje ulubione ścieżki rowerowe</h3>
+        </div>
+        <div class="col-lg-3 form-group">
+            <input type="search" class="form-control" placeholder="Wyszukaj ścieżkę">
+        </div>
+        <div class="col-lg-2 form-group">
+            <button type="submit" class="btn btn-success">Wyszukaj</button>
+        </div>
+    </div>
+    <div class="row mt-3 bg-white">
+        <div class="col-lg-12 mt-2">
+            <p>Poniżej znajduje się tabela z dostępnymi ścieżkami rowerowymi.
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Nazwa</th>
+                    <th>Poziom trudności</th>
+                    <th>Ocena</th>
+                    <th>Autor</th>
+                    <th>Pokaż</th>
+                    <th>Ulubione</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for map in paginator %}
+                <tr>
+                    <td>{{ map.name }}</td>
+                    <th>Łatwy</th>
+                    <td>5/5</td>
+                    <td>{{ map.author.username }}</td>
+                    <td><a href="{{ path('panel_show_map', {'id': map.id}) }}" class="btn btn-primary">Pokaż</a> </td>
+                    <td>gwiazdka</td>
+                </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {{ knp_pagination_render(paginator) }}
+    </div>
+
+{% endblock %}

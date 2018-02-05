@@ -17,9 +17,18 @@ class User extends BaseUser
      */
     protected $id;
 
+    /**
+     * @ORM\ManyToMany(
+     *     targetEntity="AppBundle\Entity\Map",
+     *     mappedBy="favourite"
+     * )
+     */
+    protected $favouriteMap;
+
     public function __construct()
     {
         parent::__construct();
         // your own logic
     }
+
 }

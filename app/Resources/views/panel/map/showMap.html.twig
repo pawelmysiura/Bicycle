@@ -12,7 +12,17 @@
             <h3>{{ map.name }}</h3>
         </div>
         <div class="col-lg-2 form-group">
-            <button type="button" class="btn btn-warning">Dodaj do ulubionych</button>
+            {% set favouriteFound = 0 %}
+            {% for favourite in map.favourite %}
+            {% if favourite.username == app.user.username %}
+            <a href="{{ path('panel_remove_favourite_map', {'id': map.id}) }}" class="btn btn-secondary">Usuń z ulubionych</a>
+                {% set favouriteFound = 1 %}
+            {% endif %}
+            {% endfor %}
+            {% if favouriteFound == 0 %}
+            <a href="{{ path('panel_add_favourite_map', {'id': map.id}) }}" class="btn btn-warning">Dodaj do ulubionych</a>
+            {% endif %}
+            {#{% if map.favourite.id %}#}
         </div>
     </div>
     <div class="link bg-white">

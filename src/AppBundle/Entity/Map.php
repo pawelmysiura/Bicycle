@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -50,6 +51,17 @@ class Map
     private $author;
 
     /**
+     * @ORM\ManyToMany(
+     *     targetEntity="AppBundle\Entity\User",
+     *     inversedBy="favouriteMap"
+     * )
+     * @ORM\JoinTable(
+     *     name="bicycle_favourite_map"
+     * )
+     */
+    private $favourite;
+
+    /**
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
      */
@@ -74,6 +86,16 @@ class Map
      * @ORM\OrderBy({"createDate" = "DESC"})
      */
     private $comment;
+
+    /**
+     * Map constructor.
+     * @param $favourite
+     */
+    public function __construct($favourite)
+    {
+        $this->favourite = new ArrayCollection();
+    }
+
 
     /**
      * @return mixed
@@ -139,7 +161,40 @@ class Map
         $this->author = $author;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getFavourite()
+    {
+        return $this->favourite;
+    }
 
+    /**
+     * @param mixed $favourite
+     */
+    public function setFavourite($favourite)
+    {
+        $this->favourite = $favourite;
+    }
+
+    /**
+     * @param User $user
+     * @return $this
+     */
+    public function addFavourite(User $user)
+    {
+        $this->favourite[] = $user;
+        return $this;
+    }
+
+    /**
+     * @param $userId
+     * @return bool
+     */
+    public function removeFavorite($userId)
+    {
+        return $this->favourite->removeElement($userId);
+    }
 
     /**
      * @return mixed

@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\CommentMap;
 use AppBundle\Entity\Map;
+use AppBundle\Entity\User;
 use AppBundle\Form\Type\ContactType;
 use AppBundle\Form\Type\CreateMapType;
 use AppBundle\Form\Type\MapCommentType;
@@ -97,6 +98,60 @@ class MapController extends Controller
 
         return $this->render('panel/map/mapsList.html.twig', [
             'paginator' => $paginator
+        ]);
+    }
+
+    /**
+     * @Route("/panel/add/favourite/{id}", name="panel_add_favourite_map")
+     * @ParamConverter("map", class="AppBundle\Entity\Map", options={"mapping": {"id": "id"}})
+     * @param Map $map
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function addFavouriteAction(Map $map)
+    {
+        $map->addFavourite($this->getUser());
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($map);
+        $em->flush();
+
+        return $this->redirectToRoute('panel_show_map', [
+            'id' => $map->getId()
+        ]);
+    }
+
+    /**
+     * @Route("/panel/remove/favourite{id}", name="panel_remove_favourite_map")
+     * @ParamConverter("map", class="AppBundle\Entity\Map", options={"mapping": {"id": "id"}})
+     * @param Map $map
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function removeFavouriteAction(Map $map)
+    {
+        $map->removeFavorite($this->getUser());
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($map);
+        $em->flush();
+
+        return $this->redirectToRoute('panel_show_map', [
+            'id' => $map->getId()
+        ]);
+    }
+
+    /**
+     * @Route("panel/map/favourite/{page}", name="panel_favourite_maps", defaults={"page" = 1}, requirements={"page" = "\d+"})
+     * @param $page
+     * @return Response
+     */
+    public function favouriteListAction($page)
+    {
+        $reposiotry = $this->getDoctrine()->getRepository(Map::class);
+        $qb = $reposiotry->getQueryBuilder([
+            'userId' => $this->getUser()
+        ]);
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($qb, $page, $this->limit);
+        return $this->render('panel/map/favouriteList.html.twig', [
+            'paginator' => $pagination
         ]);
     }
 
