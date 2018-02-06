@@ -155,6 +155,22 @@ class MapController extends Controller
         ]);
     }
 
+    /**
+     * @Route("panel/user/maps/{page}", name="panel_user_maps", defaults={"page" = 1}, requirements={"page" = "\d+"})
+     */
+    public function userMApsAction($page) {
+        $repo = $this->getDoctrine()->getRepository(Map::class);
+        $qb = $repo->getQueryBuilder([
+            'authorId' => $this->getUser()
+        ]);
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($qb, $page, $this->limit);
+        return $this->render('panel/map/favouriteList.html.twig', [
+            'paginator' => $pagination
+        ]);
+
+    }
+
     public function getMapsPaginator($page)
     {
         $reposiotry = $this->getDoctrine()->getRepository(Map::class);

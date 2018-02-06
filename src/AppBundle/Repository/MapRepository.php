@@ -19,6 +19,11 @@ class MapRepository extends EntityRepository
             $qb->andWhere('f.id = :userId')
                 ->setParameter('userId', $params['userId']);
         }
+        if (!empty($params['authorId']))
+        {
+            $qb->andWhere('a.id = :authorId')
+                ->setParameter('authorId', $params['authorId']);
+        }
 
         return $qb;
     }

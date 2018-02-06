@@ -27,7 +27,7 @@ class AppExtension extends \Twig_Extension
     public function printPanelMenu(\Twig_Environment $environment)
     {
         $panelMenu = [
-            'Ustawienia uzytkownika' => 'panel',
+            'Ustawienia uzytkownika' => 'fos_user_profile_show',
             'Wyloguj' => 'fos_user_security_logout',
             'Co nowego' => 'panel',
             'Ścieżki' => 'panel_maps',
