@@ -3,13 +3,14 @@
 
     <div class="row bg-white pt-3">
         <div class="col-lg-7 float-left">
+    {% if app.request.get('_route') == 'panel_post_search' %}
+        <h3>Szukasz: {{ search }}</h3>
+        {% else %}
             <h3>Aktualności</h3>
+            {% endif %}
         </div>
-        <div class="col-lg-3 form-group">
-            <input type="search" class="form-control" placeholder="Wyszukaj artykułu">
-        </div>
-        <div class="col-lg-2 form-group">
-            <button type="submit" class="btn btn-success">Wyszukaj</button>
+        <div class="col-lg-5 form-group search">
+            {{ render(controller('AppBundle:Post:searchPost')) }}
         </div>
     </div>
     {% for post in pagionator %}

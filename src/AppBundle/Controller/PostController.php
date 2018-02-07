@@ -6,6 +6,7 @@ use AppBundle\Entity\Comment;
 use AppBundle\Entity\Post;
 use AppBundle\Form\Type\ContactType;
 use AppBundle\Form\Type\PostCommentType;
+use AppBundle\Form\Type\SearchContentType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -123,6 +124,39 @@ class PostController extends Controller
 
         return $this->render('panel/post/tag.html.twig', [
             'pagionator' => $pagination
+        ]);
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function searchPostAction()
+    {
+        $form = $this->createForm(SearchContentType::class);
+        return $this->render('panel/post/searchPost.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("panel/posts/search/{page}", name="panel_post_search", defaults={"page" = 1}, requirements={"page" = "\d+"})
+     * @param Request $request
+     * @param $page
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function handleSearchAction(Request $request, $page)
+    {
+        $search = $request->request->get('search_content');
+
+        $pagination = $this->getPaginator([
+            'status' => 'published',
+            'orderBy' => 'p.publishDate',
+            'order' => 'DESC',
+            'searchPost' => $search['search']
+        ], $page, $this->limit);
+        return $this->render('panel/post/panel.html.twig', [
+            'pagionator' => $pagination,
+            'search' => $search['search']
         ]);
     }
 

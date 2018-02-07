@@ -24,6 +24,12 @@ class MapRepository extends EntityRepository
             $qb->andWhere('a.id = :authorId')
                 ->setParameter('authorId', $params['authorId']);
         }
+        if (!empty($params['searchMap']))
+        {
+            $searchParam = '%'.$params['searchMap'].'%';
+            $qb->andWhere('m.name LIKE :searchMap')
+                ->setParameter('searchMap', $searchParam);
+        }
 
         return $qb;
     }

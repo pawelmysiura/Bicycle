@@ -47,6 +47,13 @@ class PostRepository extends EntityRepository
             $qb->andwhere('t.slug = :tagSlug')
                 ->setParameter('tagSlug', $params['tagSlug']);
         }
+        if (!empty($params['searchPost']))
+        {
+            $searchParam = '%'.$params['searchPost'].'%';
+            $qb->andwhere('p.title = :searchPost OR p.content LIKE :searchPost')
+                ->setParameter('searchPost', $searchParam);
+        }
+
         return $qb;
     }
 }

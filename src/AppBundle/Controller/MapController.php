@@ -9,6 +9,7 @@ use AppBundle\Form\Type\ContactType;
 use AppBundle\Form\Type\CreateMapType;
 use AppBundle\Form\Type\MapCommentType;
 use AppBundle\Form\Type\PostCommentType;
+use AppBundle\Form\Type\SearchContentType;
 use AppBundle\Repository\MapRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -165,12 +166,52 @@ class MapController extends Controller
         ]);
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate($qb, $page, $this->limit);
-        return $this->render('panel/map/favouriteList.html.twig', [
+        return $this->render('panel/map/userMapList.html.twig', [
             'paginator' => $pagination
         ]);
 
     }
 
+    /**
+     * @return Response
+     */
+    public function searchMapAction()
+    {
+        $form = $this->createForm(SearchContentType::class  );
+
+        return $this->render('panel/map/searchMap.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("panel/maps/search/{page}", name="panel_map_search", defaults={"page" = 1}, requirements={"page" = "\d+"})
+     * @param Request $request
+     * @param $page
+     * @return Response
+     */
+    public function handleSearchAction(Request $request, $page)
+    {
+        $search = $request->request->get('search_content');
+
+        $repo = $this->getDoctrine()->getRepository(Map::class);
+        $qb = $repo->getQueryBuilder([
+            'searchMap' => $search['search']
+        ]);
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($qb, $page, $this->limit);
+
+        return $this->render('panel/map/mapsList.html.twig', [
+            'paginator' => $pagination,
+            'search' => $search['search']
+        ]);
+    }
+
+
+    /**
+     * @param $page
+     * @return \Knp\Component\Pager\Pagination\PaginationInterface
+     */
     public function getMapsPaginator($page)
     {
         $reposiotry = $this->getDoctrine()->getRepository(Map::class);

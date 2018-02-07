@@ -20,6 +20,9 @@ html, body {
     padding-top: 20px;
     color: grey;
 }
+.search {
+    width: 450px;
+}
 .vdivide-dark [class*='col-']:not(:last-child):after {
     background: grey;
     width: 1px;
