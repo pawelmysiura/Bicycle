@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\CommentMap;
 use AppBundle\Entity\Map;
+use AppBundle\Entity\MapImage;
 use AppBundle\Entity\User;
 use AppBundle\Form\Type\ContactType;
 use AppBundle\Form\Type\CreateMapType;
@@ -36,9 +37,18 @@ class MapController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
+
             $map->setAuthor($this->getUser());
             $em = $this->getDoctrine()->getManager();
             $em->persist($map);
+
+            /**
+             * @var MapImage $image
+             */
+            foreach($map->getImage() as $image) {
+                $image->setMap($map);
+                $em->persist($image);
+            }
             $em->flush();
             $this->addFlash('success', 'New path added');
             return $this->redirectToRoute('panel_create_map');

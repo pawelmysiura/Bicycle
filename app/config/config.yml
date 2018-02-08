@@ -87,6 +87,12 @@ vich_uploader:
         post_image:
             uri_prefix: /images/post
             upload_destination: '%kernel.project_dir%/public/images/post'
+        map_image:
+            uri_prefix: /images/map
+            upload_destination: '%kernel.project_dir%/public/images/map'
+            inject_on_load:     false
+            delete_on_update:   true
+            delete_on_remove:   true
 
 stof_doctrine_extensions:
     default_locale: en_US

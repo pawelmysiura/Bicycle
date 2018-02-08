@@ -4,6 +4,8 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Class Map
@@ -11,6 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\MapRepository")
  * @ORM\Table(name="bicycle_map")
  * @ORM\HasLifecycleCallbacks()
+ * @Vich\Uploadable
  */
 class Map
 {
@@ -88,12 +91,23 @@ class Map
     private $comment;
 
     /**
+     * @ORM\OneToMany(
+     *     targetEntity="AppBundle\Entity\MapImage",
+     *     mappedBy="map",
+     *     cascade={"persist", "remove"}
+     * )
+     * @Assert\Valid()
+     */
+    private $image;
+
+    /**
      * Map constructor.
      * @param $favourite
      */
     public function __construct($favourite)
     {
         $this->favourite = new ArrayCollection();
+        $this->image = new ArrayCollection();
     }
 
 
@@ -260,6 +274,41 @@ class Map
         $this->comment = $comment;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
 
+    /**
+     * @param mixed $image
+     */
+    public function setImage($image): void
+    {
+        $this->image = $image;
+    }
 
+    /**
+     * @param MapImage $mapImage
+     */
+    public function removeImage(MapImage $mapImage)
+    {
+        $this->image->removeElement($mapImage);
+    }
+
+    /**
+     * @param MapImage $mapImage
+     *
+     * @return Map
+     */
+    public function addImage(MapImage $mapImage)
+    {
+        $this->image->add($mapImage);
+        $mapImage->setId($this);
+//        $this->image[] = $mapImage;
+
+        return $this;
+    }
 }

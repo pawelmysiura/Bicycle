@@ -11,6 +11,8 @@ namespace AppBundle\Form\Type;
 
 use AppBundle\Entity\Map;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -29,6 +31,14 @@ class CreateMapType extends AbstractType
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'Description'
+            ])
+            ->add('image', CollectionType::class, [
+                'label' => 'Your photos',
+                'entry_type' => MapImageType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+                'required' => false
             ])
             ->add('start', HiddenType::class)
             ->add('end', HiddenType::class)
