@@ -9,6 +9,23 @@ fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /panel/profile
 
-app:
-    resource: '@AppBundle/Controller/'
+admin:
+    resource: "@AppBundle/Controller/AdminController.php"
+    prefix: /admin
     type: annotation
+
+front:
+    resource: "@AppBundle/Controller/FrontController.php"
+    prefix: /
+    type: annotation
+
+map:
+    resource: "@AppBundle/Controller/MapController.php"
+    prefix: /panel
+    type: annotation
+
+post:
+    resource: "@AppBundle/Controller/PostController.php"
+    prefix: /panel
+    type: annotation
+

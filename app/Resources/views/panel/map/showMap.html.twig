@@ -24,6 +24,11 @@
             {% endif %}
             {#{% if map.favourite.id %}#}
         </div>
+        <div class="col-lg-3">
+            {% if app.user.id == map.author.id %}
+                <a href="{{ path('panel_map_edit', {'id': map.id}) }}" class="btn btn-primary">Edytuj mapę</a>
+            {% endif %}
+        </div>
     </div>
     <div class="link bg-white">
         <div class="row bg-white mt-2 pt-3 pb-3 text-center">

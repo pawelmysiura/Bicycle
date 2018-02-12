@@ -1,6 +1,6 @@
 <ul id="menu" class="menu-content collapse out">
     <div class="text-center"><h1><i class="fa fa-user-circle"></i></h1> </div>
-{% for name, route in panelMenu %}
+{% for name, route in menu %}
     {% if app.request.get('_route') == route  %}
     <li class="active">
         {% else %}

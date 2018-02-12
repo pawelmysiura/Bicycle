@@ -20,7 +20,13 @@ class AppExtension extends \Twig_Extension
                 [
                     'needs_environment' => true,
                     'is_safe' => ['html']
-                    ])
+                    ]),
+            new \Twig_SimpleFunction('print_admin_menu', [
+                $this, 'printAdminMenu'],
+                [
+                    'needs_environment' => true,
+                    'is_safe' => ['html']
+                ])
         ];
     }
 
@@ -36,7 +42,27 @@ class AppExtension extends \Twig_Extension
         ];
         try {
             return $environment->render('template/panelMenu.html.twig', [
-                'panelMenu' => $panelMenu
+                'menu' => $panelMenu
+            ]);
+        } catch (\Twig_Error_Loader $e) {
+        } catch (\Twig_Error_Runtime $e) {
+        } catch (\Twig_Error_Syntax $e) {
+        }
+    }
+
+    public function printAdminMenu(\Twig_Environment $environment)
+    {
+        $adminMenu = [
+            'Admin Panel' => 'admin',
+            'Posts' => 'admin_posts',
+            'Maps' => 'admin_maps',
+            'Post categories' => 'admin_categories',
+            'Post tags' => 'admin_tags',
+            'Users' => 'admin_users'
+        ];
+        try {
+            return $environment->render('template/panelMenu.html.twig', [
+                'menu' => $adminMenu
             ]);
         } catch (\Twig_Error_Loader $e) {
         } catch (\Twig_Error_Runtime $e) {

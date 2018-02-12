@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+
+    <div class="sidenav">
+        <div class="menu-top"><h3>Admin Panel</h3></div>
+        <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu"></i>
+        <div  class="menu-list">
+            {#<ul id="menu" class="menu-content collapse out">#}
+                {#<div class="text-center"><h1><i class="fa fa-user-circle"></i></h1> </div>#}
+                {#<li><a href="#">Ustawienia użytkownika</a></li>#}
+                {#<li><a href="{{ path('fos_user_security_logout') }}">Wyloguj</a></li>#}
+                {#<hr style="background-color: gray">#}
+                {#<li class="active"><a href="{{ path('panel') }}">Co nowego?</a></li>#}
+                {#<li><a href="{{ path('panel_maps') }}">Ścieżki rowerowe</a></li>#}
+                {#<li><a href="{{ path('panel_create_map') }}">Dodaj ścieżkę rowerową</a></li>#}
+                {#<li><a href="{{ path('panel_favourite_maps') }}">Ulubione</a></li>#}
+            {#</ul>#}
+            {{ print_admin_menu() }}
+        </div>
+    </div>
+    <div id="main">
+    <div id="wrapper" class="container-fluid">
+
+    {% block panelContent %}
+        {% endblock %}
+    </div>
+    </div>
+{% endblock %}

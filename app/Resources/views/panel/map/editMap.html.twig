@@ -1,0 +1,153 @@
+{% extends 'panel/panelLayout.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {#<script src="{{ asset('js/map/google-map-api.js') }}"></script>#}
+{% endblock javascripts %}
+
+{% block panelContent %}
+    {% include 'template/flashMsg.html.twig' %}
+    <div class="row bg-white pt-3">
+        <div class="col-lg-9 float-left">
+            <h3>Dodaj trasę</h3>
+        </div>
+        <div class="col-lg-3">
+            {% if app.user.id == map.author.id %}
+                <a href="{{ path('panel_delete_map', {'id': map.id}) }}" class="btn btn-warning">Usuń mapę</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="link bg-white">
+        <div class="row mt-2">
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <div id="map" style="height: 400px">
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-lg-12">
+                {{ form_start(form) }}
+                {{ form_row(form.name) }}
+                {{ form_row(form.description) }}
+                {{ form_row(form.image) }}
+                <p><a href="#" id="add_attachment" class="btn btn-outline-success">Dodaj zdjęcie</a>
+                </p>
+                {{ form_end(form) }}
+                {#{{ form(form) }}#}
+                </div>
+            </div>
+        </div>
+        {#<div class="row mt-2">#}
+            {#<div class="col-lg-12">#}
+                {#<a class="btn btn-primary" id="send-button" onclick="save()">Wyślij</a>#}
+            {#</div>#}
+        {#</div>#}
+    <script>
+        var directionsDisplay,
+            directionsService;
+        var start = JSON.parse({{ map.start|json_encode|raw }}),
+            end = JSON.parse({{ map.end|json_encode|raw }}),
+            waypoints = JSON.parse({{ map.waypoints|json_encode|raw }});
+
+        function initMap() {
+            directionsDisplay = new google.maps.DirectionsRenderer;
+            directionsService = new google.maps.DirectionsService;
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 6,
+                center: start,
+                gestureHandling: 'greedy'
+            });
+
+            directionsDisplay.setMap(map);
+            calculateRoute(directionsService, directionsDisplay);
+        }
+
+        function calculateRoute(directionsService, directionsDisplay) {
+            var wp = [];
+
+            for (i = 0; i < Object.keys(waypoints).length; i++ )
+            {
+                wp.push({
+                    location:waypoints[i],
+                    stopover:false
+                });
+            }
+
+            directionsService.route({
+                origin: start,
+                destination: end,
+                waypoints: wp,
+                optimizeWaypoints: true,
+                travelMode: 'BICYCLING'
+            }, function (response, status) {
+                if (status == 'OK') {
+                    directionsDisplay.setDirections(response);
+                } else {
+                    window.alert('Directions request failed due to ' + status);
+                }
+            });
+        }
+
+        $(document).ready(function() {
+
+            var $container = $('div#create_map_image');
+
+            var index = $container.find(':input').length;
+
+            $('#add_attachment').click(function(e) {
+                addAttachment($container);
+
+                e.preventDefault();
+                return false;
+            });
+
+            if (index != 0) {
+                $container.children('div').each(function() {
+                    addDeleteLink($(this));
+                });
+            }
+
+
+            function addAttachment($container) {
+
+                var template = $container.attr('data-prototype')
+                    .replace(/__name__label__/g, 'Zdjecie nr: ' + (index+1))
+                    .replace(/__name__/g,        index)
+                ;
+
+                var $prototype = $(template);
+
+                addDeleteLink($prototype);
+
+                $container.append($prototype);
+
+                index++;
+            }
+
+            function addDeleteLink($prototype) {
+
+                var $deleteLink = $('<a href="#" class="btn btn-outline-danger">Usuń</a>');
+
+
+                $prototype.append($deleteLink);
+
+                $deleteLink.click(function(e) {
+                    $prototype.remove();
+
+                    e.preventDefault();
+                    return false;
+                });
+            }
+        });
+    </script>
+
+    {% if data is defined %}
+    {{ data }}
+        {% endif %}
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIttfn5Ev35d4l9w1UuF4bam8jHZzTXg0&callback=initMap">
+    </script>
+
+{% endblock %}

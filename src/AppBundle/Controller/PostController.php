@@ -4,21 +4,17 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Comment;
 use AppBundle\Entity\Post;
-use AppBundle\Form\Type\ContactType;
 use AppBundle\Form\Type\PostCommentType;
 use AppBundle\Form\Type\SearchContentType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class PostController extends Controller
+class PostController extends BaseController
 {
-    protected $limit = 3;
 
     /**
-     * @Route("/panel/{page}",
+     * @Route("/{page}",
      *     name="panel",
      *     defaults={"page" = 1},
      *     requirements={"page" = "\d+"})
@@ -27,11 +23,11 @@ class PostController extends Controller
      */
     public function panelAction($page)
     {
-        $pagination = $this->getPaginator([
+        $pagination = $this->getQueryPagination([
             'status' => 'published',
             'orderBy' => 'p.publishDate',
             'order' => 'DESC'
-        ], $page, $this->limit);
+        ], $page, Post::class);
 
         return $this->render('panel/post/panel.html.twig', [
             'pagionator' => $pagination
@@ -39,7 +35,7 @@ class PostController extends Controller
     }
 
     /**
-     * @Route("/panel/post/{slug}",
+     * @Route("/post/{slug}",
      *     name="panel_post"
      * )
      * @ParamConverter("post", class="AppBundle\Entity\Post", options={"mapping": {"slug": "slug"}})
@@ -80,7 +76,7 @@ class PostController extends Controller
     }
 
     /**
-     * @Route("/panel/postcategory/{slug}/{page}",
+     * @Route("/postcategory/{slug}/{page}",
      *     name="panel_post_category",
      *     defaults={"page" = 1},
      *     requirements={"page" = "\d+"}
@@ -91,12 +87,12 @@ class PostController extends Controller
      */
     public function categoryAction($slug, $page)
     {
-        $pagination = $this->getPaginator([
+        $pagination = $this->getQueryPagination([
             'status' => 'published',
             'orderBy' => 'p.publishDate',
             'order' => 'DESC',
             'categorySlug' => $slug
-        ], $page, $this->limit);
+        ], $page, Post::class);
 
         return $this->render('panel/post/category.html.twig', [
             'pagionator' => $pagination
@@ -104,7 +100,7 @@ class PostController extends Controller
     }
 
     /**
-     * @Route("/panel/postctag/{slug}/{page}",
+     * @Route("/postctag/{slug}/{page}",
      *     name="panel_post_tag",
      *     defaults={"page" = 1},
      *     requirements={"page" = "\d+"}
@@ -115,12 +111,12 @@ class PostController extends Controller
      */
     public function tagAction($slug, $page)
     {
-        $pagination = $this->getPaginator([
+        $pagination = $this->getQueryPagination([
             'status' => 'published',
             'orderBy' => 'p.publishDate',
             'order' => 'DESC',
             'tagSlug' => $slug
-        ], $page, $this->limit);
+        ], $page, Post::class);
 
         return $this->render('panel/post/tag.html.twig', [
             'pagionator' => $pagination
@@ -139,7 +135,7 @@ class PostController extends Controller
     }
 
     /**
-     * @Route("panel/posts/search/{page}", name="panel_post_search", defaults={"page" = 1}, requirements={"page" = "\d+"})
+     * @Route("/posts/search/{page}", name="panel_post_search", defaults={"page" = 1}, requirements={"page" = "\d+"})
      * @param Request $request
      * @param $page
      * @return \Symfony\Component\HttpFoundation\Response
@@ -148,24 +144,24 @@ class PostController extends Controller
     {
         $search = $request->request->get('search_content');
 
-        $pagination = $this->getPaginator([
+        $pagination = $this->getQueryPagination([
             'status' => 'published',
             'orderBy' => 'p.publishDate',
             'order' => 'DESC',
             'searchPost' => $search['search']
-        ], $page, $this->limit);
+        ], $page, Post::class);
         return $this->render('panel/post/panel.html.twig', [
             'pagionator' => $pagination,
             'search' => $search['search']
         ]);
     }
 
-    public function getPaginator(array $params = [], $page, $limit)
-    {
-        $repository = $this->getDoctrine()->getRepository(Post::class);
-        $qb = $repository->getQueryBuilder($params);
-        $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($qb, $page, $limit);
-        return $pagination;
-    }
+//    public function getPaginator(array $params = [], $page, $limit)
+//    {
+//        $repository = $this->getDoctrine()->getRepository(Post::class);
+//        $qb = $repository->getQueryBuilder($params);
+//        $paginator = $this->get('knp_paginator');
+//        $pagination = $paginator->paginate($qb, $page, $limit);
+//        return $pagination;
+//    }
 }

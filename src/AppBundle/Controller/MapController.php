@@ -5,28 +5,19 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\CommentMap;
 use AppBundle\Entity\Map;
 use AppBundle\Entity\MapImage;
-use AppBundle\Entity\User;
-use AppBundle\Form\Type\ContactType;
 use AppBundle\Form\Type\CreateMapType;
 use AppBundle\Form\Type\MapCommentType;
-use AppBundle\Form\Type\PostCommentType;
 use AppBundle\Form\Type\SearchContentType;
-use AppBundle\Repository\MapRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class MapController extends Controller
+class MapController extends BaseController
 {
 
-    protected $limit = 5;
-
     /**
-     * @Route("panel/map/create", name="panel_create_map")
+     * @Route("/map/create", name="panel_create_map")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -59,7 +50,7 @@ class MapController extends Controller
     }
 
     /**
-     * @Route("panel/map/show/{id}", name="panel_show_map")
+     * @Route("/map/show/{id}", name="panel_show_map")
      * @ParamConverter("map", class="AppBundle\Entity\Map", options={"mapping": {"id": "id"}})
      * @param Map $map
      * @param Request $request
@@ -99,13 +90,77 @@ class MapController extends Controller
     }
 
     /**
-     * @Route("panel/maps/{page}", name="panel_maps", defaults={"page" = 1}, requirements={"page" = "\d+"})
+     * @Route("/map/edit/{id}", name="panel_map_edit")
+     * @ParamConverter("map", class="AppBundle\Entity\Map", options={"mapping": {"id": "id"}})
+     * @param Map $map
+     * @param Request $request
+     * @return Response
+     */
+    public function editMapAction(Map $map, Request $request)
+    {
+        if ($map->getAuthor() !== $this->getUser())
+        {
+            $this->addFlash('error', 'You can not edit this map');
+            return $this->redirectToRoute('panel');
+        } else {
+            $form = $this->createForm(CreateMapType::class, $map);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid())
+            {
+                $em = $this->getDoctrine()->getManager();
+
+                /**
+                 * @var MapImage $image
+                 */
+                foreach ($map->getImage() as $image)
+                {
+                    $image->setMap($map);
+                    $em->persist($image);
+                }
+                $em->persist($map);
+                $em->flush();
+                $this->addFlash('success', 'Your map has been edited');
+                return $this->redirectToRoute('panel_show_map', [
+                    'id' => $map->getId()
+                ]);
+            }
+
+            return $this->render('panel/map/editMap.html.twig', [
+                'form' => $form->createView(),
+                'map' => $map
+            ]);
+        }
+
+    }
+
+    /**
+     * @Route("/map/delete/{id}", name="panel_delete_map")
+     * @ParamConverter("map", class="AppBundle\Entity\Map", options={"mapping": {"id": "id"}})
+     * @param Map $map
+     * @return Response
+     */
+    public function removeMapAction(Map $map)
+    {
+        if ($map->getAuthor() !== $this->getUser()) {
+            $this->addFlash('error', 'You can not edit this map');
+            return $this->redirectToRoute('panel');
+        } else {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($map);
+            $em->flush();
+            $this->addFlash('success', 'Your map has been removed');
+            return $this->redirectToRoute('panel_maps');
+        }
+    }
+
+    /**
+     * @Route("/maps/{page}", name="panel_maps", defaults={"page" = 1}, requirements={"page" = "\d+"})
      * @param $page
      * @return Response
      */
     public function allMapsAction($page)
     {
-        $paginator = $this->getMapsPaginator($page);
+        $paginator = $this->getAllPagination($page, Map::class);
 
         return $this->render('panel/map/mapsList.html.twig', [
             'paginator' => $paginator
@@ -113,7 +168,7 @@ class MapController extends Controller
     }
 
     /**
-     * @Route("/panel/add/favourite/{id}", name="panel_add_favourite_map")
+     * @Route("/add/favourite/{id}", name="panel_add_favourite_map")
      * @ParamConverter("map", class="AppBundle\Entity\Map", options={"mapping": {"id": "id"}})
      * @param Map $map
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -131,7 +186,7 @@ class MapController extends Controller
     }
 
     /**
-     * @Route("/panel/remove/favourite{id}", name="panel_remove_favourite_map")
+     * @Route("/remove/favourite{id}", name="panel_remove_favourite_map")
      * @ParamConverter("map", class="AppBundle\Entity\Map", options={"mapping": {"id": "id"}})
      * @param Map $map
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -149,7 +204,7 @@ class MapController extends Controller
     }
 
     /**
-     * @Route("panel/map/favourite/{page}", name="panel_favourite_maps", defaults={"page" = 1}, requirements={"page" = "\d+"})
+     * @Route("/map/favourite/{page}", name="panel_favourite_maps", defaults={"page" = 1}, requirements={"page" = "\d+"})
      * @param $page
      * @return Response
      */
@@ -167,9 +222,9 @@ class MapController extends Controller
     }
 
     /**
-     * @Route("panel/user/maps/{page}", name="panel_user_maps", defaults={"page" = 1}, requirements={"page" = "\d+"})
+     * @Route("/user/maps/{page}", name="panel_user_maps", defaults={"page" = 1}, requirements={"page" = "\d+"})
      */
-    public function userMApsAction($page) {
+    public function userMapsAction($page) {
         $repo = $this->getDoctrine()->getRepository(Map::class);
         $qb = $repo->getQueryBuilder([
             'authorId' => $this->getUser()
@@ -195,7 +250,7 @@ class MapController extends Controller
     }
 
     /**
-     * @Route("panel/maps/search/{page}", name="panel_map_search", defaults={"page" = 1}, requirements={"page" = "\d+"})
+     * @Route("/maps/search/{page}", name="panel_map_search", defaults={"page" = 1}, requirements={"page" = "\d+"})
      * @param Request $request
      * @param $page
      * @return Response
@@ -204,12 +259,9 @@ class MapController extends Controller
     {
         $search = $request->request->get('search_content');
 
-        $repo = $this->getDoctrine()->getRepository(Map::class);
-        $qb = $repo->getQueryBuilder([
+        $pagination = $this->getQueryPagination([
             'searchMap' => $search['search']
-        ]);
-        $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($qb, $page, $this->limit);
+        ], $page, Map::class);
 
         return $this->render('panel/map/mapsList.html.twig', [
             'paginator' => $pagination,
@@ -218,16 +270,16 @@ class MapController extends Controller
     }
 
 
-    /**
-     * @param $page
-     * @return \Knp\Component\Pager\Pagination\PaginationInterface
-     */
-    public function getMapsPaginator($page)
-    {
-        $reposiotry = $this->getDoctrine()->getRepository(Map::class);
-        $qb = $reposiotry->findAll();
-        $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($qb, $page, $this->limit);
-        return $pagination;
-    }
+//    /**
+//     * @param $page
+//     * @return \Knp\Component\Pager\Pagination\PaginationInterface
+//     */
+//    public function getMapsPaginator($page)
+//    {
+//        $reposiotry = $this->getDoctrine()->getRepository(Map::class);
+//        $qb = $reposiotry->findAll();
+//        $paginator = $this->get('knp_paginator');
+//        $pagination = $paginator->paginate($qb, $page, $this->limit);
+//        return $pagination;
+//    }
 }
