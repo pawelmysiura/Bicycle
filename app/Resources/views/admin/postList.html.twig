@@ -8,12 +8,15 @@
 {% block panelContent %}
     {% include 'template/flashMsg.html.twig' %}
     <div class="row bg-white pt-3">
-        <div class="col-lg-7 float-left">
+        <div class="col-lg-4 float-left">
             {% if app.request.get('_route') == 'panel_map_search' %}
                 <h3>Szukane: {{ search }}</h3>
                 {% else %}
             <h3>Posts</h3>
                     {% endif %}
+        </div>
+        <div class="col-lg-3 text-center">
+        <a href="{{ path('admin_post_create') }}" class="btn btn-primary">Create new post</a>
         </div>
         <div class="col-lg-5 form-group search">
             {{ render(controller('AppBundle:Map:searchMap')) }}
@@ -37,8 +40,8 @@
                     <td>{{ post.id }}</td>
                     <td><a style="color: black" href="{{ path('panel_post', {"slug": post.slug}) }}">{{ post.title }}</a> </td>
                     <td>{{ post.author.username }}</td>
-                    <td><a href="#" class="btn btn-primary">Edit</a> </td>
-                    <td><a style="color: darkred;" href="#" class="fas fa-times"></a></td>
+                    <td><a href="{{ path('admin_post_edit', {"slug": post.slug}) }}" class="btn btn-primary">Edit</a> </td>
+                    <td><a style="color: darkred;" href="{{ path('admin_post_delete', {"slug": post.slug}) }}" class="fas fa-times"></a></td>
                 </tr>
                     {% endfor %}
                 </tbody>

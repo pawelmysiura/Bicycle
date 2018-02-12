@@ -37,8 +37,8 @@
                     <td>{{ map.id }}</td>
                     <td><a style="color: black" href="{{ path('panel_show_map', {'id': map.id}) }}">{{ map.name }}</a></td>
                     <td>{{ map.author.username }}</td>
-                    <td><a href="#" class="btn btn-primary">Edit</a> </td>
-                    <td><a style="color: darkred;" href="#" class="fas fa-times"></a></td>
+                    <td><a href="{{ path('admin_map_edit', {'id': map.id}) }}" class="btn btn-primary">Edit</a> </td>
+                    <td><a style="color: darkred;" href="{{ path('admin_map_delete', {'id': map.id}) }}" class="fas fa-times"></a></td>
                 </tr>
                     {% endfor %}
                 </tbody>

@@ -1,0 +1,26 @@
+{% extends 'admin/adminlLayout.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {#<script src="{{ asset('js/map/google-map-api.js') }}"></script>#}
+{% endblock javascripts %}
+
+{% block panelContent %}
+    {% include 'template/flashMsg.html.twig' %}
+    <div class="row bg-white pt-3">
+        <div class="col-lg-9 float-left">
+            <h3>Dodaj Post</h3>
+        </div>
+        <div class="col-lg-3">
+                <a href="#" class="btn btn-warning">Usuń post</a>
+        </div>
+    </div>
+    <div class="link bg-white">
+        <div class="row text-center">
+            <div class="col-lg-12">
+                {{ form(form) }}
+                </div>
+            </div>
+        </div>
+
+{% endblock %}
