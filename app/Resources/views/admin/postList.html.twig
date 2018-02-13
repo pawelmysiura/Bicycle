@@ -27,9 +27,11 @@
             <table class="table table-striped text-center">
                 <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Title</th>
-                    <th>Author</th>
+                    <th>{{ knp_pagination_sortable(paginator, 'Id', 'p.id') }}</th>
+                    <th>{{ knp_pagination_sortable(paginator, 'Title', 'p.title') }}</th>
+                    <th>{{ knp_pagination_sortable(paginator, 'Category', 'c.name') }}</th>
+                    <th>Tag</th>
+                    <th>{{ knp_pagination_sortable(paginator, 'Author', 'a.username') }}</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
@@ -39,6 +41,8 @@
                 <tr>
                     <td>{{ post.id }}</td>
                     <td><a style="color: black" href="{{ path('panel_post', {"slug": post.slug}) }}">{{ post.title }}</a> </td>
+                    <td>{{ post.category.name }}</td>
+                    <td>{% for tag in post.tag %} {{ tag.name }} | {% endfor %}</td>
                     <td>{{ post.author.username }}</td>
                     <td><a href="{{ path('admin_post_edit', {"slug": post.slug}) }}" class="btn btn-primary">Edit</a> </td>
                     <td><a style="color: darkred;" href="{{ path('admin_post_delete', {"slug": post.slug}) }}" class="fas fa-times"></a></td>

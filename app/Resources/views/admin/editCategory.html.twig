@@ -8,18 +8,18 @@
 {% block panelContent %}
     {% include 'template/flashMsg.html.twig' %}
     <div class="row bg-white pt-3">
-    {% if app.request.get('_route') == 'admin_post_create' %}
+    {% if app.request.get('_route') == 'admin_category_create' %}
         <div class="col-lg-9 float-left">
-            <h3>Create post</h3>
+            <h3>Create category</h3>
         </div>
         <div class="col-lg-3">
         </div>
         {% else %}
             <div class="col-lg-9 float-left">
-                <h3>Edit post</h3>
+                <h3>Edit category</h3>
             </div>
             <div class="col-lg-3">
-                <a href="{{ path('admin_post_delete', {"slug": post.slug}) }}" class="btn btn-warning">Delete post</a>
+                {#<a href="{{ path('admin_post_delete', {"slug": post.slug}) }}" class="btn btn-warning">Delete post</a>#}
             </div>
         {% endif %}
     </div>

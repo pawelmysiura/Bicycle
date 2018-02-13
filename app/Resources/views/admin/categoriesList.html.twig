@@ -8,12 +8,15 @@
 {% block panelContent %}
     {% include 'template/flashMsg.html.twig' %}
     <div class="row bg-white pt-3">
-        <div class="col-lg-7 float-left">
+        <div class="col-lg-4 float-left">
             {% if app.request.get('_route') == 'panel_map_search' %}
                 <h3>Szukane: {{ search }}</h3>
                 {% else %}
             <h3>Categories</h3>
                     {% endif %}
+        </div>
+        <div class="col-lg-3 text-center">
+            <a href="{{ path('admin_category_create') }}" class="btn btn-primary">Create new category</a>
         </div>
         <div class="col-lg-5 form-group search">
             {{ render(controller('AppBundle:Map:searchMap')) }}
@@ -35,7 +38,7 @@
                 <tr>
                     <td>{{ category.id }}</td>
                     <td>{{ category.name }}</a> </td>
-                    <td><a href="#" class="btn btn-primary">Edit</a> </td>
+                    <td><a href="{{ path('admin_category_edit', {"slug": category.slug}) }}" class="btn btn-primary">Edit</a> </td>
                     <td><a style="color: darkred;" href="#" class="fas fa-times"></a></td>
                 </tr>
                     {% endfor %}
