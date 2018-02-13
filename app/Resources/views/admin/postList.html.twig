@@ -41,7 +41,7 @@
                 <tr>
                     <td>{{ post.id }}</td>
                     <td><a style="color: black" href="{{ path('panel_post', {"slug": post.slug}) }}">{{ post.title }}</a> </td>
-                    <td>{{ post.category.name }}</td>
+                    <td>{% if post.category.name is not defined %} null {% else %}{{ post.category.name }}{% endif %}</td>
                     <td>{% for tag in post.tag %} {{ tag.name }} | {% endfor %}</td>
                     <td>{{ post.author.username }}</td>
                     <td><a href="{{ path('admin_post_edit', {"slug": post.slug}) }}" class="btn btn-primary">Edit</a> </td>

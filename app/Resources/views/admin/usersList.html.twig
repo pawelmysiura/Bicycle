@@ -27,6 +27,7 @@
                     <th>Id</th>
                     <th>Title</th>
                     <th>Active</th>
+                    <th>Role</th>
                     <th>Delete</th>
                 </tr>
                 </thead>
@@ -35,7 +36,8 @@
                 <tr>
                     <td>{{ user.id }}</td>
                     <td>{{ user.username }}</a> </td>
-                    <td>{{ user.enabled }}</td>
+                    <td>{% if user.enabled == 1 %} <a href="{{ path('admin_user_active', {"id": user.id}) }}" class="btn btn-success">Active</a> {% else %} <a href="{{ path('admin_user_active', {"id": user.id}) }}" class="btn btn-danger">Deactive</a>{% endif %}</td>
+                    <td>{% for role in user.roles %}{{ role }} {% endfor %}</td>
                     <td><a style="color: darkred;" href="#" class="fas fa-times"></a></td>
                 </tr>
                     {% endfor %}

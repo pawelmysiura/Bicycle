@@ -39,7 +39,7 @@
                     <td>{{ category.id }}</td>
                     <td>{{ category.name }}</a> </td>
                     <td><a href="{{ path('admin_category_edit', {"slug": category.slug}) }}" class="btn btn-primary">Edit</a> </td>
-                    <td><a style="color: darkred;" href="#" class="fas fa-times"></a></td>
+                    <td><a style="color: darkred;" href="{{ path('admin_category_delete', {'slug': category.slug}) }}" class="fas fa-times"></a></td>
                 </tr>
                     {% endfor %}
                 </tbody>

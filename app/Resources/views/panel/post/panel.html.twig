@@ -22,7 +22,7 @@
         </div>
         <div class="row">
             <div class="col-lg-6">
-                <small>Kategorie: <a href="{{ path('panel_post_category', {'slug': post.category.slug}) }}">{{ post.category.name }}</a>| Tagi: {% for tag in post.tag %} <a href="{{ path('panel_post_tag', {'slug': tag.slug})}}">{{ tag.name }}</a>{% endfor %}</small>
+                <small>Kategorie: {% if post.category.slug is not defined %} No category {% else %} <a href="{{ path('panel_post_category', {'slug': post.category.slug}) }}">{{ post.category.name }} {% endif %}</a>| Tagi: {% for tag in post.tag %} <a href="{{ path('panel_post_tag', {'slug': tag.slug})}}">{{ tag.name }}</a>{% endfor %}</small>
             </div>
             <div class="col-lg-6">
                 <small class="float-right">Dodano: {{ post.publishDate|date('d.n.Y H:m:s') }}</small>

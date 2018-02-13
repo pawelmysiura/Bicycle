@@ -39,7 +39,7 @@
                     <td>{{ tag.id }}</td>
                     <td>{{ tag.name }}</a> </td>
                     <td><a href="{{ path('admin_tag_edit', {"slug": tag.slug}) }}" class="btn btn-primary">Edit</a> </td>
-                    <td><a style="color: darkred;" href="#" class="fas fa-times"></a></td>
+                    <td><a style="color: darkred;" href="{{ path('admin_tag_delete', {"slug": tag.slug}) }}" class="fas fa-times"></a></td>
                 </tr>
                     {% endfor %}
                 </tbody>

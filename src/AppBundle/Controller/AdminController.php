@@ -17,7 +17,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AdminController extends BaseController
 {
@@ -225,6 +224,21 @@ class AdminController extends BaseController
             'category' => $category
         ]);
     }
+
+    /**
+     * @Route("/category/delete/{slug}", name="admin_category_delete")
+     * @ParamConverter("category", class="AppBundle\Entity\Category", options={"mapping": {"slug": "slug"}})
+     * @param $category
+     * @return RedirectResponse
+     */
+    public function categoryDeleteAction($category)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($category);
+        $em->flush();
+        $this->addFlash('success', 'Category deleted');
+        return $this->redirectToRoute('admin_categories');
+    }
     /**
      * @Route("/tags/{page}", name="admin_tags", defaults={"page" = 1}, requirements={"page" = "\d+"})
      * @param $page
@@ -280,6 +294,21 @@ class AdminController extends BaseController
             'tag' => $tag
         ]);
     }
+
+    /**
+     * @Route("/tag/delete/{slug}", name="admin_tag_delete")
+     * @ParamConverter("tag", class="AppBundle\Entity\Tag", options={"mapping": {"slug": "slug"}})
+     * @param $tag
+     * @return RedirectResponse
+     */
+    public function tagDeleteAction($tag)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($tag);
+        $em->flush();
+        $this->addFlash('success', 'Tag deleted');
+        return $this->redirectToRoute('admin_tags');
+    }
     /**
      * @Route("/users/{page}", name="admin_users", defaults={"page" = 1}, requirements={"page" = "\d+"})
      * @param $page
@@ -291,6 +320,28 @@ class AdminController extends BaseController
         return $this->render('admin/usersList.html.twig', [
             'paginator' => $paginator
         ]);
+    }
+
+    /**
+     * @Route("/user/active/{id}", name="admin_user_active")
+     * @ParamConverter("user", class="AppBundle\Entity\User", options={"mapping": {"id": "id"}})
+     * @param User $user
+     * @return RedirectResponse
+     */
+    public function userActiveAction(User $user)
+    {
+        if ($user->isEnabled() == 1)
+        {
+            $user->setEnabled(0);
+            $this->addFlash('success', 'This user is now deactive!');
+        } else {
+            $user->setEnabled(1);
+            $this->addFlash('success', 'This user is active!');
+        }
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
+        return $this->redirectToRoute('admin_users');
     }
 
     /**

@@ -19,7 +19,7 @@
                 <h3>Edit tag</h3>
             </div>
             <div class="col-lg-3">
-                {#<a href="{{ path('admin_post_delete', {"slug": post.slug}) }}" class="btn btn-warning">Delete post</a>#}
+                <a href="{{ path('admin_tag_delete', {"slug": tag.slug}) }}" class="btn btn-warning">Delete tag</a>
             </div>
         {% endif %}
     </div>
