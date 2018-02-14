@@ -26,4 +26,23 @@ class BaseController extends Controller
         return $pagination;
     }
 
+    /**
+     * @param $form
+     * @param $param
+     * @param $request
+     * @param $message
+     * @return bool
+     */
+    public function submitForm($form, $param, $request, $message)
+    {
+        $form->handleRequest($request);
+        if ($form->isSubmitted() & $form->isValid())
+        {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($param);
+            $em->flush();
+            $this->addFlash('success', $message);
+            return true;
+        }
+    }
 }

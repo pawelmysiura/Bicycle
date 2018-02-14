@@ -10,7 +10,7 @@ fos_user_change_password:
     prefix: /panel/profile
 
 admin:
-    resource: "@AppBundle/Controller/AdminController.php"
+    resource: "@AppBundle/Controller/Admin/"
     prefix: /admin
     type: annotation
 
