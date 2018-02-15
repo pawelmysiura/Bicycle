@@ -53,11 +53,33 @@
             </div>
         </div>
         <hr>
+
         <div class="row">
             <div class="col-lg-12">
                 <div id="map" style="height: 400px">
                 </div>
             </div>
+        </div>
+    <hr>
+    <div class="row text-center">
+        <div class="col-lg-12">
+            <h2>Gallery</h2>
+        </div>
+    </div>
+        <hr>
+        <div class="row align-items-center">
+            {% for path in image %}
+            <div class="col-lg-3">
+                <a href="{{ vich_uploader_asset(path, 'imageFile') }}">
+                <img class="img-thumbnail img-fluid" src="{{ vich_uploader_asset(path, 'imageFile') }}">
+                </a>
+            </div>
+            {% endfor %}
+            {% if image == null %}
+                <div class="col-lg-12 text-center">
+                    No photos
+                </div>
+            {% endif %}
         </div>
         <hr>
     </div>

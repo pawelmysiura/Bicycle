@@ -12,6 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 class MapController extends BaseController
 {
@@ -54,9 +55,10 @@ class MapController extends BaseController
      * @ParamConverter("map", class="AppBundle\Entity\Map", options={"mapping": {"id": "id"}})
      * @param Map $map
      * @param Request $request
+     * @param UploaderHelper $helper
      * @return Response
      */
-    public function showMapAction(Map $map, Request $request)
+    public function showMapAction(Map $map, Request $request, UploaderHelper $helper)
     {
         if ($map == null)
         {
@@ -83,9 +85,15 @@ class MapController extends BaseController
                 ]);
             }
         }
+        $mapImageRepo = $this->getDoctrine()->getRepository(MapImage::class);
+        $image = $mapImageRepo->findBy([
+            'map' => $map->getId()
+        ]);
+
         return $this->render('panel/map/showMap.html.twig', [
             'map' => $map,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'image' => $image
         ]);
     }
 
