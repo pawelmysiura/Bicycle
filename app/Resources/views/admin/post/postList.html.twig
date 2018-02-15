@@ -9,7 +9,7 @@
     {% include 'template/flashMsg.html.twig' %}
     <div class="row bg-white pt-3">
         <div class="col-lg-4 float-left">
-            {% if app.request.get('_route') == 'panel_map_search' %}
+            {% if app.request.get('_route') == 'admin_post_search' %}
                 <h3>Szukane: {{ search }}</h3>
                 {% else %}
             <h3>Posts</h3>
@@ -19,7 +19,7 @@
         <a href="{{ path('admin_post_create') }}" class="btn btn-primary">Create new post</a>
         </div>
         <div class="col-lg-5 form-group search">
-            {{ render(controller('AppBundle:Map:searchMap')) }}
+            {{ render(controller('AppBundle:Admin/Post:searchPost')) }}
         </div>
     </div>
     <div class="row mt-3 bg-white">

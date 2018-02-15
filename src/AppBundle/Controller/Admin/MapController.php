@@ -6,9 +6,11 @@ use AppBundle\Controller\BaseController;
 use AppBundle\Entity\Map;
 use AppBundle\Entity\MapImage;
 use AppBundle\Form\Type\CreateMapType;
+use AppBundle\Form\Type\SearchContentType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class MapController extends BaseController
 {
@@ -73,5 +75,38 @@ class MapController extends BaseController
         $em->flush();
         $this->addFlash('success', 'You have deleted map');
         return $this->redirectToRoute('admin_maps');
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function searchMapAction()
+    {
+        $form = $this->createForm(SearchContentType::class  );
+
+        return $this->render('template/search.html.twig', [
+            'form' => $form->createView(),
+            'route' => 'admin_map_search'
+        ]);
+    }
+
+    /**
+     * @Route("/maps/search/{page}", name="admin_map_search", defaults={"page" = 1}, requirements={"page" = "\d+"})
+     * @param Request $request
+     * @param $page
+     * @return Response
+     */
+    public function handleSearchAction(Request $request, $page)
+    {
+        $search = $request->request->get('search_content');
+
+        $pagination = $this->getQueryPagination([
+            'searchMap' => $search['search']
+        ], $page, Map::class);
+
+        return $this->render('admin/map/mapsList.html.twig', [
+            'paginator' => $pagination,
+            'search' => $search['search']
+        ]);
     }
 }

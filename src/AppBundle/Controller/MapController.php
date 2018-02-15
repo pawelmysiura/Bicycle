@@ -244,8 +244,9 @@ class MapController extends BaseController
     {
         $form = $this->createForm(SearchContentType::class  );
 
-        return $this->render('panel/map/searchMap.html.twig', [
-            'form' => $form->createView()
+        return $this->render('template/search.html.twig', [
+            'form' => $form->createView(),
+            'route' => 'panel_map_search'
         ]);
     }
 

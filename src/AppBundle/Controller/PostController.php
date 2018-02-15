@@ -129,8 +129,9 @@ class PostController extends BaseController
     public function searchPostAction()
     {
         $form = $this->createForm(SearchContentType::class);
-        return $this->render('panel/post/searchPost.html.twig', [
-            'form' => $form->createView()
+        return $this->render('template/search.html.twig', [
+            'form' => $form->createView(),
+            'route' => 'panel_post_search'
         ]);
     }
 

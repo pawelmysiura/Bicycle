@@ -5,6 +5,7 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Controller\BaseController;
 use AppBundle\Entity\Post;
 use AppBundle\Form\Type\CreatePostType;
+use AppBundle\Form\Type\SearchContentType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -86,5 +87,37 @@ class PostController extends BaseController
         $em->remove($post);
         $em->flush();
         return $this->redirectToRoute('admin_posts');
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function searchPostAction()
+    {
+        $form = $this->createForm(SearchContentType::class);
+        return $this->render('template/search.html.twig', [
+            'form' => $form->createView(),
+            'route' => 'admin_post_search'
+        ]);
+    }
+
+    /**
+     * @Route("/posts/search/{page}", name="admin_post_search", defaults={"page" = 1}, requirements={"page" = "\d+"})
+     * @param Request $request
+     * @param $page
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function handleSearchAction(Request $request, $page)
+    {
+        $search = $request->request->get('search_content');
+
+        $pagination = $this->getQueryPagination([
+            'order' => 'DESC',
+            'searchPost' => $search['search']
+        ], $page, Post::class);
+        return $this->render('admin/post/postList.html.twig', [
+            'paginator' => $pagination,
+            'search' => $search['search']
+        ]);
     }
 }
