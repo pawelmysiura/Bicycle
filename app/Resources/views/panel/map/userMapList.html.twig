@@ -1,15 +1,14 @@
 {% extends 'panel/panelLayout.html.twig' %}
 
-{% block javascripts %}
-    {{ parent() }}
-    {#<script src="{{ asset('js/map/google-map-api.js') }}"></script>#}
-{% endblock javascripts %}
+{% block title %}
+    {{ 'panel.maps.title.user_list'|trans({}, 'controller') }}
+{% endblock %}
 
 {% block panelContent %}
     {% include 'template/flashMsg.html.twig' %}
     <div class="row bg-white pt-3">
         <div class="col-lg-7 float-left">
-            <h3>Ścieżki dodane przez ciebie</h3>
+            <h3>{{ 'panel.maps.title.user_list'|trans({}, 'controller') }}</h3>
         </div>
         <div class="col-lg-3 form-group">
         </div>
@@ -21,23 +20,21 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Nazwa</th>
-                    <th>Poziom trudności</th>
-                    <th>Ocena</th>
-                    <th>Autor</th>
-                    <th>Pokaż</th>
-                    <th>Ulubione</th>
+                    <th>{{ 'panel.maps.name'|trans({}, 'controller') }}</th>
+                    {#<th>Poziom trudności</th>#}
+                    {#<th>Ocena</th>#}
+                    <th>{{ 'panel.maps.author'|trans({}, 'controller') }}</th>
+                    <th>{{ 'panel.maps.show'|trans({}, 'controller') }}</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for map in paginator %}
                 <tr>
                     <td>{{ map.name }}</td>
-                    <th>Łatwy</th>
-                    <td>5/5</td>
+                    {#<th>Łatwy</th>#}
+                    {#<td>5/5</td>#}
                     <td>{{ map.author.username }}</td>
-                    <td><a href="{{ path('panel_show_map', {'id': map.id}) }}" class="btn btn-primary">Pokaż</a> </td>
-                    <td>gwiazdka</td>
+                    <td><a href="{{ path('panel_show_map', {'id': map.id}) }}" class="btn btn-primary"><th>{{ 'panel.maps.show'|trans({}, 'controller') }}</th></a> </td>
                 </tr>
                     {% endfor %}
                 </tbody>

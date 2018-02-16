@@ -1,25 +1,24 @@
 {% extends 'admin/adminlLayout.html.twig' %}
 
-{% block javascripts %}
-    {{ parent() }}
-    {#<script src="{{ asset('js/map/google-map-api.js') }}"></script>#}
-{% endblock javascripts %}
+{% block title %}
+    {{ 'admin.title.edit_tag'|trans({}, 'controller') }}
+{% endblock %}
 
 {% block panelContent %}
     {% include 'template/flashMsg.html.twig' %}
     <div class="row bg-white pt-3">
     {% if app.request.get('_route') == 'admin_tag_create' %}
         <div class="col-lg-9 float-left">
-            <h3>Create tag</h3>
+            <h3>{{ 'admin.tag.create'|trans({}, 'controller') }}</h3>
         </div>
         <div class="col-lg-3">
         </div>
         {% else %}
             <div class="col-lg-9 float-left">
-                <h3>Edit tag</h3>
+                <h3>{{ 'admin.title.edit_tag'|trans({}, 'controller') }}</h3>
             </div>
             <div class="col-lg-3">
-                <a href="{{ path('admin_tag_delete', {"slug": tag.slug}) }}" class="btn btn-warning">Delete tag</a>
+                <a href="{{ path('admin_tag_delete', {"slug": tag.slug}) }}" class="btn btn-warning">{{ 'admin.delete'|trans({}, 'controller') }}</a>
             </div>
         {% endif %}
     </div>

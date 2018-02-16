@@ -1,5 +1,9 @@
 {% extends 'admin/adminlLayout.html.twig' %}
 
+{% block title %}
+    {{ 'admin.title.map_edit'|trans({}, 'controller') }}
+{% endblock %}
+
 {% block javascripts %}
     {{ parent() }}
     {#<script src="{{ asset('js/map/google-map-api.js') }}"></script>#}
@@ -9,10 +13,10 @@
     {% include 'template/flashMsg.html.twig' %}
     <div class="row bg-white pt-3">
         <div class="col-lg-9 float-left">
-            <h3>Dodaj trasę</h3>
+            <h3>{{ 'admin.title.map_edit'|trans({}, 'controller') }}</h3>
         </div>
         <div class="col-lg-3">
-                <a href="{{ path('admin_map_delete', {'id': map.id}) }}" class="btn btn-warning">Usuń mapę</a>
+                <a href="{{ path('admin_map_delete', {'id': map.id}) }}" class="btn btn-warning">{{ 'admin.delete'|trans({}, 'controller') }}</a>
         </div>
     </div>
     <div class="link bg-white">
@@ -30,7 +34,7 @@
                 {{ form_row(form.name) }}
                 {{ form_row(form.description) }}
                 {{ form_row(form.image) }}
-                <p><a href="#" id="add_attachment" class="btn btn-outline-success">Dodaj zdjęcie</a>
+                <p><a href="#" id="add_attachment" class="btn btn-outline-success">{{ 'panel.maps.add_photo'|trans({}, 'controller') }}</a>
                 </p>
                 {{ form_end(form) }}
                 {#{{ form(form) }}#}
@@ -126,7 +130,7 @@
 
             function addDeleteLink($prototype) {
 
-                var $deleteLink = $('<a href="#" class="btn btn-outline-danger">Usuń</a>');
+                var $deleteLink = $('<a href="#" class="btn btn-outline-danger">{{ 'panel.maps.delete_photo'|trans({}, 'controller') }}</a>');
 
 
                 $prototype.append($deleteLink);

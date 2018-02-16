@@ -1,18 +1,17 @@
 {% extends 'admin/adminlLayout.html.twig' %}
 
-{% block javascripts %}
-    {{ parent() }}
-    {#<script src="{{ asset('js/map/google-map-api.js') }}"></script>#}
-{% endblock javascripts %}
+{% block title %}
+    {{ 'admin.title.users'|trans({}, 'controller') }}
+{% endblock %}
 
 {% block panelContent %}
     {% include 'template/flashMsg.html.twig' %}
     <div class="row bg-white pt-3">
         <div class="col-lg-7 float-left">
             {% if app.request.get('_route') == 'admin_user_search' %}
-                <h3>Szukane: {{ search }}</h3>
+                <h3>{{ 'search'|trans({}, 'controller') }}: {{ search }}</h3>
                 {% else %}
-            <h3>Users</h3>
+            <h3>{{ 'admin.title.users'|trans({}, 'controller') }}</h3>
                     {% endif %}
         </div>
         <div class="col-lg-5 form-group search">
@@ -24,11 +23,11 @@
             <table class="table table-striped text-center">
                 <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Username</th>
-                    <th>Active</th>
-                    <th>Role</th>
-                    <th>Delete</th>
+                    <th>{{ 'admin.user.id'|trans({}, 'controller') }}</th>
+                    <th>{{ 'admin.user.username'|trans({}, 'controller') }}</th>
+                    <th>{{ 'admin.user.active'|trans({}, 'controller') }}</th>
+                    <th>{{ 'admin.user.role'|trans({}, 'controller') }}</th>
+                    <th>{{ 'admin.user.delete'|trans({}, 'controller') }}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -36,7 +35,7 @@
                 <tr>
                     <td>{{ user.id }}</td>
                     <td>{{ user.username }}</a> </td>
-                    <td>{% if user.enabled == 1 %} <a href="{{ path('admin_user_active', {"id": user.id}) }}" class="btn btn-success">Active</a> {% else %} <a href="{{ path('admin_user_active', {"id": user.id}) }}" class="btn btn-danger">Deactive</a>{% endif %}</td>
+                    <td>{% if user.enabled == 1 %} <a href="{{ path('admin_user_active', {"id": user.id}) }}" class="btn btn-success">{{ 'admin.user.active'|trans({}, 'controller') }}</a> {% else %} <a href="{{ path('admin_user_active', {"id": user.id}) }}" class="btn btn-danger">{{ 'admin.user.deactive'|trans({}, 'controller') }}</a>{% endif %}</td>
                     <td>{% for role in user.roles %}{{ role }} {% endfor %}</td>
                     <td><a style="color: darkred;" href="#" class="fas fa-times"></a></td>
                 </tr>

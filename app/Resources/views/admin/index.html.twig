@@ -1,4 +1,9 @@
 {% extends 'admin/adminlLayout.html.twig' %}
+
+{% block title %}
+    {{ 'admin.title.admin_panel'|trans({}, 'controller') }}
+{% endblock %}
+
 {% block panelContent %}
     {% include 'template/flashMsg.html.twig' %}
 

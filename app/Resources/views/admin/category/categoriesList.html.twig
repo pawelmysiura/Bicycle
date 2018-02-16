@@ -1,15 +1,14 @@
 {% extends 'admin/adminlLayout.html.twig' %}
 
-{% block javascripts %}
-    {{ parent() }}
-    {#<script src="{{ asset('js/map/google-map-api.js') }}"></script>#}
-{% endblock javascripts %}
+{% block title %}
+    {{ 'admin.title.post_categories'|trans({}, 'controller') }}
+{% endblock %}
 
 {% block panelContent %}
     {% include 'template/flashMsg.html.twig' %}
     <div class="row bg-white pt-3">
         <div class="col-lg-4 float-left">
-            <h3>Categories</h3>
+            <h3>{{ 'admin.title.post_categories'|trans({}, 'controller') }}</h3>
         </div>
         <div class="col-lg-5 text-center">
         </div>
@@ -22,10 +21,10 @@
             <table class="table table-striped text-center">
                 <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Title</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
+                    <th>{{ 'admin.id'|trans({}, 'controller') }}</th>
+                    <th>{{ 'admin.table_title'|trans({}, 'controller') }}</th>
+                    <th>{{ 'admin.edit'|trans({}, 'controller') }}</th>
+                    <th>{{ 'admin.delete'|trans({}, 'controller') }}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -33,7 +32,7 @@
                 <tr>
                     <td>{{ category.id }}</td>
                     <td>{{ category.name }}</a> </td>
-                    <td><a href="{{ path('admin_category_edit', {"slug": category.slug}) }}" class="btn btn-primary">Edit</a> </td>
+                    <td><a href="{{ path('admin_category_edit', {"slug": category.slug}) }}" class="btn btn-primary">{{ 'admin.edit'|trans({}, 'controller') }}</a> </td>
                     <td><a style="color: darkred;" href="{{ path('admin_category_delete', {'slug': category.slug}) }}" class="fas fa-times"></a></td>
                 </tr>
                     {% endfor %}

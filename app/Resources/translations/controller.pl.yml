@@ -36,6 +36,18 @@ panel:
       show: 'Trasa'
       list: 'Lista tras'
       user_list: 'Twoje trasy'
+    name: 'Nazwa'
+    author: 'Autor'
+    show: 'Pokaż'
+    add_photo: 'Dodaj zdjęcie'
+    delete_photo: 'Usuń'
+    description: 'Opis trasy'
+    gallery: 'Galeria'
+    no_photo: 'Brak zdjęć'
+    comment: 'Napisz komentarz'
+    favourite:
+      delete: 'Usuń z ulobionych'
+      add: 'Dodaj do ulubionych'
   user:
     title:
 
@@ -47,6 +59,30 @@ admin:
     post_categories: 'Kategorie postów'
     post_tags: 'Tagi postów'
     users: 'Użytkownicy'
+    edit_tag: 'Edytuj tag'
+    edit_category: 'Edytuj kategorię'
+    map_edit: 'Edytuj trasę'
+    maps: 'Ściezki rowerowe'
+  user:
+    id: 'Id'
+    username: 'Nazwa'
+    active: 'Aktywny'
+    role: 'Rola'
+    delete: 'Usuń'
+    deactive: 'Nieaktywny'
+  id: 'Id'
+  table_title: 'Tytuł'
+  edit: 'Edytuj'
+  delete: 'Usuń'
+  author: 'Autor'
+  name: 'Nazwa'
+  tag:
+    create: 'Nowy tag'
+  post:
+    create: 'Utwórz post'
+    edit: 'Edytuj post'
+  category:
+    create: 'Utwórz kategorię'
 
 search: 'Szukaj'
 

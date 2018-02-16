@@ -1,18 +1,17 @@
 {% extends 'admin/adminlLayout.html.twig' %}
 
-{% block javascripts %}
-    {{ parent() }}
-    {#<script src="{{ asset('js/map/google-map-api.js') }}"></script>#}
-{% endblock javascripts %}
+{% block title %}
+    {{ 'admin.title.maps'|trans({}, 'controller') }}
+{% endblock %}
 
 {% block panelContent %}
     {% include 'template/flashMsg.html.twig' %}
     <div class="row bg-white pt-3">
         <div class="col-lg-7 float-left">
             {% if app.request.get('_route') == 'admin_map_search' %}
-                <h3>Szukane: {{ search }}</h3>
+                <h3>{{ 'search'|trans({}, 'controller') }}: {{ search }}</h3>
                 {% else %}
-            <h3>Ścieżki rowerowe</h3>
+            <h3>{{ 'admin.title.maps'|trans({}, 'controller') }}</h3>
                     {% endif %}
         </div>
         <div class="col-lg-5 form-group search">
@@ -24,11 +23,11 @@
             <table class="table table-striped text-center">
                 <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Author</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
+                    <th>{{ 'admin.id'|trans({}, 'controller') }}</th>
+                    <th>{{ 'admin.name'|trans({}, 'controller') }}</th>
+                    <th>{{ 'admin.author'|trans({}, 'controller') }}</th>
+                    <th>{{ 'admin.edit'|trans({}, 'controller') }}</th>
+                    <th>{{ 'admin.delete'|trans({}, 'controller') }}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -37,7 +36,7 @@
                     <td>{{ map.id }}</td>
                     <td><a style="color: black" href="{{ path('panel_show_map', {'id': map.id}) }}">{{ map.name }}</a></td>
                     <td>{{ map.author.username }}</td>
-                    <td><a href="{{ path('admin_map_edit', {'id': map.id}) }}" class="btn btn-primary">Edit</a> </td>
+                    <td><a href="{{ path('admin_map_edit', {'id': map.id}) }}" class="btn btn-primary">{{ 'admin.edit'|trans({}, 'controller') }}</a> </td>
                     <td><a style="color: darkred;" href="{{ path('admin_map_delete', {'id': map.id}) }}" class="fas fa-times"></a></td>
                 </tr>
                     {% endfor %}

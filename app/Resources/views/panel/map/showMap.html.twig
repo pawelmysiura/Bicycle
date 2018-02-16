@@ -1,10 +1,8 @@
 {% extends 'panel/panelLayout.html.twig' %}
 
-{% block javascripts %}
-    {{ parent() }}
-    {#<script src="{{ asset('js/map/google-map-api.js') }}"></script>#}
-{% endblock javascripts %}
-
+{% block title %}
+    {{ 'panel.maps.title.show'|trans({}, 'controller') }}
+{% endblock %}
 {% block panelContent %}
     {% include 'template/flashMsg.html.twig' %}
     <div class="row bg-white pt-3">
@@ -15,37 +13,37 @@
             {% set favouriteFound = 0 %}
             {% for favourite in map.favourite %}
             {% if favourite.username == app.user.username %}
-            <a href="{{ path('panel_remove_favourite_map', {'id': map.id}) }}" class="btn btn-secondary">Usuń z ulubionych</a>
+            <a href="{{ path('panel_remove_favourite_map', {'id': map.id}) }}" class="btn btn-secondary">{{ 'panel.maps.favourite.delete'|trans({}, 'controller') }}</a>
                 {% set favouriteFound = 1 %}
             {% endif %}
             {% endfor %}
             {% if favouriteFound == 0 %}
-            <a href="{{ path('panel_add_favourite_map', {'id': map.id}) }}" class="btn btn-warning">Dodaj do ulubionych</a>
+            <a href="{{ path('panel_add_favourite_map', {'id': map.id}) }}" class="btn btn-warning">{{ 'panel.maps.favourite.add'|trans({}, 'controller') }}</a>
             {% endif %}
             {#{% if map.favourite.id %}#}
         </div>
         <div class="col-lg-3">
             {% if app.user.id == map.author.id %}
-                <a href="{{ path('panel_map_edit', {'id': map.id}) }}" class="btn btn-primary">Edytuj mapę</a>
+                <a href="{{ path('panel_map_edit', {'id': map.id}) }}" class="btn btn-primary">{{ 'panel.maps.title.edmit'|trans({}, 'controller') }}</a>
             {% endif %}
         </div>
     </div>
     <div class="link bg-white">
         <div class="row bg-white mt-2 pt-3 pb-3 text-center">
             <div class="col-lg-4">
-                Autor: <a href="#">{{ map.author.username }}</a>
+                {{ 'panel.maps.author'|trans({}, 'controller') }}: <a href="#">{{ map.author.username }}</a>
             </div>
             <div class="col-lg-4">
-                Poziom trudności: Średni
+                {#Poziom trudności: Średni#}
             </div>
             <div class="col-lg-4">
-                Ocena użytkowników: 5/5
+                {#Ocena użytkowników: 5/5#}
             </div>
         </div>
         <hr>
         <div class="row">
             <div class="col-lg-3 text-center">
-                Opis trasy:
+                {{ 'panel.maps.description'|trans({}, 'controller') }}
             </div>
             <div class="col-lg-9">
                 {{ map.description }}
@@ -63,7 +61,7 @@
     <hr>
     <div class="row text-center">
         <div class="col-lg-12">
-            <h2>Gallery</h2>
+            <h2>{{ 'panel.maps.gallery'|trans({}, 'controller') }}</h2>
         </div>
     </div>
         <hr>
@@ -77,7 +75,7 @@
             {% endfor %}
             {% if image == null %}
                 <div class="col-lg-12 text-center">
-                    No photos
+                    {{ 'panel.maps.no_photo'|trans({}, 'controller') }}
                 </div>
             {% endif %}
         </div>
@@ -85,7 +83,7 @@
     </div>
     <div class="row bg-white">
         <div class="col-2 pt-3 text-center">
-            Napisz komentarz:
+            {{ 'panel.maps.comment'|trans({}, 'controller') }}:
         </div>
         <div class="col-lg-8">
             {{ form_start(form) }}

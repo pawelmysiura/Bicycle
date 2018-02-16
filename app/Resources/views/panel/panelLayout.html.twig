@@ -2,19 +2,9 @@
 {% block content %}
 
     <div class="sidenav">
-        <div class="menu-top">T{{ 'panel.title'|trans({}, 'controller') }}</div>
+        <div class="menu-top">{{ 'panel.title'|trans({}, 'controller') }}</div>
         <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu"></i>
         <div  class="menu-list">
-            {#<ul id="menu" class="menu-content collapse out">#}
-                {#<div class="text-center"><h1><i class="fa fa-user-circle"></i></h1> </div>#}
-                {#<li><a href="#">Ustawienia użytkownika</a></li>#}
-                {#<li><a href="{{ path('fos_user_security_logout') }}">Wyloguj</a></li>#}
-                {#<hr style="background-color: gray">#}
-                {#<li class="active"><a href="{{ path('panel') }}">Co nowego?</a></li>#}
-                {#<li><a href="{{ path('panel_maps') }}">Ścieżki rowerowe</a></li>#}
-                {#<li><a href="{{ path('panel_create_map') }}">Dodaj ścieżkę rowerową</a></li>#}
-                {#<li><a href="{{ path('panel_favourite_maps') }}">Ulubione</a></li>#}
-            {#</ul>#}
             {{ print_panel_menu() }}
         </div>
     </div>
