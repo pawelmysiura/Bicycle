@@ -1,0 +1,54 @@
+front:
+  title:
+    about: 'O nas'
+    contact: 'Kontakt'
+    index: 'Strona główna'
+  index:
+    text_1: 'Ściezki rowerowe'
+    text_2: 'Szukaj udostępniaj i twórz swoje ścieżki rowerowe.'
+    login: 'Zaloguj się'
+    signup: 'Zarejestruj się'
+
+panel:
+  title: 'Twoja ścieżka rowerowa'
+  post:
+    title:
+      category: 'Kategoria'
+      posts: 'Aktualnosci'
+      tag: 'Tag'
+    read_more: 'Czytaj więcej'
+    comments: 'Komentarzy'
+    published: 'Dodano'
+    no_category: 'brak'
+
+  menu:
+    post: 'Co nowego?'
+    bike_paths: 'Tasy rowerowe'
+    add_path: 'Dodaj tasę'
+    favourite: 'Ulubione'
+    user_properties: 'Ustawienia użytkownika'
+    logout: 'Wyloguj'
+  maps:
+    title:
+      create: 'Utwórz trasę'
+      edmit: 'Edytuj trasę'
+      favorite: 'Ulubione'
+      show: 'Trasa'
+      list: 'Lista tras'
+      user_list: 'Twoje trasy'
+  user:
+    title:
+
+admin:
+  title:
+    admin_panel: 'Panel administracyjny'
+    posts: 'Posty'
+    bike_paths: 'Ściezki rowerowe'
+    post_categories: 'Kategorie postów'
+    post_tags: 'Tagi postów'
+    users: 'Użytkownicy'
+
+search: 'Szukaj'
+
+
+

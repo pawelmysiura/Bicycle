@@ -1,8 +1,11 @@
 {% extends 'front/frontLayout.html.twig' %}
+{% block title %}
+    {{ 'front.title.about'|trans({}, 'controller') }}
+{% endblock %}
 {% block frontContent %}
     <div class="jumbotron">
         <div class="container text-center">
-            <h1>O nas</h1>
+            <h1>{{  'front.title.about'|trans({}, 'controller') }}</h1>
         </div>
     </div>
     <div id="main" class="container">

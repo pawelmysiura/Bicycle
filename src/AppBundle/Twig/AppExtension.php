@@ -8,9 +8,19 @@
 
 namespace AppBundle\Twig;
 
-
+use Symfony\Component\Translation\Translator;
 class AppExtension extends \Twig_Extension
 {
+
+    /**
+     * @var Translator
+     */
+    private $translator;
+
+    public function __construct(Translator $translator)
+    {
+        $this->translator = $translator;
+    }
 
     public function getFunctions()
     {
@@ -26,6 +36,12 @@ class AppExtension extends \Twig_Extension
                 [
                     'needs_environment' => true,
                     'is_safe' => ['html']
+                ]),
+            new \Twig_SimpleFunction('print_front_menu', [
+                $this, 'printFrontMenu'],
+                [
+                    'needs_environment' => true,
+                    'is_safe' => ['html']
                 ])
         ];
     }
@@ -33,12 +49,12 @@ class AppExtension extends \Twig_Extension
     public function printPanelMenu(\Twig_Environment $environment)
     {
         $panelMenu = [
-            'Ustawienia uzytkownika' => 'fos_user_profile_show',
-            'Wyloguj' => 'fos_user_security_logout',
-            'Co nowego' => 'panel',
-            'Ścieżki' => 'panel_maps',
-            'Dodaj ścieżkę' => 'panel_create_map',
-            'Ulubione' => 'panel_favourite_maps'
+            $this->translator->trans('panel.menu.user_properties',[] , 'controller') => 'fos_user_profile_show',
+            $this->translator->trans('panel.menu.logout',[] , 'controller') => 'fos_user_security_logout',
+            $this->translator->trans('panel.menu.post',[] , 'controller') => 'panel',
+            $this->translator->trans('panel.menu.bike_paths',[] , 'controller') => 'panel_maps',
+            $this->translator->trans('panel.menu.add_path',[] , 'controller') => 'panel_create_map',
+            $this->translator->trans('panel.menu.favourite',[] , 'controller') => 'panel_favourite_maps'
         ];
         try {
             return $environment->render('template/panelMenu.html.twig', [
@@ -53,15 +69,32 @@ class AppExtension extends \Twig_Extension
     public function printAdminMenu(\Twig_Environment $environment)
     {
         $adminMenu = [
-            'Admin Panel' => 'admin',
-            'Posts' => 'admin_posts',
-            'Maps' => 'admin_maps',
-            'Post categories' => 'admin_categories',
-            'Post tags' => 'admin_tags',
-            'Users' => 'admin_users'
+            $this->translator->trans('admin.title.admin_panel',[] , 'controller') => 'admin',
+            $this->translator->trans('admin.title.posts',[] , 'controller') => 'admin_posts',
+            $this->translator->trans('admin.title.bike_paths',[] , 'controller') => 'admin_maps',
+            $this->translator->trans('admin.title.post_categories',[] , 'controller') => 'admin_categories',
+            $this->translator->trans('admin.title.post_tags',[] , 'controller') => 'admin_tags',
+            $this->translator->trans('admin.title.users',[] , 'controller') => 'admin_users'
         ];
         try {
             return $environment->render('template/panelMenu.html.twig', [
+                'menu' => $adminMenu
+            ]);
+        } catch (\Twig_Error_Loader $e) {
+        } catch (\Twig_Error_Runtime $e) {
+        } catch (\Twig_Error_Syntax $e) {
+        }
+    }
+
+    public function printFrontMenu(\Twig_Environment $environment)
+    {
+        $adminMenu = [
+            $this->translator->trans('front.title.index',[] , 'controller') => 'front_index',
+            $this->translator->trans('front.title.about',[] , 'controller') => 'front_about',
+            $this->translator->trans('front.title.contact',[] , 'controller') => 'front_contact'
+            ];
+        try {
+            return $environment->render('template/frontMenu.html.twig', [
                 'menu' => $adminMenu
             ]);
         } catch (\Twig_Error_Loader $e) {

@@ -1,0 +1,9 @@
+<div class="navbar-nav ml-lg-auto">
+{% for name, route in menu %}
+    {% if app.request.get('_route') == route  %}
+        <a class="nav-item nav-link active navbar-link" href="{{ path(route) }}">{{ name }} <span class="sr-only"></span></a>
+        {% else %}
+            <a class="nav-item nav-link navbar-link" href="{{ path(route) }}">{{ name }} <span class="sr-only"></span></a>
+    {% endif %}
+{% endfor %}
+</div>

@@ -5,11 +5,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav ml-lg-auto">
-                <a class="nav-item nav-link active navbar-link" href="{{ path('front_index') }}">Strona główna <span class="sr-only"></span></a>
-                <a class="nav-item nav-link navbar-link" href="{{ path('front_about') }}">O nas</a>
-                <a class="nav-item nav-link navbar-link" href="{{ path('front_contact') }}">Kontakt</a>
-            </div>
+{{ print_front_menu() }}
             <div class="vr navbar-link"></div>
             <div class="navbar-nav">
                 <a class="nav-item nav-link navbar-link" href="{{ path('fos_user_security_login') }}"><span class="fas fa-user"></span> Zaloguj się</a>

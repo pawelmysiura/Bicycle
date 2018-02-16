@@ -39,3 +39,9 @@ services:
     AppBundle\DataFixtures\:
         resource: '../../src/AppBundle/DataFixtures'
         tags: ['doctrine.fixture.orm']
+
+    AppBundle\Twig\AppExtension:
+        class: AppBundle\Twig\AppExtension
+        arguments: ['@translator.default']
+        tags:
+          - { name: twig.extension }

@@ -1,15 +1,15 @@
 {% extends 'panel/panelLayout.html.twig' %}
+{% block title %}
+    {{ 'panel.post.title.tag'|trans({}, 'controller') }}
+{% endblock %}
 {% block panelContent %}
 
     <div class="row bg-white pt-3">
         <div class="col-lg-7 float-left">
-            <h3>Tag</h3>
+            <h3>{{ 'panel.post.title.tag'|trans({}, 'controller') }}</h3>
         </div>
-        <div class="col-lg-3 form-group">
-            <input type="search" class="form-control" placeholder="Wyszukaj artykułu">
-        </div>
-        <div class="col-lg-2 form-group">
-            <button type="submit" class="btn btn-success">Wyszukaj</button>
+        <div class="col-lg-5 form-group search">
+            {{ render(controller('AppBundle:Post:searchPost')) }}
         </div>
     </div>
     {% for post in pagionator %}
@@ -21,10 +21,10 @@
         </div>
         <div class="row">
             <div class="col-lg-6">
-                <small>Kategorie: <a href="{{ path('panel_post_category', {'slug': post.category.slug}) }}">{{ post.category.name }}</a>| Tagi: {% for tag in post.tag %} <a href="{{ path('panel_post_tag', {'slug': tag.slug})}}">{{ tag.name }}</a>{% endfor %}</small>
+                <small>{{ 'panel.post.title.category'|trans({}, 'controller') }}: <a href="{{ path('panel_post_category', {'slug': post.category.slug}) }}">{{ post.category.name }}</a>| {{ 'panel.post.title.tag'|trans({}, 'controller') }}: {% for tag in post.tag %} <a href="{{ path('panel_post_tag', {'slug': tag.slug})}}">{{ tag.name }}</a>{% endfor %}</small>
             </div>
             <div class="col-lg-6">
-                <small class="float-right">Dodano: {{ post.publishDate|date('d.n.Y H:m:s') }}</small>
+                <small class="float-right">{{ 'panel.post.published'|trans({}, 'controller') }}: {{ post.publishDate|date('d.n.Y H:m:s') }}</small>
             </div>
         </div>
         <hr>
@@ -37,10 +37,10 @@
         </div>
         <div class="row">
             <div class="col-10">
-                <small class="float-right pt-2">Komentarze 10</small>
+                <small class="float-right pt-2">{{ 'panel.post.comments'|trans({}, 'controller') }} 10</small>
             </div>
             <div class="col-lg-2">
-                <a href="#" class="btn btn-primary">Czytaj więcej</a>
+                <a href="{{ path('panel_post', {'slug': post.slug}) }}" class="btn btn-primary">{{ 'panel.post.read_more'|trans({}, 'controller') }}</a>
             </div>
         </div>
     </div>
