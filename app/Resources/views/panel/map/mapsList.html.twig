@@ -33,7 +33,7 @@
                 <tr>
                     <td>{{ map.name }}</td>
                     <td>{{ map.author.username }}</td>
-                    <td><a href="{{ path('panel_show_map', {'id': map.id}) }}" class="btn btn-primary">{{ 'panel.maps.show'|trans({}, 'controller') }</a> </td>
+                    <td><a href="{{ path('panel_show_map', {'id': map.id}) }}" class="btn btn-primary">{{ 'panel.maps.show'|trans({}, 'controller') }}</a> </td>
                 </tr>
                     {% endfor %}
                 </tbody>

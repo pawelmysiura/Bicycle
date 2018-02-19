@@ -1,4 +1,8 @@
-{% extends "@FOSUser/layout.html.twig" %}
+{% extends "FOSUser/panelLayout.html.twig" %}
+
+{% block title %}
+    {{ 'user.title.edit'|trans({}, 'controller') }}
+{% endblock %}
 {% block fos_user_content %}
 {% include "@FOSUser/Profile/edit_content.html.twig" %}
 {% endblock fos_user_content %}

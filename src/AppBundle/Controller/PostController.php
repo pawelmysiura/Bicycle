@@ -47,7 +47,8 @@ class PostController extends BaseController
     {
         if ($post === null)
         {
-            throw $this->createNotFoundException('Artykułu nie znaleziono');
+            throw $this->createNotFoundException($this->get('translator')->trans('post_not_found', [],'exception')
+        );
         }
         $comment = new Comment();
         $comment->setAuthor($this->getUser());
@@ -63,7 +64,7 @@ class PostController extends BaseController
                 $em->persist($comment);
                 $em->flush();
 
-                $this->addFlash('success', 'Wiadomość wysłana');
+                $this->addFlash('success', $this->get('translator')->trans('flashmsg.success.map.map_edit', [],'message'));
                 return $this->redirectToRoute('panel_post', [
                     'slug' => $post->getSlug()
                 ]);

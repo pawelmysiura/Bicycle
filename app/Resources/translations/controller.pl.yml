@@ -86,5 +86,23 @@ admin:
 
 search: 'Szukaj'
 
+user:
+  title:
+    login: 'Zaloguj się'
+    change_password: 'Zmień hasło'
+    change_email: 'Zmień email'
+    show_user: 'Użytkownik'
+    register: 'Rejestracja'
+    forgot_password: 'Zapomniane hasło'
+    edit: 'Edytuj profil'
+  profile:
+    change_password: 'Zmień hasło'
+    your_path: 'Dodane ścieżki'
+    show: 'Pokaż'
+  login:
+    no_account: 'Nie masz jeszcze knota?'
+    lost_password: 'Zaponiałeś hasła?'
+    register: 'Zarejestruj się'
+    remind_password: 'Porzypomnij hasło'
 
 

@@ -1,0 +1,27 @@
+flashmsg:
+  success:
+    admin:
+      category_created: 'Kategoria utworzona'
+      category_edited: 'Kategoria zmieniona'
+      category_deleted: 'Kategoria została usunięta'
+      post_delete: 'Post został usnięty'
+      post_edit: 'Zmiany zostały zapisane'
+      post_created: 'Post został utworzony'
+      tag_created: 'Tag utworzony'
+      tag_edited: 'Tag zmieniony'
+      tag_deleted: 'Tag został usunięty'
+      user_active: 'Użytkownik został aktywowany'
+      user_deactive: 'Użytkownik został dezaktywowany'
+    front:
+      message_send: 'Wiadomość została wysłana'
+    map:
+      map_edit: 'Zmiany zostały zapisane'
+      map_delete: 'Ścieżka została usunięta'
+      map_create: 'Trasa została utworzona'
+      add_favourite: 'Dodano do ulubionych'
+      remove_favourite: 'Usunięto z ulubionych'
+    comment_send: 'Wiadmość została wysłana'
+  error:
+    map:
+      map_edit: 'Nie możesz edytować trasy'
+      map_delete: 'Nie możesz usunąć trasy'

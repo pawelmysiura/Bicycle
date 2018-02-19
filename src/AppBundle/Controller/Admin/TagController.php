@@ -35,7 +35,7 @@ class TagController extends BaseController
     public function tagEditAction($tag, Request $request)
     {
         $form = $this->createForm(CreateTagType::class, $tag);
-        $submit = $this->submitForm($form, $tag, $request, 'Tag has been edited');
+        $submit = $this->submitForm($form, $tag, $request, $this->get('translator')->trans('flashmsg.success.admin.tag_edited', [], 'message'));
         if ($submit)
         {
             return $this->redirectToRoute('admin_tags');
@@ -56,7 +56,7 @@ class TagController extends BaseController
     {
         $tag = new Tag();
         $form = $this->createForm(CreateTagType::class, $tag);
-        $submit = $this->submitForm($form, $tag, $request, 'Tag has been created');
+        $submit = $this->submitForm($form, $tag, $request, $this->get('translator')->trans('flashmsg.success.admin.tag_created', [], 'message'));
         if ($submit)
         {
             return $this->redirectToRoute('admin_tags');
@@ -79,7 +79,7 @@ class TagController extends BaseController
         $em = $this->getDoctrine()->getManager();
         $em->remove($tag);
         $em->flush();
-        $this->addFlash('success', 'Tag deleted');
+        $this->addFlash('success', $this->get('translator')->trans('flashmsg.success.admin.tag_deleted', [], 'message'));
         return $this->redirectToRoute('admin_tags');
     }
 }

@@ -53,7 +53,7 @@ class MapController extends BaseController
             }
             $em->persist($map);
             $em->flush();
-            $this->addFlash('success', 'Done!');
+            $this->addFlash('success', $this->get('translator')->trans('flashmsg.success.map.map_edit', [],'message'));
             return $this->redirectToRoute('admin_maps');
         }
         return $this->render('admin/map/editMap.html.twig', [
@@ -73,7 +73,7 @@ class MapController extends BaseController
         $em = $this->getDoctrine()->getManager();
         $em->remove($map);
         $em->flush();
-        $this->addFlash('success', 'You have deleted map');
+        $this->addFlash('success', $this->get('translator')->trans('flashmsg.success.map.map_delete', [],'message'));
         return $this->redirectToRoute('admin_maps');
     }
 

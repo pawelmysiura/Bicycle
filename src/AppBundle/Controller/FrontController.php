@@ -45,7 +45,7 @@ class FrontController extends Controller
                 'message' => $data['message']
             ]);
             $mailer->sendContactMail($mailBody);
-            $this->get('session')->getFlashBag()->add('success', 'Message was send');
+            $this->addFlash('success', $this->get('translator')->trans('flashmsg.success.front.message_send', [], 'message'));
             return $this->redirectToRoute('front_contact');
         }}
 

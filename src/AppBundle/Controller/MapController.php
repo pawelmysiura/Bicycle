@@ -42,7 +42,7 @@ class MapController extends BaseController
                 $em->persist($image);
             }
             $em->flush();
-            $this->addFlash('success', 'New path added');
+            $this->addFlash('success', $this->get('translator')->trans('flashmsg.success.map.map_create', [],'message'));
             return $this->redirectToRoute('panel_create_map');
         }
         return $this->render('panel/map/createMap.html.twig', [
@@ -62,7 +62,7 @@ class MapController extends BaseController
     {
         if ($map == null)
         {
-            throw $this->createNotFoundException('map not found');
+            throw $this->createNotFoundException($this->get('translator')->trans('post_not_found', [],'exception'));
         }
 
         $comment = new CommentMap();
@@ -79,7 +79,7 @@ class MapController extends BaseController
                 $em->persist($comment);
                 $em->flush();
 
-                $this->addFlash('success', 'Wiadomość wysłana');
+                $this->addFlash('success', $this->get('translator')->trans('flashmsg.success.comment_send', [],'message'));
                 return $this->redirectToRoute('panel_show_map', [
                     'id' => $map->getId()
                 ]);
@@ -108,7 +108,7 @@ class MapController extends BaseController
     {
         if ($map->getAuthor() !== $this->getUser())
         {
-            $this->addFlash('error', 'You can not edit this map');
+            $this->addFlash('success', $this->get('translator')->trans('flashmsg.error.map.map_edit', [],'message'));
             return $this->redirectToRoute('panel');
         } else {
             $form = $this->createForm(CreateMapType::class, $map);
@@ -127,7 +127,7 @@ class MapController extends BaseController
                 }
                 $em->persist($map);
                 $em->flush();
-                $this->addFlash('success', 'Your map has been edited');
+                $this->addFlash('success', $this->get('translator')->trans('flashmsg.success.map.map_edit', [],'message'));
                 return $this->redirectToRoute('panel_show_map', [
                     'id' => $map->getId()
                 ]);
@@ -150,13 +150,13 @@ class MapController extends BaseController
     public function removeMapAction(Map $map)
     {
         if ($map->getAuthor() !== $this->getUser()) {
-            $this->addFlash('error', 'You can not edit this map');
+            $this->addFlash('success', $this->get('translator')->trans('flashmsg.error.map.map_delete', [],'message'));
             return $this->redirectToRoute('panel');
         } else {
             $em = $this->getDoctrine()->getManager();
             $em->remove($map);
             $em->flush();
-            $this->addFlash('success', 'Your map has been removed');
+            $this->addFlash('success', $this->get('translator')->trans('flashmsg.success.map.map_delete', [],'message'));
             return $this->redirectToRoute('panel_maps');
         }
     }
@@ -188,6 +188,7 @@ class MapController extends BaseController
         $em->persist($map);
         $em->flush();
 
+        $this->addFlash('success', $this->get('translator')->trans('flashmsg.success.map.add_favourite', [],'message'));
         return $this->redirectToRoute('panel_show_map', [
             'id' => $map->getId()
         ]);
@@ -206,6 +207,7 @@ class MapController extends BaseController
         $em->persist($map);
         $em->flush();
 
+        $this->addFlash('success', $this->get('translator')->trans('flashmsg.success.map.remove_favourite', [],'message'));
         return $this->redirectToRoute('panel_show_map', [
             'id' => $map->getId()
         ]);

@@ -9,7 +9,7 @@
 
 </div>
     <div class="col-lg-3">
-        <a href="{{ path('fos_user_change_password') }}" class="btn btn-primary">Zmień hasło</a>
+        <a href="{{ path('fos_user_change_password') }}" class="btn btn-primary">{{ 'user.profile.change_password'|trans({}, 'controller') }}</a>
     </div>
 </div>
 <div class="row mt-2 link bg-white text-center">
@@ -28,6 +28,6 @@
 </div>
     <div class="row link bg-white text-center">
         <div class="col-lg-12 pt-3">
-            <p>Dodane ścieżki: <a href="{{ path('panel_user_maps') }}" class="btn btn-primary">Pokaż</a></p>
+            <p>{{ 'user.profile.your_path'|trans({}, 'controller') }}: <a href="{{ path('panel_user_maps') }}" class="btn btn-primary">{{ 'user.profile.show'|trans({}, 'controller') }}</a></p>
         </div>
     </div>

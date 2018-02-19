@@ -42,7 +42,7 @@ class PostController extends BaseController
             throw $this->createNotFoundException('Post not found');
         }
         $form = $this->createForm(CreatePostType::class, $post);
-        $submit = $this->submitForm($form, $post, $request, 'Post has been edited');
+        $submit = $this->submitForm($form, $post, $request, $this->get('translator')->trans('flashmsg.success.admin.post_edit', [], 'message'));
         if ($submit)
         {
             return $this->redirectToRoute('admin_posts');
@@ -65,7 +65,7 @@ class PostController extends BaseController
         $post->setAuthor($this->getUser());
         $post->setCreateDeate(new \DateTime());
         $form = $this->createForm(CreatePostType::class, $post);
-        $submit = $this->submitForm($form, $post, $request, 'Post has been created');
+        $submit = $this->submitForm($form, $post, $request, $this->get('translator')->trans('flashmsg.success.admin.post_created', [], 'message'));
         if ($submit)
         {
             return $this->redirectToRoute('admin_posts');
@@ -86,6 +86,7 @@ class PostController extends BaseController
         $em = $this->getDoctrine()->getManager();
         $em->remove($post);
         $em->flush();
+        $this->addFlash('success', $this->get('translator')->trans('flashmsg.success.admin.post_delete', [], 'message'));
         return $this->redirectToRoute('admin_posts');
     }
 

@@ -39,7 +39,7 @@ class CategoryController extends BaseController
             throw $this->createNotFoundException('Category not found');
         }
         $form = $this->createForm(CreateCategoryType::class, $category);
-        $submit = $this->submitForm($form, $category, $request, 'Category has been changed');
+        $submit = $this->submitForm($form, $category, $request, $this->get('translator')->trans('flashmsg.success.admin.category_edited', [], 'message'));
         if ($submit)
         {
             return $this->redirectToRoute('admin_categories');
@@ -60,7 +60,7 @@ class CategoryController extends BaseController
     {
         $category = new Category();
         $form = $this->createForm(CreateCategoryType::class, $category);
-        $submit = $this->submitForm($form, $category, $request, 'Category has been created');
+        $submit = $this->submitForm($form, $category, $request, $this->get('translator')->trans('flashmsg.success.admin.category_created', [], 'message'));
         if ($submit)
         {
             return $this->redirectToRoute('admin_categories');
@@ -83,7 +83,7 @@ class CategoryController extends BaseController
         $em = $this->getDoctrine()->getManager();
         $em->remove($category);
         $em->flush();
-        $this->addFlash('success', 'Category deleted');
+        $this->addFlash('success', $this->get('translator')->trans('flashmsg.success.admin.category_deleted', [], 'message'));
         return $this->redirectToRoute('admin_categories');
     }
 

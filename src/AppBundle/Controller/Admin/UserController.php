@@ -36,10 +36,10 @@ class UserController extends BaseController
         if ($user->isEnabled() == 1)
         {
             $user->setEnabled(0);
-            $this->addFlash('success', 'This user is now deactive!');
+            $this->addFlash('success', $this->get('translator')->trans('flashmsg.success.admin.user_deactive', [], 'message'));
         } else {
             $user->setEnabled(1);
-            $this->addFlash('success', 'This user is active!');
+            $this->addFlash('success', $this->get('translator')->trans('flashmsg.success.admin.user_active', [], 'message'));
         }
         $em = $this->getDoctrine()->getManager();
         $em->persist($user);
