@@ -104,5 +104,7 @@ user:
     lost_password: 'Zaponiałeś hasła?'
     register: 'Zarejestruj się'
     remind_password: 'Porzypomnij hasło'
+    allready_login_head: 'przecież już jesteś zalogowany!'
+    allready_login_description: 'Wyloguj się bądź przejdź na inną stronę'
 
 

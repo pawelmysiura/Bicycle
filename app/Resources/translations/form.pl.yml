@@ -1,0 +1,23 @@
+contact:
+  email: 'E-mail'
+  subject: 'Tytuł'
+  message: 'Treść'
+create_category:
+  name: 'Nazwa'
+create_map:
+  name: 'Nazwa'
+  descritpion: 'Opis trasy'
+  photos: 'Dodaj zdjęcia'
+create_post:
+  title: 'Tytuł'
+  category: 'Kategoria'
+  tags: 'Tagi'
+  content: 'Treść'
+  publish_date: 'Data publikacji'
+create_tag:
+  name: 'Nazwa'
+comments:
+
+search:
+  submit: 'Szukaj'
+submint: 'Wyślij'

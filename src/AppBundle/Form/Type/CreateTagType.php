@@ -29,10 +29,12 @@ class CreateTagType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Tag name'
+                'label' => 'create_tag',
+                'translation_domain' => 'form'
             ])
             ->add('send', SubmitType::class, [
-                'label' => 'Send'
+                'label' => 'Send',
+                'translation_domain' => 'form'
             ]);
     }
     public function configureOptions(OptionsResolver $resolver)

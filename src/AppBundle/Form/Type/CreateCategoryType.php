@@ -28,10 +28,13 @@ class CreateCategoryType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Category name'
+                'label' => 'create_category.name',
+                'translation_domain' => 'form'
             ])
             ->add('send', SubmitType::class, [
-                'label' => 'Send'
+                'label' => 'submint',
+                'translation_domain' => 'form'
+
             ]);
     }
     public function configureOptions(OptionsResolver $resolver)

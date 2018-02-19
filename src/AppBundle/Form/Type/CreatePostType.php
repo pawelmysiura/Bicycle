@@ -32,30 +32,36 @@ class CreatePostType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'label' => 'Title'
+                'label' => 'create_post.title',
+                'translation_domain' => 'form'
             ])
             ->add('category', EntityType::class, [
-                'label' => 'Category',
+                'label' => 'create_post.category',
+                'translation_domain' => 'form',
                 'class' => 'AppBundle\Entity\Category',
                 'choice_label' => 'name'
             ])
             ->add('tag', EntityType::class, [
-                'label' => 'Tags',
+                'label' => 'create_post.tags',
+                'translation_domain' => 'form',
                 'class' => 'AppBundle\Entity\Tag',
                 'choice_label' => 'name',
                 'multiple' => true
             ])
             ->add('content', TextareaType::class, [
-                'label' => 'Content',
+                'label' => 'create_post.content',
+                'translation_domain' => 'form',
                 'attr' => [
                     'rows' => 5
                 ]
             ])
             ->add('publishDate', DateTimeType::class, [
-                'label' => 'Publish date'
+                'label' => 'create_post.publish_date',
+                'translation_domain' => 'form'
             ])
             ->add('send', SubmitType::class, [
-                'label' => 'Send'
+                'label' => 'submint',
+                'translation_domain' => 'form'
             ]);
     }
     public function configureOptions(OptionsResolver $resolver)

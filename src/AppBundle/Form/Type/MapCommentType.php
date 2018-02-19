@@ -22,13 +22,15 @@ class MapCommentType extends AbstractType
     {
         $builder
             ->add('comment', TextareaType::class, [
-                'label' => 'Comment',
+                'label' => 'comments',
+                'translation_domain' => 'form',
                 'attr' => [
                     'rows' => 3
                 ]
                 ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Submit'
+                'label' => 'submint',
+                'translation_domain' => 'form'
             ]);
     }
     public function configureOptions(OptionsResolver $resolver)

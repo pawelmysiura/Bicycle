@@ -15,11 +15,13 @@ class SearchContentType extends AbstractType
         $builder->
             add('search', SearchType::class, [
                 'attr' => [
-                    'placeholder' => 'Search'
-                ]
+                    'placeholder' => 'search.submit'
+                ],
+            'translation_domain' => 'form'
         ])
         ->add('submit', SubmitType::class, [
-            'label' => 'Submit'
+            'label' => 'search.submit',
+            'translation_domain' => 'form'
         ]);
     }
 }

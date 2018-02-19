@@ -27,13 +27,16 @@ class CreateMapType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Name'
+                'label' => 'create_map.name',
+                'translation_domain' => 'form'
             ])
             ->add('description', TextareaType::class, [
-                'label' => 'Description'
+                'label' => 'create_map.descritpion',
+                'translation_domain' => 'form'
             ])
             ->add('image', CollectionType::class, [
-                'label' => 'Your photos',
+                'label' => 'create_map.photos',
+                'translation_domain' => 'form',
                 'entry_type' => MapImageType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
@@ -44,7 +47,8 @@ class CreateMapType extends AbstractType
             ->add('end', HiddenType::class)
             ->add('waypoints', HiddenType::class)
             ->add('send', SubmitType::class, [
-                'label' => 'Send'
+                'label' => 'submint',
+                'translation_domain' => 'form'
             ]);
     }
     public function configureOptions(OptionsResolver $resolver)

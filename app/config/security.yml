@@ -20,6 +20,7 @@ security:
             security: false
 
         main:
+            anonymous: ~
             pattern: ^/
             form_login:
                 provider: fos_userbundle
@@ -39,5 +40,5 @@ security:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/panel/, role: ROLE_USER }
         - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/panel, role: ROLE_USER }

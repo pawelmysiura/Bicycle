@@ -1,14 +1,21 @@
 {% extends 'base.html.twig' %}
 {% block content %}
-        <div>
-            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
-                <a href="{{ path('fos_user_security_logout') }}">
-                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-                </a>
-            {% endif %}
-        </div>
 
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <h1 class="mt-5">{{ app.user.username }} {{ 'user.login.allready_login_head'|trans({}, 'controller') }}</h1>
+                            <p class="lead">{{ 'user.login.allready_login_description'|trans({}, 'controller') }}</p>
+                            <ul class="list-unstyled">
+                                <li><a href="{{ path('panel') }}" class="btn btn-success">Powrót</a></li>
+                                <p></p>
+                                <li><a href="{{ path('fos_user_security_logout') }}" class="btn btn-danger">Powrót</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
         {% if app.request.hasPreviousSession %}
             {% for type, messages in app.session.flashbag.all() %}
                 {% for message in messages %}
@@ -23,6 +30,6 @@
             {% block fos_user_content %}
             {% endblock fos_user_content %}
         </div>
-
+            {% endif %}
 {% endblock %}
 {% set noFooter = 1 %}
