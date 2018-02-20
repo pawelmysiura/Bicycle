@@ -47,8 +47,7 @@ class PostController extends BaseController
     {
         if ($post === null)
         {
-            throw $this->createNotFoundException($this->get('translator')->trans('post_not_found', [],'exception')
-        );
+            throw $this->createNotFoundException($this->get('translator')->trans('post_not_found', [],'exception'));
         }
         $comment = new Comment();
         $comment->setAuthor($this->getUser());

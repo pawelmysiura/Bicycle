@@ -1,2 +1,8 @@
 post_not_found: 'Artykułu nie znaleziono'
 map_not_found: 'Trasy nie znaleziono'
+404:
+  head: 'Błąd 404 strony nie znaleziono'
+  description: 'Przepraszamy taka strona nie istnieje.'
+500:
+  head: 'Błąd 500. Wewnętrzny błąd serwera'
+  description: 'Występują problemy z serwerem. Za utrudnienia przepraszamy.'

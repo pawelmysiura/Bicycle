@@ -44,7 +44,7 @@
                 <small class="float-right pt-2">{{ 'panel.post.comments'|trans({}, 'controller') }} 10</small>
             </div>
             <div class="col-lg-2">
-                <a href="#" class="btn btn-primary">{{ 'panel.post.read_more'|trans({}, 'controller') }}</a>
+                <a href="{{ path('panel_post', {'slug': post.slug}) }}" class="btn btn-primary">{{ 'panel.post.read_more'|trans({}, 'controller') }}</a>
             </div>
         </div>
     </div>
