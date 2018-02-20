@@ -4,7 +4,7 @@ front:
     contact: 'Kontakt'
     index: 'Strona główna'
   index:
-    text_1: 'Ściezki rowerowe'
+    text_1: 'Ścieżki rowerowe'
     text_2: 'Szukaj udostępniaj i twórz swoje ścieżki rowerowe.'
     login: 'Zaloguj się'
     signup: 'Zarejestruj się'
