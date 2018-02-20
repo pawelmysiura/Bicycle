@@ -5,7 +5,6 @@ namespace Tests\AppBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Client;
-use Symfony\Component\Translation\Translator;
 
 class FrontControllerTest extends WebTestCase
 {
@@ -14,10 +13,6 @@ class FrontControllerTest extends WebTestCase
      */
     private $client;
 
-    /**
-     * @var Translator
-     */
-    private $translation;
 
     public function setUp()
     {
