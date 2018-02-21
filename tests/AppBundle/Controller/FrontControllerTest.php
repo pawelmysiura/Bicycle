@@ -41,7 +41,18 @@ class FrontControllerTest extends WebTestCase
 
     public function testcontact()
     {
+        $container = self::$kernel->getContainer();
+        $crawler = $this->client->request('GET', '/contact');
         $this->pageTest('/contact', 'front.title.contact');
+        $form = $crawler->selectButton($container->get('translator')->trans('submint', [], 'form'))->form();
+        $form['contact[email]'] = 'test@test.pl';
+        $form['contact[subject]'] = 'test';
+        $form['contact[message]'] = 'message test';
+        $this->client->submit($form);
+        $this->client->followRedirect();
+        $response = $this->client->getResponse();
+        $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
+        $this->assertContains($container->get('translator')->trans('flashmsg.success.front.message_send', [], 'message'), $response->getContent());
     }
 
 }

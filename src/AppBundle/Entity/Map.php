@@ -77,7 +77,7 @@ class Map
     private $end;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=2000)
      */
     private $waypoints;
 
