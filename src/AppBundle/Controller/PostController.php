@@ -63,7 +63,7 @@ class PostController extends BaseController
                 $em->persist($comment);
                 $em->flush();
 
-                $this->addFlash('success', $this->get('translator')->trans('flashmsg.success.map.map_edit', [],'message'));
+                $this->addFlash('success', $this->get('translator')->trans('flashmsg.success.comment_send', [],'message'));
                 return $this->redirectToRoute('panel_post', [
                     'slug' => $post->getSlug()
                 ]);
@@ -76,7 +76,7 @@ class PostController extends BaseController
     }
 
     /**
-     * @Route("/postcategory/{slug}/{page}",
+     * @Route("/post/category/{slug}/{page}",
      *     name="panel_post_category",
      *     defaults={"page" = 1},
      *     requirements={"page" = "\d+"}
@@ -100,7 +100,7 @@ class PostController extends BaseController
     }
 
     /**
-     * @Route("/postctag/{slug}/{page}",
+     * @Route("/post/tag/{slug}/{page}",
      *     name="panel_post_tag",
      *     defaults={"page" = 1},
      *     requirements={"page" = "\d+"}

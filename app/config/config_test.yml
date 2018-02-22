@@ -17,11 +17,10 @@ swiftmailer:
 
 doctrine:
     dbal:
-        default_connection: default
-        connections:
-            default:
-                driver:   pdo_sqlite
-                path:     '%kernel.cache_dir%/test.db'
+        dbname: '%database_name%_test'
 
-liip_functional_test:
-    cache_sqlite_db: true
+security:
+    firewalls:
+        # replace 'main' by the name of your own firewall
+        main:
+            http_basic: ~

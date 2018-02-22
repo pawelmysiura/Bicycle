@@ -32,14 +32,15 @@
             <div class="col-2 pt-3 text-center">
                 Napisz komentarz:
             </div>
+            {{ form_start(form) }}
             <div class="col-lg-8">
-                {{ form_start(form) }}
+
                 {{ form_widget(form.comment) }}
             </div>
             <div class="col-lg-2 pt-3">
                 {{ form_widget(form.submit) }}
-                {{ form_end(form) }}
             </div>
+            {{ form_end(form) }}
         </div>
 
     {% for comment in post.comment %}
