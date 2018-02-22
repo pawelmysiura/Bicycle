@@ -26,7 +26,7 @@ class UserFixtures extends AbstractFixture implements OrderedFixtureInterface, C
      * UserFixtures constructor.
      * @param ContainerInterface $container
      */
-    public function __construct(ContainerInterface $container)
+    public function setContainer(ContainerInterface $container = null)
     {
         $this->container = $container;
     }
@@ -80,8 +80,4 @@ class UserFixtures extends AbstractFixture implements OrderedFixtureInterface, C
         ];
     }
 
-    public function setContainer(ContainerInterface $container = null)
-    {
-        // TODO: Implement setContainer() method.
-    }
 }
