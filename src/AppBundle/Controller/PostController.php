@@ -128,7 +128,9 @@ class PostController extends BaseController
      */
     public function searchPostAction()
     {
-        $form = $this->createForm(SearchContentType::class);
+        $form = $this->createForm(SearchContentType::class, null, [
+            'method' => 'GET'
+        ]);
         return $this->render('template/search.html.twig', [
             'form' => $form->createView(),
             'route' => 'panel_post_search'
@@ -143,26 +145,23 @@ class PostController extends BaseController
      */
     public function handleSearchAction(Request $request, $page)
     {
-        $search = $request->request->get('search_content');
+        $search = $request->query->get('search_content');
 
-        $pagination = $this->getQueryPagination([
-            'status' => 'published',
-            'orderBy' => 'p.publishDate',
-            'order' => 'DESC',
-            'searchPost' => $search['search']
-        ], $page, Post::class);
-        return $this->render('panel/post/panel.html.twig', [
-            'pagionator' => $pagination,
-            'search' => $search['search']
-        ]);
+        if ($search == null)
+        {
+            return $this->redirectToRoute('panel');
+        } else {
+            $pagination = $this->getQueryPagination([
+                'status' => 'published',
+                'orderBy' => 'p.publishDate',
+                'order' => 'DESC',
+                'searchPost' => $search['search']
+            ], $page, Post::class);
+            return $this->render('panel/post/panel.html.twig', [
+                'pagionator' => $pagination,
+                'search' => $search['search']
+            ]);
+        }
     }
 
-//    public function getPaginator(array $params = [], $page, $limit)
-//    {
-//        $repository = $this->getDoctrine()->getRepository(Post::class);
-//        $qb = $repository->getQueryBuilder($params);
-//        $paginator = $this->get('knp_paginator');
-//        $pagination = $paginator->paginate($qb, $page, $limit);
-//        return $pagination;
-//    }
 }

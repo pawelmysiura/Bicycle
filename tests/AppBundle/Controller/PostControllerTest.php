@@ -27,11 +27,19 @@ class PostControllerTest extends BaseControllerTest
         $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
         $this->assertContains($container->get('translator')->trans($message, [], 'controller'), $crawler->filter($selector)->text());
 
+        return $crawler;
     }
 
     public function testPanel()
     {
-        $this->pageTest('/panel', 'panel.post.title.posts', 'h3');
+        $container = self::$kernel->getContainer();
+        $crawler = $this->pageTest('/panel', 'panel.post.title.posts', 'h3');
+        $form = $crawler->selectButton($container->get('translator')->trans('search.submit', [], 'form'))->form();
+        $form['search_content[search]'] = 'Varius';
+        $this->client->submit($form);
+        $this->assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+        $this->assertContains($container->get('translator')->trans('search', [], 'controller').': Varius', $this->client->getResponse()->getContent());
+
     }
 
     public function testCategory()
@@ -62,5 +70,12 @@ class PostControllerTest extends BaseControllerTest
         $this->client->followRedirect();
         $this->assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertContains($container->get('translator')->trans('flashmsg.success.comment_send', [], 'message'), $this->client->getResponse()->getContent());
+    }
+    public function testHandleSearch(){
+        $container = self::$kernel->getContainer();
+        $crawler = $this->client->request('GET', '/panel/posts/search');
+        $this->client->followRedirect();
+        $this->assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+        $this->assertContains($container->get('translator')->trans('panel.post.title.posts', [], 'controller'), $this->client->getResponse()->getContent());
     }
 }

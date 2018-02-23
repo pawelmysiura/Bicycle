@@ -25,3 +25,4 @@ flashmsg:
     map:
       map_edit: 'Nie możesz edytować trasy'
       map_delete: 'Nie możesz usunąć trasy'
+      map_create: 'Nie można utworzyć trasy. Dodaj początek i koniec trasy!'

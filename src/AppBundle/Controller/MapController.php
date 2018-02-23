@@ -44,6 +44,8 @@ class MapController extends BaseController
             $em->flush();
             $this->addFlash('success', $this->get('translator')->trans('flashmsg.success.map.map_create', [],'message'));
             return $this->redirectToRoute('panel_create_map');
+        } elseif ($form->isSubmitted() && !$form->isValid()) {
+            $this->addFlash('error', $this->get('translator')->trans('flashmsg.error.map.map_create', [],'message'));
         }
         return $this->render('panel/map/createMap.html.twig', [
             'form' => $form->createView()
@@ -108,7 +110,7 @@ class MapController extends BaseController
     {
         if ($map->getAuthor() !== $this->getUser())
         {
-            $this->addFlash('success', $this->get('translator')->trans('flashmsg.error.map.map_edit', [],'message'));
+            $this->addFlash('error', $this->get('translator')->trans('flashmsg.error.map.map_edit', [],'message'));
             return $this->redirectToRoute('panel');
         } else {
             $form = $this->createForm(CreateMapType::class, $map);
@@ -195,7 +197,7 @@ class MapController extends BaseController
     }
 
     /**
-     * @Route("/remove/favourite{id}", name="panel_remove_favourite_map")
+     * @Route("/remove/favourite/{id}", name="panel_remove_favourite_map")
      * @ParamConverter("map", class="AppBundle\Entity\Map", options={"mapping": {"id": "id"}})
      * @param Map $map
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -252,7 +254,9 @@ class MapController extends BaseController
      */
     public function searchMapAction()
     {
-        $form = $this->createForm(SearchContentType::class  );
+        $form = $this->createForm(SearchContentType::class, null, [
+            'method' => 'GET'
+        ]);
 
         return $this->render('template/search.html.twig', [
             'form' => $form->createView(),
@@ -268,29 +272,21 @@ class MapController extends BaseController
      */
     public function handleSearchAction(Request $request, $page)
     {
-        $search = $request->request->get('search_content');
+        $search = $request->query->get('search_content');
 
-        $pagination = $this->getQueryPagination([
-            'searchMap' => $search['search']
-        ], $page, Map::class);
+        if ($search == null)
+        {
+            return $this->redirectToRoute('panel_maps');
+        } else {
+            $pagination = $this->getQueryPagination([
+                'searchMap' => $search['search']
+            ], $page, Map::class);
 
-        return $this->render('panel/map/mapsList.html.twig', [
-            'paginator' => $pagination,
-            'search' => $search['search']
-        ]);
+            return $this->render('panel/map/mapsList.html.twig', [
+                'paginator' => $pagination,
+                'search' => $search['search']
+            ]);
+        }
     }
 
-
-//    /**
-//     * @param $page
-//     * @return \Knp\Component\Pager\Pagination\PaginationInterface
-//     */
-//    public function getMapsPaginator($page)
-//    {
-//        $reposiotry = $this->getDoctrine()->getRepository(Map::class);
-//        $qb = $reposiotry->findAll();
-//        $paginator = $this->get('knp_paginator');
-//        $pagination = $paginator->paginate($qb, $page, $this->limit);
-//        return $pagination;
-//    }
 }
