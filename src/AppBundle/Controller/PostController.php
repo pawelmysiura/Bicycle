@@ -161,7 +161,6 @@ class PostController extends BaseController
                 'pagionator' => $pagination,
                 'search' => $search['search']
             ]);
-            
         }
     }
 
