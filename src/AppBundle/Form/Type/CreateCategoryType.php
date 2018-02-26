@@ -32,7 +32,7 @@ class CreateCategoryType extends AbstractType
                 'translation_domain' => 'form'
             ])
             ->add('send', SubmitType::class, [
-                'label' => 'submint',
+                'label' => 'submit',
                 'translation_domain' => 'form'
 
             ]);

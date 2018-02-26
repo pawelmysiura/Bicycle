@@ -33,7 +33,7 @@ class CreateTagType extends AbstractType
                 'translation_domain' => 'form'
             ])
             ->add('send', SubmitType::class, [
-                'label' => 'Send',
+                'label' => 'submit',
                 'translation_domain' => 'form'
             ]);
     }

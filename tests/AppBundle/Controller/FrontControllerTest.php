@@ -44,7 +44,7 @@ class FrontControllerTest extends WebTestCase
         $container = self::$kernel->getContainer();
         $crawler = $this->client->request('GET', '/contact');
         $this->pageTest('/contact', 'front.title.contact');
-        $form = $crawler->selectButton($container->get('translator')->trans('submint', [], 'form'))->form();
+        $form = $crawler->selectButton($container->get('translator')->trans('submit', [], 'form'))->form();
         $form['contact[email]'] = 'test@test.pl';
         $form['contact[subject]'] = 'test';
         $form['contact[message]'] = 'message test';

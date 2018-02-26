@@ -23,7 +23,7 @@ class MapControllerTest extends BaseControllerTest
         $crawler = $this->client->request('POST', '/panel/map/create');
         $this->assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertContains($container->get('translator')->trans('panel.maps.title.create', [], 'controller'), $crawler->filter('h3')->text());
-        $form = $crawler->selectButton($container->get('translator')->trans('submint', [], 'form'))->form();
+        $form = $crawler->selectButton($container->get('translator')->trans('submit', [], 'form'))->form();
         $form['create_map[name]'] = 'Test name';
         $form['create_map[description]'] = 'test description';
         $form['create_map[start]'] = '{"lat":49.9672344,"lng":18.861218000000008}';
@@ -44,7 +44,7 @@ class MapControllerTest extends BaseControllerTest
         $crawler = $this->client->request('POST', '/panel/map/show/'.$map->getId());
         $this->assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertContains('Quisque condimentum tellus vel ultrices.', $crawler->filter('h3')->text());
-        $form = $crawler->selectButton($container->get('translator')->trans('submint', [], 'form'))->form();
+        $form = $crawler->selectButton($container->get('translator')->trans('submit', [], 'form'))->form();
         $form['map_comment[comment]'] = 'Test comment';
         $this->client->submit($form);
         $this->client->followRedirect();
@@ -60,7 +60,7 @@ class MapControllerTest extends BaseControllerTest
         $crawler = $this->client->request('POST', '/panel/map/edit/'.$map->getId());
         $this->assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertContains($container->get('translator')->trans('panel.maps.title.edmit', [], 'controller'), $crawler->filter('h3')->text());
-        $form = $crawler->selectButton($container->get('translator')->trans('submint', [], 'form'))->form();
+        $form = $crawler->selectButton($container->get('translator')->trans('submit', [], 'form'))->form();
         $form['create_map[name]'] = 'Test name';
         $form['create_map[description]'] = 'test description';
         $form['create_map[start]'] = '{"lat":49.9672344,"lng":18.861218000000008}';

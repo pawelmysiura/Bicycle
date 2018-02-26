@@ -29,7 +29,7 @@ class ContactType extends AbstractType
                 'translation_domain' => 'form'
             ])
         ->add('submit', SubmitType::class, [
-            'label' => 'submint',
+            'label' => 'submit',
             'translation_domain' => 'form'
         ]);
     }

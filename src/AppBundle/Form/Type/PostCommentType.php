@@ -28,7 +28,7 @@ class PostCommentType extends AbstractType
                 ]
                 ])
             ->add('submit', SubmitType::class, [
-                'label' => 'submint',
+                'label' => 'submit',
                 'translation_domain' => 'form'
             ]);
     }

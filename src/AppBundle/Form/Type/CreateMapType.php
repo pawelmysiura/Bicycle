@@ -47,7 +47,7 @@ class CreateMapType extends AbstractType
             ->add('end', HiddenType::class)
             ->add('waypoints', HiddenType::class)
             ->add('send', SubmitType::class, [
-                'label' => 'submint',
+                'label' => 'submit',
                 'translation_domain' => 'form'
             ]);
     }

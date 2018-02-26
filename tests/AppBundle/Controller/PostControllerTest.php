@@ -64,7 +64,7 @@ class PostControllerTest extends BaseControllerTest
         $crawler = $this->client->request('POST', '/panel/post/'.$slug);
         $this->assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertContains($post->getTitle(), $this->client->getResponse()->getContent());
-        $form = $crawler->selectButton($container->get('translator')->trans('submint', [], 'form'))->form();
+        $form = $crawler->selectButton($container->get('translator')->trans('submit', [], 'form'))->form();
         $form['post_comment[comment]'] = 'Test comment';
         $this->client->submit($form);
         $this->client->followRedirect();
