@@ -52,7 +52,9 @@ class UserController extends BaseController
      */
     public function searchUserAction()
     {
-        $form = $this->createForm(SearchContentType::class  );
+        $form = $this->createForm(SearchContentType::class, null, [
+            'method' => 'GET'
+        ]);
 
         return $this->render('template/search.html.twig', [
             'form' => $form->createView(),
@@ -68,21 +70,26 @@ class UserController extends BaseController
      */
     public function handleSearchAction(Request $request, $page)
     {
-        $search = $request->request->get('search_content');
+        $search = $request->query->get('search_content');
 
+        if ($search == null)
+        {
+            return $this->redirectToRoute('admin_users');
+        } else {
 //        $pagination = $this->getQueryPagination([
 //            'searchUser' => $search['search']
 //        ], $page, User::class);
-        $reposiotry = $this->getDoctrine()->getRepository(User::class);
-        $qb = $reposiotry->findBy([
-            'username' => $search['search']
-        ]);
-        $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($qb, $page, $this->limit);
+            $reposiotry = $this->getDoctrine()->getRepository(User::class);
+            $qb = $reposiotry->findBy([
+                'username' => $search['search']
+            ]);
+            $paginator = $this->get('knp_paginator');
+            $pagination = $paginator->paginate($qb, $page, $this->limit);
 
-        return $this->render('admin/user/usersList.html.twig', [
-            'paginator' => $pagination,
-            'search' => $search['search']
-        ]);
+            return $this->render('admin/user/usersList.html.twig', [
+                'paginator' => $pagination,
+                'search' => $search['search']
+            ]);
+        }
     }
 }

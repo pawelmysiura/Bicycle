@@ -95,7 +95,9 @@ class PostController extends BaseController
      */
     public function searchPostAction()
     {
-        $form = $this->createForm(SearchContentType::class);
+        $form = $this->createForm(SearchContentType::class, null , [
+            'method' => 'GET'
+        ]);
         return $this->render('template/search.html.twig', [
             'form' => $form->createView(),
             'route' => 'admin_post_search'
@@ -110,15 +112,19 @@ class PostController extends BaseController
      */
     public function handleSearchAction(Request $request, $page)
     {
-        $search = $request->request->get('search_content');
+        $search = $request->query->get('search_content');
 
-        $pagination = $this->getQueryPagination([
-            'order' => 'DESC',
-            'searchPost' => $search['search']
-        ], $page, Post::class);
-        return $this->render('admin/post/postList.html.twig', [
-            'paginator' => $pagination,
-            'search' => $search['search']
-        ]);
+        if ($search == null) {
+            return $this->redirectToRoute('admin_maps');
+        } else {
+            $pagination = $this->getQueryPagination([
+                'order' => 'DESC',
+                'searchPost' => $search['search']
+            ], $page, Post::class);
+            return $this->render('admin/post/postList.html.twig', [
+                'paginator' => $pagination,
+                'search' => $search['search']
+            ]);
+        }
     }
 }

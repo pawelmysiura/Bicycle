@@ -82,7 +82,9 @@ class MapController extends BaseController
      */
     public function searchMapAction()
     {
-        $form = $this->createForm(SearchContentType::class  );
+        $form = $this->createForm(SearchContentType::class, null, [
+            'method' => 'GET'
+        ]);
 
         return $this->render('template/search.html.twig', [
             'form' => $form->createView(),
@@ -98,15 +100,20 @@ class MapController extends BaseController
      */
     public function handleSearchAction(Request $request, $page)
     {
-        $search = $request->request->get('search_content');
+        $search = $request->query->get('search_content');
 
-        $pagination = $this->getQueryPagination([
-            'searchMap' => $search['search']
-        ], $page, Map::class);
+        if ($search == null)
+        {
+            return $this->redirectToRoute('admin_maps');
+        } else {
+            $pagination = $this->getQueryPagination([
+                'searchMap' => $search['search']
+            ], $page, Map::class);
 
-        return $this->render('admin/map/mapsList.html.twig', [
-            'paginator' => $pagination,
-            'search' => $search['search']
-        ]);
+            return $this->render('admin/map/mapsList.html.twig', [
+                'paginator' => $pagination,
+                'search' => $search['search']
+            ]);
+        }
     }
 }
