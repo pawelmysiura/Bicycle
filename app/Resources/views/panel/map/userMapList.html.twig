@@ -34,7 +34,7 @@
                     {#<th>Łatwy</th>#}
                     {#<td>5/5</td>#}
                     <td>{{ map.author.username }}</td>
-                    <td><a href="{{ path('panel_show_map', {'id': map.id}) }}" class="btn btn-primary"><th>{{ 'panel.maps.show'|trans({}, 'controller') }}</th></a> </td>
+                    <td><a href="{{ path('panel_show_map', {'id': map.id}) }}" class="btn btn-primary">{{ 'panel.maps.show'|trans({}, 'controller') }}</a> </td>
                 </tr>
                     {% endfor %}
                 </tbody>

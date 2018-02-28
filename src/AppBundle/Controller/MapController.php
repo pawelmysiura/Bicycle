@@ -171,7 +171,6 @@ class MapController extends BaseController
     public function allMapsAction($page)
     {
         $paginator = $this->getAllPagination($page, Map::class);
-
         return $this->render('panel/map/mapsList.html.twig', [
             'paginator' => $paginator
         ]);

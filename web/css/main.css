@@ -13,6 +13,12 @@ html, body {
     height: 400px;
 }
 
+.jumbotron {
+    background-size: cover;
+    background: url("../img/front.jpg") center !important;
+    height: 20rem;
+    width: 100%;
+}
 .footer {
     position: relative;
     margin-top: -200px;

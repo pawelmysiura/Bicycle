@@ -1,8 +1,12 @@
+
 {% extends 'front/frontLayout.html.twig' %}
 {% block title %}
     {{ 'front.title.index'|trans({}, 'controller') }}
 {% endblock %}
 {% block frontContent %}
+    <div style='background-image: url("{{ asset('/img/front.jpg') }}")'>
+        <img src="{{ asset('/img/front.jpg') }}">
+    </div>
     <div class="jumbotron">
         <div id="main" class="container text-center mt-4">
             <h1 class="display-3">{{ 'front.index.text_1'|trans({}, 'controller') }}</h1>
@@ -13,4 +17,3 @@
         </div>
     </div>
 {% endblock %}
-
