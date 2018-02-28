@@ -16,7 +16,7 @@ class MapController extends BaseController
 {
 
     /**
-     * @Route("/maps/{$page}", name="admin_maps", defaults={"page" = 1}, requirements={"page" = "\d+"})
+     * @Route("/maps/{page}", name="admin_maps", defaults={"page" = 1}, requirements={"page" = "\d+"})
      * @param $page
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -46,7 +46,7 @@ class MapController extends BaseController
             /**
              * @var MapImage $image
              */
-            foreach ($map->getImage as $image)
+            foreach ($map->getImage() as $image)
             {
                 $image->setMap($map);
                 $em->persist($image);
