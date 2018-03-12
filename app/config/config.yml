@@ -30,6 +30,8 @@ framework:
     assets: ~
     php_errors:
         log: true
+    templating:
+        engines: ['twig']
 
 # Twig Configuration
 twig:
@@ -103,3 +105,18 @@ stof_doctrine_extensions:
 knp_paginator:
     template:
         pagination: '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig'
+
+assetic:
+    debug:          '%kernel.debug%'
+    use_controller: '%kernel.debug%'
+    # the path to the node executable
+    bundles:        [ AppBundle ]
+    node: /usr/bin/nodejs
+    filters:
+        uglifyjs2:
+            # the path to the uglifyjs executable
+            bin: "%kernel.root_dir%/Resources/node_modules/uglify-js/bin/uglifyjs"
+        uglifycss:
+            bin: "%kernel.root_dir%/Resources/node_modules/uglifycss/uglifycss"
+        cssrewrite: ~
+
