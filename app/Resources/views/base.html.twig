@@ -34,11 +34,11 @@
     <div class="container">
         <div class="row vdivide-dark-dark align-items-center mt-4">
             <div class="col-sm-6">
-                <nav class="nav flex-column">
-                    <a class="footer-link" href="#">Active</a>
-                    <a class="footer-link" href="#">Link</a>
-                    <a class="footer-link" href="#">Link</a>
-                </nav>
+                {% if app.user.username is defined %}
+                    {{ print_panel_footer_menu() }}
+                {% else %}
+                {{ print_front_footer_menu() }}
+                {% endif %}
             </div>
             <div class="col-sm-6 text-center">
                 Vestibulum in laoreet arcu. Maecenas pharetra at enim quis laoreet.

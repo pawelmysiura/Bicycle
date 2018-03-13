@@ -1,0 +1,5 @@
+<nav class="nav flex-column">
+{% for name, route in menu %}
+    <a class="footer-link" href="{{ path(route) }}">{{ name }}</a>
+{% endfor %}
+</nav>

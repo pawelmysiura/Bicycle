@@ -4,7 +4,7 @@
 {% endblock %}
 {% block frontContent %}
     <div class="jumbotron">
-        <div class="container text-center">
+        <div class="container text-center text-light">
             <h1>{{ 'front.title.contact'|trans({}, 'controller') }}</h1>
         </div>
     </div>
@@ -14,11 +14,49 @@
             <div class="col-lg-6">
 {{ form(form) }}
             </div>
-            <div class="col-lg-6">
-                map map map map map map map
+            <div id="map" class="col-lg-6">
             </div>
 
         </div>
     </div>
+
+    <script>
+        function initMap() {
+            var bicycle = {lat: 52.214978, lng: 21.045701};
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+                center: bicycle
+            });
+
+            var contentString = '<div id="content">'+
+                '<div id="siteNotice">'+
+                '</div>'+
+                '<h1 id="firstHeading" class="firstHeading">Bicycle corp.</h1>'+
+                '<div id="bodyContent">'+
+                '<b>Warszawa 00-007</br>' +
+                'ul. Example 21</br>' +
+                'tel. XXX-XXX-XXX</br>' +
+                'fax. XXX-XXX-XXX</br>' +
+                'e-mail: example@example.ex</b>'+
+                '</div>'+
+                '</div>';
+
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString
+            });
+
+            var marker = new google.maps.Marker({
+                position: bicycle,
+                map: map,
+                title: 'Bicycle contact'
+            });
+            marker.addListener('click', function() {
+                infowindow.open(map, marker);
+            });
+        }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIttfn5Ev35d4l9w1UuF4bam8jHZzTXg0&callback=initMap">
+    </script>
 {% endblock %}
 
