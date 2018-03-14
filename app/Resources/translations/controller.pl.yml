@@ -81,6 +81,8 @@ admin:
   post:
     create: 'Utwórz post'
     edit: 'Edytuj post'
+    image: 'Aktualny obraz'
+    noimage: 'Brak obrazu'
   category:
     create: 'Utwórz kategorię'
 

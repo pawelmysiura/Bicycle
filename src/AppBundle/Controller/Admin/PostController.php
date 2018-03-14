@@ -35,16 +35,28 @@ class PostController extends BaseController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function postEditAction($post, Request $request)
+    public function postEditAction(Post $post, Request $request)
     {
         if (!$post)
         {
             throw $this->createNotFoundException('Post not found');
         }
         $form = $this->createForm(CreatePostType::class, $post);
-        $submit = $this->submitForm($form, $post, $request, $this->get('translator')->trans('flashmsg.success.admin.post_edit', [], 'message'));
-        if ($submit)
+
+        $form->handleRequest($request);
+        $image = $form->get('file')->getData();
+                if ( $image !== null) {
+                    $post->setPath(null);
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($post);
+                    $em->flush();
+                }
+        if ($form->isSubmitted() & $form->isValid())
         {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($post);
+            $em->flush();
+            $this->addFlash('success', $this->get('translator')->trans('flashmsg.success.admin.post_edit', [], 'message'));
             return $this->redirectToRoute('admin_posts');
         }
 

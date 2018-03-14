@@ -12,7 +12,16 @@ html, body {
 #map {
     height: 400px;
 }
-
+#post-title a{
+    color: honeydew;
+    background-color: black;
+    font-weight: bold;
+    padding: 0.5rem;
+}
+#post-title a:hover{
+    color: lightslategray;
+    background-color: black;
+}
 .jumbotron {
     background-size: cover;
     background: url("../img/front.jpg") center !important;
@@ -34,15 +43,10 @@ html, body {
     background-size: 100%;
     background-position-y: 25%;
 }
-#post-title a{
-    color: honeydew;
-    background-color: black;
-    font-weight: bold;
-    padding: 0.5rem;
-}
-#post-title a:hover{
-    color: lightslategray;
-    background-color: black;
+.post-form-image {
+    width: 150px;
+    height: 100px;
+    background-size: 100% 100%;
 }
 .search {
     width: 450px;

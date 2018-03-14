@@ -12,6 +12,7 @@ namespace AppBundle\Form\Type;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Map;
 use AppBundle\Entity\Post;
+use Assetic\Asset\AssetCollection;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -56,11 +57,15 @@ class CreatePostType extends AbstractType
                 ]
             ])
             ->add('file', FileType::class, [
-                'label' => 'Obraz'
+                'label' => 'create_post.file',
+                'translation_domain' => 'form',
+                'required' => false
             ])
             ->add('publishDate', DateTimeType::class, [
                 'label' => 'create_post.publish_date',
-                'translation_domain' => 'form'
+                'translation_domain' => 'form',
+                'data' => new \DateTime('now')
+
             ])
             ->add('send', SubmitType::class, [
                 'label' => 'submit',
