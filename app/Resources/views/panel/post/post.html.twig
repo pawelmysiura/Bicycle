@@ -6,9 +6,15 @@
     {% include 'template/flashMsg.html.twig' %}
         <div class="article bg-white">
             <div class="row mt-2">
-                <div class="col-lg-12">
-                    <h2><a href="#">{{ post.title }}</a></h2>
-                </div>
+                {% if post.path is null %}
+                    <div class="col-lg-12">
+                        <h2><a href="{{ path('panel_post', {'slug': post.slug}) }}">{{ post.title }}</a></h2>
+                    </div>
+                {% elseif post.path is not null %}
+                    <div id="post-title" class="col-lg-12 post-image" style='background-image: url("{{ asset('/bicycle/web/posts/images/' ~ post.id ~ '.' ~ post.path) }}")'>
+                        <h2><a href="{{ path('panel_post', {'slug': post.slug}) }}">{{ post.title }}</a></h2>
+                    </div>
+                    {% endif %}
             </div>
             <div class="row">
                 <div class="col-lg-6">

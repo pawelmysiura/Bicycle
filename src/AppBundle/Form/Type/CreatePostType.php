@@ -55,6 +55,9 @@ class CreatePostType extends AbstractType
                     'rows' => 5
                 ]
             ])
+            ->add('file', FileType::class, [
+                'label' => 'Obraz'
+            ])
             ->add('publishDate', DateTimeType::class, [
                 'label' => 'create_post.publish_date',
                 'translation_domain' => 'form'

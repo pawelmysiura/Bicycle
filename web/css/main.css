@@ -27,6 +27,23 @@ html, body {
     padding-top: 20px;
     color: grey;
 }
+.post-image {
+    width: 100%;
+    height: 200px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position-y: 25%;
+}
+#post-title a{
+    color: honeydew;
+    background-color: black;
+    font-weight: bold;
+    padding: 0.5rem;
+}
+#post-title a:hover{
+    color: lightslategray;
+    background-color: black;
+}
 .search {
     width: 450px;
 }

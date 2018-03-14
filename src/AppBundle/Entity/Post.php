@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Class Post
@@ -99,14 +100,6 @@ class Post
     private $publishDate;
 
     /**
-     * NOTE: This is not a mapped field of entity metadata, just a simple property.
-     *
-     * @Vich\UploadableField(mapping="post_image", fileNameProperty="imageName", size="imageSize")
-     *
-     * @var File
-     */
-
-    /**
      * @ORM\OneToMany(
      *     targetEntity="AppBundle\Entity\Comment",
      *     mappedBy="post"
@@ -114,6 +107,97 @@ class Post
      * @ORM\OrderBy({"createDate" = "DESC"})
      */
     private $comment;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $path;
+
+    /**
+     * @Assert\File(maxSize="6000000")
+     */
+    private $file;
+
+    private $temp;
+
+    /**
+     * Sets file.
+     * @param UploadedFile|null $file
+     */
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+
+        if (is_file($this->getAbsolutePath()))
+        {
+            $this->temp = $this->getAbsolutePath();
+        } else {
+            $this->path = 'initial';
+        }
+    }
+
+    /**
+     * @return mixed
+     */public function getFile()
+{
+    return $this->file;
+}
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpdate()
+    {
+        if (null !== $this->file) {
+            $this->path = $this->getFile()->guessExtension();
+        }
+    }
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
+    {
+        if (null === $this->file)
+        {
+            return;
+        }
+        if (isset($this->temp))
+        {
+            unlink($this->temp);
+            $this->temp = null;
+        }
+
+        $this->getFile()->move($this->getUploadRootDir(), $this->id.'.'.$this->getFile()->guessExtension());
+        $this->setFile(null);
+    }
+
+    /**
+     * @ORM\PreRemove()
+     */
+    public function storeFileNameForRemove()
+    {
+        $this->temp = $this->getAbsolutePath();
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if (isset($this->temp))
+        {
+            unlink($this->temp);
+        }
+    }
+
+    public function getAbsolutePath()
+    {
+        return null === $this->path
+            ? null
+            : $this->getUploadDir().'/'.$this->id.'.'.$this->path;
+    }
 
     /**
      * @return mixed
@@ -283,6 +367,32 @@ class Post
     public function setComment($comment)
     {
         $this->comment = $comment;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * @param mixed $path
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+    }
+
+    protected function getUploadRootDir()
+    {
+        return __DIR__.'/../../../web/'.$this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        return 'posts/images';
     }
 
 }
