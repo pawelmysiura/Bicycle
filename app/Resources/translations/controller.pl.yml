@@ -49,7 +49,7 @@ panel:
       delete: 'Usuń z ulobionych'
       add: 'Dodaj do ulubionych'
   user:
-    title:
+    edit_avatar: 'Edytuj avatar'
 
 admin:
   title:
@@ -99,6 +99,7 @@ user:
     edit: 'Edytuj profil'
   profile:
     change_password: 'Zmień hasło'
+    change_avatar: 'Zmień avatar'
     your_path: 'Dodane ścieżki'
     show: 'Pokaż'
   login:

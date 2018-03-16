@@ -108,9 +108,12 @@
         <div class="row mt-2 bg-white p-2">
             <div class="col-lg-2 text-center">
                 {{ comment.author.username }}
-                <br><h1>
-                    <i class="fa fa-user-circle"></i>
-                </h1>
+                <br>
+                {% if comment.author.imageName is not null %}
+                    <img class="avatar" src="{{ vich_uploader_asset(comment.author, 'imageFile') }}">
+                {% else %}
+                    <img class="avatar" src="{{ asset('users/avatar/avatar.png') }}">
+                {% endif %}
                 <br>
                 {{ comment.createDate|date('d.n.Y H:m:s') }}
             </div>

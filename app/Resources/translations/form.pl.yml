@@ -18,7 +18,8 @@ create_post:
 create_tag:
   name: 'Nazwa'
 comments:
-
+user:
+  avatar: 'Twój nowy avatar'
 search:
   submit: 'Szukaj'
 submit: 'Wyślij'

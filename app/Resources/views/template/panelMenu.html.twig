@@ -1,5 +1,11 @@
 <ul id="menu" class="menu-content collapse out">
-    <div class="text-center"><h1><i class="fa fa-user-circle"></i></h1> </div>
+    <div class="text-center mb-2">
+        {% if app.user.imageName is not null %}
+            <img class="avatar" src="{{ vich_uploader_asset(app.user, 'imageFile') }}">
+        {% else %}
+            <img class="avatar" src="{{ asset('users/avatar/avatar.png') }}">
+        {% endif %}
+    </div>
 {% for name, route in menu %}
     {% if app.request.get('_route') == route  %}
     <li class="active">

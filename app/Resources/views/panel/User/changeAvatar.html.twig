@@ -1,0 +1,16 @@
+{% extends 'panel/panelLayout.html.twig' %}
+{% block title %}
+    {{ 'panel.user.edit_avatar'|trans({}, 'controller') }}
+{% endblock %}
+{% block panelContent %}
+    <div class="row bg-white pt-3 text-center">
+        <div class="col-lg-3">
+        </div>
+            <div class="col-lg-6">
+{{ form(form) }}
+    </div>
+    <div class="col-lg-3">
+    </div>
+    </div>
+
+{% endblock %}

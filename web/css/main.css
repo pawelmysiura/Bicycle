@@ -97,6 +97,16 @@ html, body {
     padding-top: 6rem;
 }
 
+.image-file {
+    width: 350px!important;
+}
+
+.avatar {
+    height: 50px;
+    width: 50px;
+    border-radius: 25px;
+}
+
 .sidenav{
     height: 100%;
     position: fixed;

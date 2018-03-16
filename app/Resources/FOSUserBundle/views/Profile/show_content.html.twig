@@ -3,12 +3,18 @@
     <div class="col-lg-9">
         <div class="fos_user_user_show">
             <h2>
-            <p>Witaj: {{ user.username }}</p>
+            Witaj: {{ user.username }}
+                {% if user.imageName is not null %}
+            <img class="avatar" src="{{ vich_uploader_asset(user, 'imageFile') }}">
+                {% else %}
+                    <img class="avatar" src="{{ asset('users/avatar/avatar.png') }}">
+                {% endif %}
+                <a href="{{ path('panel_user_avatar') }}" class="btn btn-primary">{{ 'user.profile.change_avatar'|trans({}, 'controller') }}</a>
+
             </h2>
         </div>
-
 </div>
-    <div class="col-lg-3">
+    <div class="col-lg-3 mt-1">
         <a href="{{ path('fos_user_change_password') }}" class="btn btn-primary">{{ 'user.profile.change_password'|trans({}, 'controller') }}</a>
     </div>
 </div>

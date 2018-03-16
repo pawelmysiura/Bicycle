@@ -29,3 +29,8 @@ post:
     prefix: /panel
     type: annotation
 
+user:
+    resource: '@AppBundle/Controller/UserController.php'
+    prefix: /panel
+    type: annotation
+
