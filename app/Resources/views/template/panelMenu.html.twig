@@ -18,4 +18,16 @@
         <hr style="background-color: gray">
     {% endif %}
 {% endfor %}
+    {% if  is_granted('ROLE_ADMIN') %}
+    {% if app.request.get('_route') == 'admin'  %}
+    <li>
+        <a href="{{ path('panel') }}">{{ 'panel.menu.panel'|trans({}, 'controller') }}</a>
+    </li>
+{% else %}
 </ul>
+<li>
+        <a href="{{ path('admin') }}">{{ 'panel.menu.admin'|trans({}, 'controller') }}</a>
+        </li>
+</ul>
+{% endif %}
+{% endif %}

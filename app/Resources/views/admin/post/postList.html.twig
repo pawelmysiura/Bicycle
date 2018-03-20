@@ -31,6 +31,7 @@
                     <th>{{ knp_pagination_sortable(paginator, 'admin.title.edit_category'|trans({}, 'controller'), 'c.name') }}</th>
                     <th>Tag</th>
                     <th>{{ knp_pagination_sortable(paginator, 'admin.author'|trans({}, 'controller'), 'a.username') }}</th>
+                    <th>{{ knp_pagination_sortable(paginator, 'admin.post.create_date'|trans({}, 'controller'), 'p.createDate') }}</th>
                     <th>{{ 'admin.edit'|trans({}, 'controller') }}</th>
                     <th>{{ 'admin.delete'|trans({}, 'controller') }}</th>
                 </tr>
@@ -43,6 +44,7 @@
                     <td>{% if post.category.name is not defined %} null {% else %}{{ post.category.name }}{% endif %}</td>
                     <td>{% for tag in post.tag %} {{ tag.name }} | {% endfor %}</td>
                     <td>{{ post.author.username }}</td>
+                    <td>{{ post.createDate|date('d.n.Y H:m:s') }}</td>
                     <td><a href="{{ path('admin_post_edit', {"slug": post.slug}) }}" class="btn btn-primary">{{ 'admin.edit'|trans({}, 'controller') }}</a> </td>
                     <td><a style="color: darkred;" href="{{ path('admin_post_delete', {"slug": post.slug}) }}" class="fas fa-times"></a></td>
                 </tr>

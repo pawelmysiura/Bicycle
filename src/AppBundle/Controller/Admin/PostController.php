@@ -75,7 +75,7 @@ class PostController extends BaseController
     {
         $post = new Post();
         $post->setAuthor($this->getUser());
-        $post->setCreateDeate(new \DateTime());
+        $post->setCreateDate(new \DateTime('now'));
         $form = $this->createForm(CreatePostType::class, $post);
         $submit = $this->submitForm($form, $post, $request, $this->get('translator')->trans('flashmsg.success.admin.post_created', [], 'message'));
         if ($submit)

@@ -86,7 +86,7 @@ class PostFixtures extends AbstractFixture implements OrderedFixtureInterface
             $post->setTitle($details['title']);
             $post->setContent($details['content']);
             $post->setAuthor($this->getReference('user_'.$details['author']));
-            $post->setCreateDeate(new \DateTime($details['createDate']));
+            $post->setCreateDate(new \DateTime($details['createDate']));
             if ($details['publishedDate'] !== null){
                 $post->setPublishDate(new \DateTime($details['publishedDate']));
             }

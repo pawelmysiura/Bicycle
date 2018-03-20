@@ -26,6 +26,7 @@
                     <th>{{ 'admin.id'|trans({}, 'controller') }}</th>
                     <th>{{ 'admin.name'|trans({}, 'controller') }}</th>
                     <th>{{ 'admin.author'|trans({}, 'controller') }}</th>
+                    <th>{{ 'panel.maps.create_date'|trans({}, 'controller') }}</th>
                     <th>{{ 'admin.edit'|trans({}, 'controller') }}</th>
                     <th>{{ 'admin.delete'|trans({}, 'controller') }}</th>
                 </tr>
@@ -36,6 +37,7 @@
                     <td>{{ map.id }}</td>
                     <td><a style="color: black" href="{{ path('panel_show_map', {'id': map.id}) }}">{{ map.name }}</a></td>
                     <td>{{ map.author.username }}</td>
+                    <td>{{ map.createDate|date('d.n.Y H:m:s') }}</td>
                     <td><a href="{{ path('admin_map_edit', {'id': map.id}) }}" class="btn btn-primary">{{ 'admin.edit'|trans({}, 'controller') }}</a> </td>
                     <td><a style="color: darkred;" href="{{ path('admin_map_delete', {'id': map.id}) }}" class="fas fa-times"></a></td>
                 </tr>

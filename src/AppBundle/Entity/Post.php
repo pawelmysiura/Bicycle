@@ -89,7 +89,7 @@ class Post
     /**
      * @ORM\Column(type="datetime")
      */
-    private $createDeate;
+    private $createDate;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -322,17 +322,17 @@ class Post
     /**
      * @return mixed
      */
-    public function getCreateDeate()
+    public function getCreateDate()
     {
-        return $this->createDeate;
+        return $this->createDate;
     }
 
     /**
-     * @param mixed $createDeate
+     * @param mixed $createDate
      */
-    public function setCreateDeate($createDeate)
+    public function setCreateDate($createDate)
     {
-        $this->createDeate = $createDeate;
+        $this->createDate = $createDate;
     }
 
     /**

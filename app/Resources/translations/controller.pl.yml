@@ -28,6 +28,8 @@ panel:
     favourite: 'Ulubione'
     user_properties: 'Ustawienia użytkownika'
     logout: 'Wyloguj'
+    admin: 'Panel Administracyjny'
+    panel: 'Powrót'
   maps:
     title:
       create: 'Utwórz trasę'
@@ -84,6 +86,7 @@ admin:
     edit: 'Edytuj post'
     image: 'Aktualny obraz'
     noimage: 'Brak obrazu'
+    create_date: 'Data utworzenia'
   category:
     create: 'Utwórz kategorię'
 
