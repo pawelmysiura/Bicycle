@@ -39,6 +39,7 @@ panel:
     name: 'Nazwa'
     author: 'Autor'
     show: 'Pokaż'
+    create_date: 'Data utworzenia'
     add_photo: 'Dodaj zdjęcie'
     delete_photo: 'Usuń'
     description: 'Opis trasy'

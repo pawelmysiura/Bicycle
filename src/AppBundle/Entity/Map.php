@@ -91,6 +91,11 @@ class Map
     private $comment;
 
     /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createDate;
+
+    /**
      * @ORM\OneToMany(
      *     targetEntity="AppBundle\Entity\MapImage",
      *     mappedBy="map",
@@ -307,8 +312,25 @@ class Map
     {
         $this->image->add($mapImage);
         $mapImage->setId($this);
-//        $this->image[] = $mapImage;
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCreateDate()
+    {
+        return $this->createDate;
+    }
+
+    /**
+     * @param mixed $createDate
+     */
+    public function setCreateDate($createDate)
+    {
+        $this->createDate = $createDate;
+    }
+
+
 }

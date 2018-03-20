@@ -32,6 +32,7 @@ class MapFixtures extends AbstractFixture implements OrderedFixtureInterface
             'start' => '{"lat":49.9672344,"lng":18.861218000000008}',
             'end' => '{"lat":49.9679214,"lng":19.783434400000033}',
             'waypoints' => '{"0":{"lat":50.0392603,"lng":19.138980400000037},"1":{"lat":49.9836863,"lng":19.789433700000018}}',
+                'createDate' => '2018-01-28 12:31:14'
         ],
             [
                 'name' => 'Quisque eget aliquam.',
@@ -40,6 +41,7 @@ class MapFixtures extends AbstractFixture implements OrderedFixtureInterface
                 'start' => '{"lat":50.04567,"lng":19.940220100000033}',
                 'end' => '{"lat":50.0338467,"lng":19.216779299999985}',
                 'waypoints' => '{"0":{"lat":50.00452560000001,"lng":19.571619000000055}}',
+                'createDate' => '2018-02-28 18:11:15'
             ],
             [
                 'name' => 'Etiam in enim malesuada.',
@@ -48,6 +50,7 @@ class MapFixtures extends AbstractFixture implements OrderedFixtureInterface
                 'start' => '{"lat":50.0503724,"lng":19.95018749999997}',
                 'end' => '{"lat":50.1280285,"lng":19.37431379999998}',
                 'waypoints' => '{"0":{"lat":50.0519814,"lng":19.784151299999962},"1":{"lat":50.1197576,"lng":19.543959299999983}}',
+                'createDate' => '2018-02-29 12:41:14'
             ],
             ];
 
@@ -59,6 +62,7 @@ class MapFixtures extends AbstractFixture implements OrderedFixtureInterface
             $map->setStart($details['start']);
             $map->setEnd($details['end']);
             $map->setWaypoints($details['waypoints']);
+            $map->setCreateDate(new \DateTime($details['createDate']));
             $manager->persist($map);
         }
         $manager->flush();

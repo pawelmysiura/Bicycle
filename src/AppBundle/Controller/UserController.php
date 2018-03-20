@@ -14,11 +14,11 @@ class UserController extends BaseController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function editAvatarFormAction(Request $request)
+    public function editAvatarAction(Request $request)
     {
         $user = $this->getUser();
         $form = $this->createForm(AvatarType::class, $user);
-        $submit = $this->submitForm($form, $user, $request, 'avatar zmieniony');
+        $submit = $this->submitForm($form, $user, $request, $this->get('translator')->trans('flashmsg.success.user_avatar', [], 'message'));
         if ($submit)
         {
             return $this->redirectToRoute('fos_user_profile_show');

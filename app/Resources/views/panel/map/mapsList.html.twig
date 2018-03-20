@@ -26,6 +26,7 @@
                     <th>{{ 'panel.maps.name'|trans({}, 'controller') }}</th>
                     <th>{{ 'panel.maps.author'|trans({}, 'controller') }}</th>
                     <th>{{ 'panel.maps.show'|trans({}, 'controller') }}</th>
+                    <th>{{ 'panel.maps.create_date'|trans({}, 'controller') }}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -34,6 +35,7 @@
                     <td>{{ map.name }}</td>
                     <td>{{ map.author.username }}</td>
                     <td><a href="{{ path('panel_show_map', {'id': map.id}) }}" class="btn btn-primary">{{ 'panel.maps.show'|trans({}, 'controller') }}</a> </td>
+                    <td>{{ map.createDate|date('d.n.Y H:m:s') }}</td>
                 </tr>
                     {% endfor %}
                 </tbody>

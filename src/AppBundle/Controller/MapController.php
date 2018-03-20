@@ -31,6 +31,7 @@ class MapController extends BaseController
         {
 
             $map->setAuthor($this->getUser());
+            $map->setCreateDate(new \DateTime('now'));
             $em = $this->getDoctrine()->getManager();
             $em->persist($map);
 

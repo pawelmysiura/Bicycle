@@ -21,6 +21,7 @@ flashmsg:
       add_favourite: 'Dodano do ulubionych'
       remove_favourite: 'Usunięto z ulubionych'
     comment_send: 'Wiadmość została wysłana'
+    user_avatar: 'Obraz profilu zmieniony'
   error:
     map:
       map_edit: 'Nie możesz edytować trasy'
