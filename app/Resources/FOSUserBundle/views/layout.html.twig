@@ -8,9 +8,9 @@
                             <h1 class="mt-5">{{ app.user.username }} {{ 'user.login.allready_login_head'|trans({}, 'controller') }}</h1>
                             <p class="lead">{{ 'user.login.allready_login_description'|trans({}, 'controller') }}</p>
                             <ul class="list-unstyled">
-                                <li><a href="{{ path('panel') }}" class="btn btn-success">Powrót</a></li>
+                                <li><a href="{{ path('panel') }}" class="btn btn-success">{{ 'panel.menu.panel'|trans({}, 'controller') }}</a></li>
                                 <p></p>
-                                <li><a href="{{ path('fos_user_security_logout') }}" class="btn btn-danger">Powrót</a></li>
+                                <li><a href="{{ path('fos_user_security_logout') }}" class="btn btn-danger">{{ 'panel.menu.logout'|trans({}, 'controller') }}</a></li>
                             </ul>
                         </div>
                     </div>
