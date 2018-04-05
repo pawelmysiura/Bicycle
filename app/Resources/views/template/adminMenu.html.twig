@@ -19,8 +19,8 @@
     {% endif %}
 {% endfor %}
     {% if  is_granted('ROLE_ADMIN') %}
-<li>
-        <a href="{{ path('admin') }}">{{ 'panel.menu.admin'|trans({}, 'controller') }}</a>
-        </li>
+    <li>
+        <a href="{{ path('panel') }}">{{ 'panel.menu.panel'|trans({}, 'controller') }}</a>
+    </li>
 </ul>
 {% endif %}

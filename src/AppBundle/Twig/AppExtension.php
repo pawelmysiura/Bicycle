@@ -89,7 +89,7 @@ class AppExtension extends \Twig_Extension
             $this->translator->trans('admin.title.users',[] , 'controller') => 'admin_users'
         ];
         try {
-            return $environment->render('template/panelMenu.html.twig', [
+            return $environment->render('template/adminMenu.html.twig', [
                 'menu' => $adminMenu
             ]);
         } catch (\Twig_Error_Loader $e) {
