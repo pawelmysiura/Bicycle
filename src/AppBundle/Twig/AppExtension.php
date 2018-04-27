@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: pawel
- * Date: 05.02.18
- * Time: 17:41
- */
 
 namespace AppBundle\Twig;
 
@@ -16,6 +10,7 @@ class AppExtension extends \Twig_Extension
      * @var Translator
      */
     private $translator;
+
 
     public function __construct(Translator $translator)
     {
@@ -148,4 +143,5 @@ class AppExtension extends \Twig_Extension
         } catch (\Twig_Error_Syntax $e) {
         }
     }
+
 }

@@ -106,6 +106,14 @@ class Map
     private $image;
 
     /**
+     * @ORM\OneToMany(
+     *     targetEntity="AppBundle\Entity\Rating",
+     *     mappedBy="map"
+     * )
+     */
+    private $rating;
+
+    /**
      * Map constructor.
      * @param $favourite
      */
@@ -330,6 +338,22 @@ class Map
     public function setCreateDate($createDate)
     {
         $this->createDate = $createDate;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRating()
+    {
+        return $this->rating;
+    }
+
+    /**
+     * @param mixed $rating
+     */
+    public function setRating($rating)
+    {
+        $this->rating = $rating;
     }
 
 

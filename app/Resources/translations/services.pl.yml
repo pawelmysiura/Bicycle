@@ -1,0 +1,4 @@
+rating_service:
+  success:
+    new: 'Dodano ocenę'
+    exist: 'Zmieniono ocenę'

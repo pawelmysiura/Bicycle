@@ -5,14 +5,19 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\CommentMap;
 use AppBundle\Entity\Map;
 use AppBundle\Entity\MapImage;
+use AppBundle\Entity\Rating;
 use AppBundle\Form\Type\CreateMapType;
 use AppBundle\Form\Type\MapCommentType;
 use AppBundle\Form\Type\SearchContentType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Serializer\Encoder\JsonDecode;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
+use AppBundle\Service\Rating\RatingService;
 
 class MapController extends BaseController
 {
@@ -287,6 +292,43 @@ class MapController extends BaseController
                 'search' => $search['search']
             ]);
         }
+    }
+
+    /**
+     * @Route("/map/rating", name="panel_map_rating")
+     * @param Request $request
+     * @param \AppBundle\Service\Rating\RatingService $ratingService
+     * @return Response
+     */
+    public function mapRatingAction(Request $request, \AppBundle\Service\Rating\RatingService $ratingService)
+    {
+        $user = $this->getUser();
+        $requestId = $request->attributes->get('map');
+        $number = $request->attributes->get('number');
+        $mapId = $ratingService->addToSession('mapId', $requestId);
+        $numbers = $ratingService->addToSession('number', $number);
+        $average = $ratingService->existRating($mapId);
+        $addedRating = $this->getDoctrine()->getRepository(Rating::class)->findOneBy([
+            'user' => $user->getId(),
+            'map' => $mapId
+        ]);
+        if ($request->isXmlHttpRequest())
+        {
+            $content = $request->getContent();
+            $param = json_decode($content, true);
+            if ($numbers !== 'off')
+            {
+                $mapId = $param['map'];
+            }
+            $rating = $ratingService->newRating($param['stars'], $user, $mapId);
+            return $rating;
+        }
+
+        return $this->render('panel/map/ratingMap.html.twig', [
+            'addedRating' => $addedRating,
+            'average' => round($average, 2),
+            'number' => $number
+        ]);
     }
 
 }

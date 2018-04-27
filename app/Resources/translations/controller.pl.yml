@@ -31,6 +31,11 @@ panel:
     admin: 'Panel Administracyjny'
     panel: 'Powrót'
   maps:
+    rating:
+      user_rating: 'Ocena użytkowników'
+      no_user_rating: 'Brak oceny'
+      your_rate: 'Twoja ocena'
+      show_map_rate: 'Ocena trasy'
     title:
       create: 'Utwórz trasę'
       edmit: 'Edytuj trasę'

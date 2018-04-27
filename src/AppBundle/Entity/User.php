@@ -59,6 +59,14 @@ class User extends BaseUser
      */
     protected $favouriteMap;
 
+    /**
+     * @ORM\OneToMany(
+     *     targetEntity="AppBundle\Entity\Rating",
+     *     mappedBy="user"
+     * )
+     */
+    private $rating;
+
     public function __construct()
     {
         parent::__construct();
@@ -108,4 +116,22 @@ class User extends BaseUser
     {
         return $this->imageSize;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getRating()
+    {
+        return $this->rating;
+    }
+
+    /**
+     * @param mixed $rating
+     */
+    public function setRating($rating)
+    {
+        $this->rating = $rating;
+    }
+
+
 }

@@ -1,0 +1,84 @@
+<div id="success_rating{{ number }}" class="text-center"></div>
+<ul id="stars{{ number }}" class="stars_rating text-center">
+    <li class="fa fa-star star" data-value="1" title="źle"></li>
+    <li class="fa fa-star star" data-value="2" title="słabo"></li>
+    <li class="fa fa-star star" data-value="3" title="przeciętnie"></li>
+    <li class="fa fa-star star" data-value="4" title="dobrze"></li>
+    <li class="fa fa-star star" data-value="5" title="bardzo dobrze"></li>
+</ul>
+<div class="text-center map_rating">{{ 'panel.maps.rating.user_rating'|trans({}, 'controller') }}</div>
+<ul class="stars_rating text-center">
+    <li class="fa fa-user"></li>
+    {% if average is not null %}
+        <li class="fa fa-star starHover"><span class="text-dark">{{ average }}</span></li>
+    {% else %}
+        <li class="fa fa-star starHover"><span class="text-dark">{{ 'panel.maps.rating.no_user_rating'|trans({}, 'controller') }}</span></li>
+    {% endif %}
+</ul>
+<script>
+    $(document).ready(function(){
+        {% if addedRating is not null %}
+        $(function showStars() {
+            let exist = {{ addedRating.rating }};
+            if (exist !== null) {
+
+                let onStarExist = {{ addedRating.rating }};
+                let starsExist = $('#stars{{ number }} li').parent().children('li.star');
+
+                for (i = 0; i < onStarExist; i++) {
+                    $(starsExist[i]).addClass('starSelected');
+                }
+                $('#success_rating{{ number }}').html('<span class="map_rating">' + '{{ "panel.maps.rating.your_rate"|trans({}, "controller") }}' + '</span>')
+            }
+        });
+        {% endif %}
+
+        $('#stars{{ number }} li').on('mouseover', function(){
+            $(this).removeClass('starHover');
+            let onStar = parseInt($(this).data('value'));
+
+            $(this).parent().children('li.star').each(function(e){
+                if (e < onStar) {
+                    $(this).addClass('starHover');
+                }
+                else {
+                    $(this).removeClass('starHover');
+                }
+            });
+
+        }).on('mouseout', function(){
+            $(this).parent().children('li.star').each(function(e){
+                $(this).removeClass('starHover');
+            });
+        });
+
+        $('#stars{{ number }} li').on('click', function() {
+            let onStar = parseInt($(this).data('value')); // The star currently selected
+            let stars = $(this).parent().children('li.star');
+
+            for (i = 0; i < stars.length; i++) {
+                $(stars[i]).removeClass('starSelected');
+            }
+
+            for (i = 0; i < onStar; i++) {
+                $(stars[i]).addClass('starSelected');
+            }
+            let rating = {
+                stars: onStar,
+                map: '{{ number }}'
+            };
+            console.log(JSON.stringify(rating));
+            $.ajax({
+                type: 'POST',
+                url: "{{ path('panel_map_rating') }}",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(rating),
+                dataType: 'json',
+                success: function(response) {
+                    $('#success_rating{{ number }}').html('<span class="map_rating">' + response['success'] +'</span>')
+                }
+            });
+        })
+
+    });
+</script>

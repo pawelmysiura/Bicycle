@@ -8,6 +8,7 @@
     <div class="row bg-white pt-3">
         <div class="col-lg-7 float-left">
             <h3>{{ map.name }}</h3>
+
         </div>
         <div class="col-lg-2 form-group">
             {% set favouriteFound = 0 %}
@@ -29,23 +30,26 @@
         </div>
     </div>
     <div class="link bg-white">
-        <div class="row bg-white mt-2 pt-3 pb-3 text-center">
+        <div class="row bg-white mt-2 pt-3 pb-3 text-center align-middle">
             <div class="col-lg-4">
                 {{ 'panel.maps.author'|trans({}, 'controller') }}: <a href="#">{{ map.author.username }}</a>
             </div>
             <div class="col-lg-4">
-                {#Poziom trudności: Średni#}
+
             </div>
             <div class="col-lg-4">
-                {#Ocena użytkowników: 5/5#}
             </div>
         </div>
         <hr>
         <div class="row">
             <div class="col-lg-3 text-center">
-                {{ 'panel.maps.description'|trans({}, 'controller') }}
+                {{ 'panel.maps.rating.show_map_rate'|trans({}, 'controller') }}
+                {{ render(controller('AppBundle:Map:mapRating',
+                    {'map': map.id, 'number': 'off'}
+                )) }}
             </div>
             <div class="col-lg-9">
+                {{ 'panel.maps.description'|trans({}, 'controller') }}:<br>
                 {{ map.description }}
 
             </div>
@@ -169,6 +173,7 @@
                 });
         }
     </script>
+
     {% if data is defined %}
     {{ data }}
         {% endif %}

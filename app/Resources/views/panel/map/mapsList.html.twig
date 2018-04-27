@@ -20,22 +20,26 @@
     </div>
     <div class="row mt-3 bg-white">
         <div class="col-lg-12 mt-2">
-            <table class="table table-striped">
+            <table class="table table-striped text-center table-bordered">
                 <thead>
                 <tr>
                     <th>{{ 'panel.maps.name'|trans({}, 'controller') }}</th>
                     <th>{{ 'panel.maps.author'|trans({}, 'controller') }}</th>
                     <th>{{ 'panel.maps.show'|trans({}, 'controller') }}</th>
                     <th>{{ 'panel.maps.create_date'|trans({}, 'controller') }}</th>
+                    <th>Ocena</th>
                 </tr>
                 </thead>
                 <tbody>
+                {% set number = 1 %}
                 {% for map in paginator %}
                 <tr>
-                    <td>{{ map.name }}</td>
-                    <td>{{ map.author.username }}</td>
-                    <td><a href="{{ path('panel_show_map', {'id': map.id}) }}" class="btn btn-primary">{{ 'panel.maps.show'|trans({}, 'controller') }}</a> </td>
-                    <td>{{ map.createDate|date('d.n.Y H:m:s') }}</td>
+                    <td class="align-middle">{{ map.name }}</td>
+                    <td class="align-middle">{{ map.author.username }}</td>
+                    <td class="align-middle"><a href="{{ path('panel_show_map', {'id': map.id}) }}" class="btn btn-primary">{{ 'panel.maps.show'|trans({}, 'controller') }}</a> </td>
+                    <td class="align-middle">{{ map.createDate|date('d.n.Y H:m:s') }}</td>
+                    <td class="align-middle">{{ render(controller('AppBundle:Map:mapRating',{'map': map.id, 'number': number})) }}</td>
+                    {% set number = number + 1 %}
                 </tr>
                     {% endfor %}
                 </tbody>
@@ -43,5 +47,7 @@
         </div>
         {{ knp_pagination_render(paginator) }}
     </div>
+
+
 
 {% endblock %}

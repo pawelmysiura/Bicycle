@@ -210,3 +210,28 @@ body {
     text-decoration: none;
     color: #606b78;
 }
+
+.star {
+    list-style-type:none;
+    padding:0;
+
+    -moz-user-select:none;
+    -webkit-user-select:none;
+    color: grey;
+    border: #171a1d 2px;
+}
+.starHover {
+    color: gold;
+    border: #171a1d 2px;
+}
+.starSelected {
+    color: orange;
+}
+
+.stars_rating {
+    margin-bottom: 0px;
+    padding-left: 0px;
+}
+.map_rating {
+    font-size: 10px;
+}
