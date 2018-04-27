@@ -67,7 +67,6 @@
                 stars: onStar,
                 map: '{{ number }}'
             };
-            console.log(JSON.stringify(rating));
             $.ajax({
                 type: 'POST',
                 url: "{{ path('panel_map_rating') }}",
