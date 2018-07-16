@@ -1,0 +1,92 @@
+{% extends 'panel/panelLayout.html.twig' %}
+
+{% block title %}
+    {{ 'panel.event.edit'|trans({}, 'controller') }}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+{% endblock javascripts %}
+
+{% block panelContent %}
+    {% include 'template/flashMsg.html.twig' %}
+    <div class="row bg-white pt-3">
+        <div class="col-lg-12 float-left">
+            <h3>{{ 'panel.event.edit'|trans({}, 'controller') }}</h3>
+        </div>
+    </div>
+    <div class="link bg-white">
+        <div class="row mt-2">
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <div id="map" style="height: 400px">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-lg-12">
+                {{ form_start(form) }}
+                {{ form_row(form.title) }}
+                {{ form_row(form.description) }}
+                {{ form_row(form.eventDate) }}
+                {{ form_row(form.endDateOfRegistration) }}
+                {{ form_row(form.imageFile) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+    <script>
+        var directionsDisplay,
+            directionsService;
+        var start = JSON.parse({{ event.start|json_encode|raw }}),
+            end = JSON.parse({{ event.end|json_encode|raw }}),
+            waypoints = JSON.parse({{ event.waypoints|json_encode|raw }});
+
+        function initMap() {
+            directionsDisplay = new google.maps.DirectionsRenderer;
+            directionsService = new google.maps.DirectionsService;
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 6,
+                center: start,
+                gestureHandling: 'greedy'
+            });
+
+            directionsDisplay.setMap(map);
+            calculateRoute(directionsService, directionsDisplay);
+        }
+
+        function calculateRoute(directionsService, directionsDisplay) {
+            var wp = [];
+
+            for (i = 0; i < Object.keys(waypoints).length; i++ )
+            {
+                wp.push({
+                    location:waypoints[i],
+                    stopover:false
+                });
+            }
+
+            directionsService.route({
+                origin: start,
+                destination: end,
+                waypoints: wp,
+                optimizeWaypoints: true,
+                travelMode: 'BICYCLING'
+            }, function (response, status) {
+                if (status == 'OK') {
+                    directionsDisplay.setDirections(response);
+                } else {
+                    window.alert('Directions request failed due to ' + status);
+                }
+            });
+        }
+    </script>
+
+    {% if data is defined %}
+    {{ data }}
+        {% endif %}
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIttfn5Ev35d4l9w1UuF4bam8jHZzTXg0&callback=initMap">
+    </script>
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'panel/panelLayout.html.twig' %}
+
+{% block title %}
+    {{ 'panel.event.confirm.confirm'|trans({}, 'controller') }}
+{% endblock %}
+{% block panelContent %}
+    {% include 'template/flashMsg.html.twig' %}
+    <div class="row bg-white pt-3">
+        <div class="col-lg-7 float-left">
+            <h3>{{ eventSign.event.title }}</h3>
+
+        </div>
+        <div class="col-lg-5 form-group">
+            {{ 'panel.event.confirm.show_qr'|trans({}, 'controller') }}
+        </div>
+    </div>
+    <div class="link bg-white">
+        <div class="row bg-white mt-2 pt-3 pb-3 text-center align-middle">
+            <div class="col-lg-8 p-5">
+                {{ 'panel.event.confirm.your_name'|trans({}, 'controller') }}
+                {{ eventSign.user.firstName }} {{ eventSign.user.surname }}
+                <p></p>
+                {{ 'panel.event.confirm.nick'|trans({}, 'controller') }}
+                 {{ eventSign.user.username }}
+    <p></p>
+                {{ 'panel.event.confirm.start_number'|trans({}, 'controller') }}
+
+                {% if eventSign.startNumber is null %}
+                    {{ 'panel.event.confirm.no_start_number'|trans({}, 'controller') }}
+
+                {% else %}
+                        <h1 class="border">{{ eventSign.startNumber }}</h1>
+
+                        {% endif %}
+            </div>
+            <div class="col-lg-4">
+                {{ 'panel.event.confirm.keep_qr'|trans({}, 'controller') }}
+
+                <img src="{{ qr_code_url(url('event_accept_contestant', {'slug': eventSign.event.slug, 'code': eventSign.code})) }}" />
+            </div>
+        </div>
+        <a href="{{ path('event_pdf_application', {'slug': eventSign.event.slug}) }}" class="btn btn-primary"><i class="fa fa-print"></i>{{ 'print'|trans({}, 'controller') }}
+        </a>
+    </div>
+
+
+{% endblock %}

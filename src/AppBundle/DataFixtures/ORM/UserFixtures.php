@@ -35,24 +35,26 @@ class UserFixtures extends AbstractFixture implements OrderedFixtureInterface, C
      * Load data fixtures with the passed EntityManager
      *
      * @param ObjectManager $manager
-     * @throws \Doctrine\Common\DataFixtures\BadMethodCallException
      */
     public function load(ObjectManager $manager)
     {
         $userList = [
-            self::getUser('admin', '123', 'pawmastero@gmail.com', true, 'ROLE_SUPER_ADMIN'),
-            self::getUser('Pawel', '123', 'testtesttestorlo@gmail.com', true, 'ROLE_ADMIN'),
-            self::getUser('wsad', '123', 'acrposlka@gmail.com', true, 'ROLE_USER'),
+            self::getUser('admin', '123', 'pawmastero@gmail.com', true, 'ROLE_SUPER_ADMIN', 'Adam', 'Kowalski'),
+            self::getUser('Pawel', '123', 'testtesttestorlo@gmail.com', true, 'ROLE_ADMIN', 'Paweł', 'Nowak'),
+            self::getUser('wsad', '123', 'acrposlka@gmail.com', true, 'ROLE_USER', 'Grzegorz', 'Brzęczyszczykiewicz'),
         ];
 
         $userManager = $this->container->get('fos_user.user_manager');
         foreach ($userList as $userDetails){
             $user = $userManager->createUser();
-            $user->setUsername($userDetails['username'])
-                ->setPlainPassword($userDetails['password'])
-                ->setEmail($userDetails['email'])
-                ->setEnabled($userDetails['enable'])
-                ->setRoles([$userDetails['role']]);
+            $user->setUsername($userDetails['username']);
+            $user->setPlainPassword($userDetails['password']);
+            $user->setEmail($userDetails['email']);
+            $user->setEnabled($userDetails['enable']);
+            $user->setRoles([$userDetails['role']]);
+            $user->setSurname($userDetails['lastName']);
+            $user->setFirstName($userDetails['firstName']);
+
 
             $this->addReference('user_'.$userDetails['username'], $user);
             $userManager->updateUser($user, true);
@@ -69,14 +71,16 @@ class UserFixtures extends AbstractFixture implements OrderedFixtureInterface, C
        return 1;
     }
 
-    public function getUser(string $username, string $password, string $email, $enable, string $role)
+    public function getUser(string $username, string $password, string $email, $enable, string $role, string $firstName, string $lastName)
     {
         return[
             'username' => $username,
             'password' => $password,
             'email' => $email,
             'enable' => $enable,
-            'role' => $role
+            'role' => $role,
+            'firstName' => $firstName,
+            'lastName' => $lastName
         ];
     }
 

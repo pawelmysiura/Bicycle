@@ -82,10 +82,6 @@ class AdminPostControllerTest extends BaseControllerTest
         $this->client->followRedirect();
         $this->assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertContains($container->get('translator')->trans('flashmsg.success.admin.post_created', [], 'message'), $this->client->getResponse()->getContent());
-//        $newPost = $this->em->getRepository(Post::class)->findOneBy([
-//            'title' => $title
-//        ])->getTitle();
-//        $this->assertEquals($title, $newPost);
     }
 
     public function testPostDelete()
@@ -101,7 +97,7 @@ class AdminPostControllerTest extends BaseControllerTest
 
     public function testHandleSearch(){
         $container = self::$kernel->getContainer();
-        $crawler = $this->client->request('GET', '/admin/posts/search');
+        $this->client->request('GET', '/admin/posts/search');
         $this->client->followRedirect();
         $this->assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
         $this->assertContains($container->get('translator')->trans('admin.title.posts', [], 'controller'), $this->client->getResponse()->getContent());

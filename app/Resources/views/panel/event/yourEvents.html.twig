@@ -1,0 +1,52 @@
+{% extends 'panel/panelLayout.html.twig' %}
+
+{% block title %}
+    {{ 'panel.event.your_events'|trans({}, 'controller') }}
+{% endblock %}
+
+{% block panelContent %}
+    {% include 'template/flashMsg.html.twig' %}
+    <div class="row bg-white pt-3">
+        <div class="col-lg-7 float-left">
+            {% if app.request.get('_route') == 'event_search' %}
+                <h3>{{ 'search'|trans({}, 'controller') }} {{ search }}</h3>
+            {% else %}
+                <h3>{{ 'panel.event.events'|trans({}, 'controller') }}</h3>
+            {% endif %}
+        </div>
+        <div class="col-lg-5 form-group search">
+            {{ render(controller('AppBundle:Event:searchEvent')) }}
+        </div>
+    </div>
+    <div class="row mt-3 bg-white">
+        <div class="col-lg-12 mt-2">
+            <table class="table table-striped text-center table-bordered">
+                <thead>
+                <tr>
+                    <th>{{ 'panel.event.title'|trans({}, 'controller') }}</th>
+                    <th>{{ 'panel.event.options'|trans({}, 'controller') }}</th>
+                    <th>{{ 'panel.event.show'|trans({}, 'controller') }}</th>
+                    <th>{{ 'panel.event.date'|trans({}, 'controller') }}</th>
+                    <th>{{ 'panel.event.delete'|trans({}, 'controller') }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% set number = 1 %}
+                {% for event in paginator %}
+                <tr>
+                    <td class="align-middle">{{ event.title }}</td>
+                    <td class="align-middle"><a href="{{ path('contestant_list', {'slug': event.slug}) }}" class="btn btn-primary">{{ 'panel.event.contestant_list'|trans({}, 'controller') }}</a></td>
+                    <td class="align-middle"><a href="{{ path('show_event', {'slug': event.slug}) }}" class="btn btn-primary">{{ 'panel.event.show'|trans({}, 'controller') }}</a> </td>
+                    <td class="align-middle">{{ event.eventDate|date('d.n.Y H:m:s') }}</td>
+                    <td><a style="color: darkred;" href="{{ path('delete_event', {'slug': event.slug}) }}" class="fas fa-times"></a></td>
+                </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {{ knp_pagination_render(paginator) }}
+    </div>
+
+
+
+{% endblock %}

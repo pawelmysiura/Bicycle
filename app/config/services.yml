@@ -38,6 +38,10 @@ services:
         class: AppBundle\Service\Rating\RatingService
         arguments: ['@doctrine', '@session', '@translator.default']
 
+    AppBundle\Service\Event\EventService:
+        class: AppBundle\Service\Event\EventService
+        arguments: ['@doctrine', '@white_october.tcpdf']
+
     # makes classes in src/AppBundle/DataFixtures available to be used as services
     # and have a tag that allows actions to type-hint services
     AppBundle\DataFixtures\:

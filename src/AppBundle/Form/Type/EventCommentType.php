@@ -1,0 +1,42 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: pawel
+ * Date: 18.01.18
+ * Time: 10:40
+ */
+
+namespace AppBundle\Form\Type;
+
+
+use AppBundle\Entity\CommentEvent;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+class EventCommentType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            ->add('comment', TextareaType::class, [
+                'label' => 'comments',
+                'translation_domain' => 'form',
+                'attr' => [
+                    'rows' => 3
+                ]
+                ])
+            ->add('submit', SubmitType::class, [
+                'label' => 'submit',
+                'translation_domain' => 'form'
+            ]);
+    }
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'data_class' => CommentEvent::class
+        ]);
+    }
+}

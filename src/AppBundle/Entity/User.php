@@ -67,6 +67,17 @@ class User extends BaseUser
      */
     private $rating;
 
+    /**
+     * @ORM\Column(type="string", nullable=true, length=254)
+     */
+    private $firstName;
+
+    /**
+     * @ORM\Column(type="string", nullable=true, length=254)
+     */
+    private $surname;
+
+
     public function __construct()
     {
         parent::__construct();
@@ -132,6 +143,39 @@ class User extends BaseUser
     {
         $this->rating = $rating;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * @param mixed $firstName
+     */
+    public function setFirstName($firstName)
+    {
+        $this->firstName = $firstName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSurname()
+    {
+        return $this->surname;
+    }
+
+    /**
+     * @param mixed $surname
+     */
+    public function setSurname($surname)
+    {
+        $this->surname = $surname;
+    }
+
 
 
 }

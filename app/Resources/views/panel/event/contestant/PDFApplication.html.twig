@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{{ eventSign.event.title }}</title>
+</head>
+    <body>
+    <p></p>
+    <table>
+        <thead>
+        <tr>
+            <th><h3>{{ eventSign.event.title }}</h3></th>
+            <th><h3>{{ 'panel.event.confirm.keep_qr'|trans({}, 'controller') }}</h3></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{ 'panel.event.confirm.your_name'|trans({}, 'controller') }}} {{ eventSign.user.firstName }} {{ eventSign.user.surname }}</td>
+            <td rowspan="3"><img style="width: 200px" src="{{ qr_code_url(url('event_accept_contestant', {'slug': eventSign.event.slug, 'code': eventSign.code})) }}" /></td>
+        </tr>
+            <tr>
+            <td>{{ 'panel.event.confirm.nick'|trans({}, 'controller') }} {{ eventSign.user.username }}</td>
+        </tr>
+        <tr>
+            <td>{{ 'panel.event.confirm.start_number'|trans({}, 'controller') }}
+                {% if eventSign.startNumber is null %}
+                    {{ 'panel.event.confirm.no_start_number'|trans({}, 'controller') }}
+                {% else %}
+                    <h1 style="text-align: center">{{ eventSign.startNumber }}</h1>
+
+                {% endif %}</td>
+        </tr>
+        </tbody>
+    </table>
+    {{ 'panel.event.confirm.keep_qr'|trans({}, 'controller') }}
+</body>
+</html>

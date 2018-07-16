@@ -11,6 +11,7 @@
                     <img class="avatar" src="{{ asset('users/avatar/avatar.png') }}">
                 {% endif %}
                 <a href="{{ path('panel_user_avatar') }}" class="btn btn-primary">{{ 'user.profile.change_avatar'|trans({}, 'controller') }}</a>
+                <a href="{{ path('panel_user_edit') }}" class="btn btn-primary">{{ 'user.profile.edit'|trans({}, 'controller') }}</a>
 
             </h2>
         </div>
@@ -35,6 +36,8 @@
 </div>
     <div class="row link bg-white text-center">
         <div class="col-lg-12 pt-3">
+            <p>{{ 'user.profile.events'|trans({}, 'controller') }}<a href="{{ path('user_event_joined') }}" class="btn btn-primary">{{ 'user.profile.show'|trans({}, 'controller') }}</a></p>
+            <p>{{ 'user.profile.your_events'|trans({}, 'controller') }}<a href="{{ path('your_events') }}" class="btn btn-primary">{{ 'user.profile.show'|trans({}, 'controller') }}</a></p>
             <p>{{ 'user.profile.your_path'|trans({}, 'controller') }}: <a href="{{ path('panel_user_maps') }}" class="btn btn-primary">{{ 'user.profile.show'|trans({}, 'controller') }}</a></p>
         </div>
     </div>

@@ -61,7 +61,10 @@ class AppExtension extends \Twig_Extension
             $this->translator->trans('panel.menu.post',[] , 'controller') => 'panel',
             $this->translator->trans('panel.menu.bike_paths',[] , 'controller') => 'panel_maps',
             $this->translator->trans('panel.menu.add_path',[] , 'controller') => 'panel_create_map',
-            $this->translator->trans('panel.menu.favourite',[] , 'controller') => 'panel_favourite_maps'
+            $this->translator->trans('panel.menu.favourite',[] , 'controller') => 'panel_favourite_maps',
+            $this->translator->trans('panel.menu.event',[] , 'controller') => 'event_list',
+            $this->translator->trans('panel.menu.event_create',[] , 'controller') => 'event_create'
+
         ];
         try {
             return $environment->render('template/panelMenu.html.twig', [
@@ -81,6 +84,7 @@ class AppExtension extends \Twig_Extension
             $this->translator->trans('admin.title.bike_paths',[] , 'controller') => 'admin_maps',
             $this->translator->trans('admin.title.post_categories',[] , 'controller') => 'admin_categories',
             $this->translator->trans('admin.title.post_tags',[] , 'controller') => 'admin_tags',
+            $this->translator->trans('admin.title.events',[] , 'controller') => 'events_admin',
             $this->translator->trans('admin.title.users',[] , 'controller') => 'admin_users'
         ];
         try {

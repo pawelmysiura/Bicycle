@@ -20,6 +20,26 @@ create_tag:
 comments:
 user:
   avatar: 'Twój nowy avatar'
+  name: 'Imię'
+  surname: 'Nazwisko'
 search:
   submit: 'Szukaj'
 submit: 'Wyślij'
+event:
+  title: 'Nazwa'
+  description: 'Opis'
+  start_date: 'Start zawodów'
+  registration_date: 'DAta zakończenia rejestracji zawodników'
+  image: 'Obraz'
+  start_number: 'Wprowadź numer dla zawodnika'
+  change_number: 'Podmień numery zawodników.'
+  permissions: 'Zmień uprawnienia'
+  permissions_value:
+    contestant: 'Zawodnik'
+    staff: 'Obsługa'
+    admin: 'Administrator'
+Year: 'Rok'
+Month: 'Miesiąc'
+Day: "Dzień"
+Hour: 'Godzina'
+Minute: 'Minuta'

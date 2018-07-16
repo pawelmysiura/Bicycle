@@ -1,0 +1,49 @@
+{% extends 'panel/panelLayout.html.twig' %}
+
+{% block title %}
+    {{ 'panel.event.joined'|trans({}, 'controller') }}
+{% endblock %}
+
+{% block panelContent %}
+    {% include 'template/flashMsg.html.twig' %}
+    <div class="row bg-white pt-3">
+        <div class="col-lg-7 float-left">
+            {% if app.request.get('_route') == 'panel_map_search' %}
+                <h3>{{ 'search'|trans({}, 'controller') }} {{ search }}</h3>
+                {% else %}
+            <h3>{{ 'panel.maps.title.list'|trans({}, 'controller') }}</h3>
+                    {% endif %}
+        </div>
+        <div class="col-lg-5">
+        </div>
+    </div>
+    <div class="row mt-3 bg-white">
+        <div class="col-lg-12 mt-2">
+            <table class="table table-striped text-center table-bordered">
+                <thead>
+                <tr>
+                    <th>{{ 'panel.event.title'|trans({}, 'controller') }}</th>
+                    <th>{{ 'panel.event.show'|trans({}, 'controller') }}</th>
+                    <th>{{ 'panel.event.confirm.confirm'|trans({}, 'controller') }}</th>
+                    <th>{{ 'panel.event.date'|trans({}, 'controller') }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% set number = 1 %}
+                {% for eventSign in paginator %}
+                <tr>
+                    <td class="align-middle">{{ eventSign.event.title }}</td>
+                    <td class="align-middle"><a href="{{ path('show_event', {'slug': eventSign.event.slug}) }}" class="btn btn-primary">{{ 'panel.event.show'|trans({}, 'controller') }}</a> </td>
+                    <td class="align-middle"><a href="{{ path('event_application', {'slug': eventSign.event.slug, 'code': eventSign.code}) }}" class="btn btn-primary">{{ 'panel.event.confirm.confirm'|trans({}, 'controller') }}</a> </td>
+                    <td class="align-middle">{{ eventSign.event.eventDate|date('d.n.Y H:m:s') }}</td>
+                </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {{ knp_pagination_render(paginator) }}
+    </div>
+
+
+
+{% endblock %}

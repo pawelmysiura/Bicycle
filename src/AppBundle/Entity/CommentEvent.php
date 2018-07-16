@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 /**
- * Class Comment
+ * Class CommentEvent
  * @package AppBundle\Entity
- * @ORM\Entity(repositoryClass="AppBundle\Repository\CommentRepository")
- * @ORM\Table(name="bicycle_post_comment")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\CommentEventRepository")
+ * @ORM\Table(name="bicycle_event_comment")
  */
-class Comment
+class CommentEvent
 {
 
     /**
@@ -36,17 +36,17 @@ class Comment
 
     /**
      * @ORM\ManyToOne(
-     *     targetEntity="AppBundle\Entity\Post",
+     *     targetEntity="AppBundle\Entity\Event",
      *     inversedBy="comment"
      * )
      * @ORM\JoinColumn(
-     *     name="post_id",
+     *     name="event_id",
      *     referencedColumnName="id",
      *     nullable=false,
      *     onDelete="CASCADE"
      * )
      */
-    private $post;
+    private $event;
 
     /**
      * @ORM\Column(type="datetime")
@@ -97,18 +97,19 @@ class Comment
     /**
      * @return mixed
      */
-    public function getPost()
+    public function getEvent()
     {
-        return $this->post;
+        return $this->event;
     }
 
     /**
-     * @param mixed $post
+     * @param mixed $event
      */
-    public function setPost($post)
+    public function setEvent($event)
     {
-        $this->post = $post;
+        $this->event = $event;
     }
+
 
     /**
      * @return mixed

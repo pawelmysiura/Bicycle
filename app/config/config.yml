@@ -101,6 +101,12 @@ vich_uploader:
             inject_on_load:     false
             delete_on_update:   true
             delete_on_remove:   true
+        event_image:
+            uri_prefix: /bicycle/web/images/event
+            upload_destination: '%kernel.project_dir%/web/images/event'
+            inject_on_load:     false
+            delete_on_update:   true
+            delete_on_remove:   true
 
 stof_doctrine_extensions:
     default_locale: en_US
@@ -126,3 +132,11 @@ assetic:
             bin: "%kernel.root_dir%/Resources/node_modules/uglifycss/uglifycss"
         cssrewrite: ~
 
+endroid_qr_code:
+    writer: 'png'
+    size: 250
+    margin: 10
+    foreground_color: { r: 0, g: 0, b: 0 }
+    background_color: { r: 255, g: 255, b: 255 }
+    error_correction_level: low # low, medium, quartile or high
+    encoding: UTF-8

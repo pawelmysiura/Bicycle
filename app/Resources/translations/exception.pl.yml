@@ -6,3 +6,6 @@ map_not_found: 'Trasy nie znaleziono'
 500:
   head: 'Błąd 500. Wewnętrzny błąd serwera'
   description: 'Występują problemy z serwerem. Za utrudnienia przepraszamy.'
+event:
+  access_denied: 'Nie masz dostępu do tej strony!'
+  delete: 'Brak dostępu!'

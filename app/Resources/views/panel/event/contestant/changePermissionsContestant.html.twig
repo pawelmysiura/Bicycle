@@ -1,0 +1,22 @@
+{% extends 'panel/panelLayout.html.twig' %}
+
+{% block title %}
+    {{ 'panel.event.change_number'|trans({}, 'controller') }}
+    {% endblock %}
+{% block panelContent %}
+    {% include 'template/flashMsg.html.twig' %}
+    <div class="row bg-white pt-3">
+        <div class="col-lg-12 float-left">
+            <h3>{{ 'panel.event.change_permissions'|trans({}, 'controller') }}
+            </h3>
+        </div>
+    </div>
+    <div class="link bg-white">
+        <div class="row text-center">
+            <div class="col-lg-12">
+                {{ form(form) }}
+                </div>
+            </div>
+        </div>
+
+{% endblock %}

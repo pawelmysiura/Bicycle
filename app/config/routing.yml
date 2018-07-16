@@ -1,3 +1,7 @@
+endroid_qr_code:
+    resource: "@EndroidQrCodeBundle/Resources/config/routes.yaml"
+    prefix: /qr-code
+
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 
@@ -32,5 +36,15 @@ post:
 user:
     resource: '@AppBundle/Controller/UserController.php'
     prefix: /panel
+    type: annotation
+
+event:
+    resource: '@AppBundle/Controller/EventController.php'
+    prefix: /panel/event
+    type: annotation
+
+contestant:
+    resource: '@AppBundle/Controller/ContestantController.php'
+    prefix: /panel/event
     type: annotation
 

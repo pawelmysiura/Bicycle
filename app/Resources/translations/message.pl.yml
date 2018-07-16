@@ -22,8 +22,23 @@ flashmsg:
       remove_favourite: 'Usunięto z ulubionych'
     comment_send: 'Wiadmość została wysłana'
     user_avatar: 'Obraz profilu zmieniony'
+    event:
+      create: 'Zawody stworzono pomyślnie.'
+      delete: 'Zawody usunięto pomyślnie.'
+      edit: 'Edycja powiodłą się.'
+      join: 'Dołączyłeś do zawodów'
+      set_numbers: 'Numery zostały przyporządkowane zawodnikom'
+      change_number: 'Numer został zmieniony'
+    contestant:
+      change_permissions: 'Zmieniono uprawnienia'
+      verify: 'Zweryfikowano zawodnika'
   error:
     map:
       map_edit: 'Nie możesz edytować trasy'
       map_delete: 'Nie możesz usunąć trasy'
       map_create: 'Nie można utworzyć trasy. Dodaj początek i koniec trasy!'
+    event:
+      create: 'Nie można utworzyyć zawodów!'
+      your_name: 'Podaj swoje imię i nazwisko!'
+      edit: 'Edsycja zawodów nie powiodła się!'
+      delete: 'Nie można usunąć zawodów!'

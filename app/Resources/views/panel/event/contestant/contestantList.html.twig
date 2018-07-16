@@ -1,0 +1,56 @@
+{% extends 'panel/panelLayout.html.twig' %}
+
+{% block title %}
+   {{ 'panel.event.contestant_list'|trans({}, 'controller') }}
+{% endblock %}
+
+{% block panelContent %}
+    {% include 'template/flashMsg.html.twig' %}
+    <div class="row bg-white pt-3">
+        <div class="col-lg-7 float-left">
+            {% if app.request.get('_route') == 'panel_map_search' %}
+                <h3>{{ 'search'|trans({}, 'controller') }} {{ search }}</h3>
+                {% else %}
+            <h3>   {{ 'panel.event.contestant_list'|trans({}, 'controller') }}
+            </h3>
+                    {% endif %}
+        </div>
+        <div class="col-lg-5">
+            <a href="{{ path('event_set_numbers', {'slug': event.slug}) }}" class="btn btn-primary">Przypisz numery startowe</a>
+        </div>
+    </div>
+    <div class="row mt-3 bg-white">
+        <div class="col-lg-12 mt-2">
+            <table class="table table-striped text-center table-bordered">
+                <thead>
+                <tr>
+                    <th>{{ 'panel.event.confirm.nick'|trans({}, 'controller') }}</th>
+                    <th>{{ 'name'|trans({}, 'controller') }}</th>
+                    <th>{{ 'surname'|trans({}, 'controller') }}</th>
+                    <th>{{ 'panel.event.number'|trans({}, 'controller') }}</th>
+                    <th>{{ 'panel.event.options'|trans({}, 'controller') }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% set number = 1 %}
+                {% for contestant in paginator %}
+                <tr>
+                    <td class="align-middle">{{ contestant.user.username }}</td>
+                    <td class="align-middle">{{ contestant.user.firstName }}</td>
+                    <td class="align-middle">{{ contestant.user.surname }}</td>
+                    <td class="align-middle">{{ contestant.startNumber }}</td>
+                    <td class="align-middle"><a href="{{ path('event_accept_contestant', {'slug': contestant.event.slug, 'code': contestant.code}) }}" class="btn btn-primary">{{ 'panel.event.verify'|trans({}, 'controller') }}</a>
+                    <a href="{{ path('event_change_number', {'slug': contestant.event.slug, 'username': contestant.user.username}) }}" class="btn btn-primary">{{ 'panel.event.change_number'|trans({}, 'controller') }}</a>
+                    <a href="{{ path('event_permissions', {'slug': contestant.event.slug, 'username': contestant.user.username}) }}" class="btn btn-primary">{{ 'panel.event.permissions'|trans({}, 'controller') }}</a>
+                    </td>
+                </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {{ knp_pagination_render(paginator) }}
+    </div>
+
+
+
+{% endblock %}

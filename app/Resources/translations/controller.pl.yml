@@ -1,3 +1,9 @@
+search: 'Szukaj'
+print: 'Wydrukuj'
+name: 'Imię'
+surname: 'Nazwisko'
+
+
 front:
   title:
     about: 'O nas'
@@ -8,6 +14,7 @@ front:
     text_2: 'Szukaj udostępniaj i twórz swoje ścieżki rowerowe.'
     login: 'Zaloguj się'
     signup: 'Zarejestruj się'
+
 
 panel:
   title: 'Twoja ścieżka rowerowa'
@@ -26,10 +33,13 @@ panel:
     bike_paths: 'Tasy rowerowe'
     add_path: 'Dodaj tasę'
     favourite: 'Ulubione'
+    event: 'Imprezy'
+    event_create: 'Stwórz imprezę'
     user_properties: 'Ustawienia użytkownika'
     logout: 'Wyloguj'
     admin: 'Panel Administracyjny'
     panel: 'Powrót'
+
   maps:
     rating:
       user_rating: 'Ocena użytkowników'
@@ -59,6 +69,43 @@ panel:
   user:
     edit_avatar: 'Edytuj avatar'
 
+  event:
+    no_image: 'Brak obrazu'
+    author: 'Autor'
+    description: 'Opis'
+    rating: 'Ocena użytkowników'
+    title: 'Nazwa'
+    date: 'Data zawodów'
+    show: 'Pokaż'
+    create_date: 'Utworzono zawody'
+    events: 'Lista zawodów'
+    options: 'Opcje'
+    your_events: 'Zapisane zawody'
+    event: 'Zawody'
+    edit: 'Edytuj zawody'
+    create: 'Utwórz zawody'
+    delete: 'Usuń zawody'
+    number: 'Numer'
+    verify: 'Zweryfikuj'
+    contestant_list: 'Lista zawodników'
+    joined: 'Dołaczono do zawodów:'
+    confirm:
+      confirm: 'Potwierdzenie'
+      show_qr: 'Pokarz kod QR na miejscu startu eventu'
+      your_name: 'Imię i nazwosko:'
+      nick: 'Pseudonim na portalu:'
+      start_number: 'Numer na starcie'
+      no_start_number: 'Numeru nie przydzielono'
+      keep_qr: 'Zachowaj kod qr!'
+    change_number: 'Zmień numer'
+    permissions: 'Uprawnienia'
+    change_permissions: 'Zmień uprawnienia'
+    verification:
+      your_name: 'Imię i nazwosko:'
+      nick: 'Pseudonim na portalu:'
+      verification: 'Weryfikacja zawodnika'
+
+
 admin:
   title:
     admin_panel: 'Panel administracyjny'
@@ -71,6 +118,8 @@ admin:
     edit_category: 'Edytuj kategorię'
     map_edit: 'Edytuj trasę'
     maps: 'Ściezki rowerowe'
+    events: 'Zawody'
+
   user:
     id: 'Id'
     username: 'Nazwa'
@@ -78,14 +127,17 @@ admin:
     role: 'Rola'
     delete: 'Usuń'
     deactive: 'Nieaktywny'
+
   id: 'Id'
   table_title: 'Tytuł'
   edit: 'Edytuj'
   delete: 'Usuń'
   author: 'Autor'
   name: 'Nazwa'
+
   tag:
     create: 'Nowy tag'
+
   post:
     create: 'Utwórz post'
     edit: 'Edytuj post'
@@ -95,7 +147,6 @@ admin:
   category:
     create: 'Utwórz kategorię'
 
-search: 'Szukaj'
 
 user:
   title:
@@ -111,6 +162,9 @@ user:
     change_avatar: 'Zmień avatar'
     your_path: 'Dodane ścieżki'
     show: 'Pokaż'
+    edit: 'Edytuj profil'
+    events: 'Zapisane zawody '
+    your_events: 'Stworzone zawody '
   login:
     no_account: 'Nie masz jeszcze knota?'
     lost_password: 'Zaponiałeś hasła?'

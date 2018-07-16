@@ -1,0 +1,162 @@
+{% extends 'panel/panelLayout.html.twig' %}
+
+{% block title %}
+    {{ 'panel.event.event'|trans({}, 'controller') }}
+{% endblock %}
+{% block panelContent %}
+    {% include 'template/flashMsg.html.twig' %}
+    <div class="row bg-white pt-3">
+        <div class="col-lg-7 float-left">
+            <h3>{{ event.title }}</h3>
+
+        </div>
+        <div class="col-lg-2 form-group">
+            {% set applyFound = 0 %}
+            {% for apply in event.registration %}
+            {% if  apply.user.id == app.user.id  and apply.event.id == event.id %}
+                <span>Dpłączyłeś do eventu</span>
+                {% set applyFound = 1 %}
+            {% endif %}
+            {% endfor %}
+            {% if applyFound == 0 %}
+            <a href="{{ path('apply_event', {'slug': event.slug}) }}" class="btn btn-success">Dołącz</a>
+            {% endif %}
+        </div>
+        <div class="col-lg-3 mb-3">
+            {% if app.user.id == event.author.id %}
+                <a href="{{ path('event_edit', {'slug': event.slug}) }}" class="btn btn-primary">{{ 'panel.maps.title.edmit'|trans({}, 'controller') }}</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="link bg-white">
+        <div class="row bg-white mt-2 pt-3 pb-3 text-center align-middle">
+            <div class="col-lg-4">
+                <a href="{{ vich_uploader_asset(event, 'imageFile') }}">
+                    <img class="img-thumbnail img-fluid" src="{{ vich_uploader_asset(event, 'imageFile') }}">
+                </a>
+            </div>
+            <div class="col-lg-8">
+                {{ 'panel.event.author'|trans({}, 'controller') }}: <a href="#">{{ event.author.username }}</a>
+                <hr>
+                Koniec rejestracji w dniu:
+                <br>
+                {{ event.endDateOfRegistration|date('d.n.Y H:m:s') }}
+                <p></p>
+                Start imprezy:
+                <br>
+                {{ event.eventDate|date('d.n.Y H:m:s') }}
+            </div>
+        </div>
+        <hr>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div id="map" style="height: 400px">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 m-3">
+                {{ 'panel.event.description'|trans({}, 'controller') }}:<br>
+                {{ event.description }}
+
+            </div>
+        </div>
+    </div>
+    <div class="row bg-white">
+        <div class="col-2 pt-4 text-center">
+            {{ 'panel.maps.comment'|trans({}, 'controller') }}:
+        </div>
+        <div class="col-lg-10">
+            {{ form_start(form) }}
+            <div class="row">
+                <div class="col-lg-8 py-1">
+                    {{ form_widget(form.comment, {
+                        'attr': {'class': 'form-control float-left'}
+                    }) }}
+                </div>
+                <div class="col-lg-2 pt-3">
+                    {{ form_widget(form.submit, {
+                        'attr': {'class': 'btn btn-primary float-right mt-3'}
+                    }) }}
+                </div>
+            </div>
+            {{ form_end(form) }}
+
+        </div>
+    </div>
+
+    {% for comment in event.comment %}
+        <div class="row mt-2 bg-white p-2">
+            <div class="col-lg-2 text-center">
+                {{ comment.author.username }}
+                <br>
+                {% if comment.author.imageName is not null %}
+                    <img class="avatar" src="{{ vich_uploader_asset(comment.author, 'imageFile') }}">
+                {% else %}
+                    <img class="avatar" src="{{ asset('users/avatar/avatar.png') }}">
+                {% endif %}
+                <br>
+                {{ comment.createDate|date('d.n.Y H:m:s') }}
+            </div>
+            <div class="col-lg-10 mt-4">
+                {{ comment.comment }}
+            </div>
+        </div>
+    {% endfor %}
+
+    <script type="text/javascript">
+        var directionsDisplay,
+            directionsService;
+        var start = JSON.parse({{ event.start|json_encode|raw }}),
+            end = JSON.parse({{ event.end|json_encode|raw }}),
+            waypoints = JSON.parse({{ event.waypoints|json_encode|raw }});
+
+        function initMap() {
+            directionsDisplay = new google.maps.DirectionsRenderer;
+            directionsService = new google.maps.DirectionsService;
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 6,
+                center: start,
+                gestureHandling: 'greedy'
+            });
+
+            directionsDisplay.setMap(map);
+            calculateRoute(directionsService, directionsDisplay);
+        }
+
+        function calculateRoute(directionsService, directionsDisplay) {
+            var wp = [];
+
+            for (i = 0; i < Object.keys(waypoints).length; i++ )
+            {
+                wp.push({
+                    location:waypoints[i],
+                    stopover:false
+                });
+            }
+
+                directionsService.route({
+                    origin: start,
+                    destination: end,
+                    waypoints: wp,
+                    optimizeWaypoints: true,
+                    travelMode: 'BICYCLING'
+                }, function (response, status) {
+                    if (status == 'OK') {
+                        directionsDisplay.setDirections(response);
+                    } else {
+                        window.alert('Directions request failed due to ' + status);
+                    }
+                });
+        }
+    </script>
+
+    {% if data is defined %}
+    {{ data }}
+        {% endif %}
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIttfn5Ev35d4l9w1UuF4bam8jHZzTXg0&callback=initMap">
+    </script>
+
+{% endblock %}
