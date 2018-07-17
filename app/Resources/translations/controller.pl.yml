@@ -66,6 +66,7 @@ panel:
     favourite:
       delete: 'Usuń z ulobionych'
       add: 'Dodaj do ulubionych'
+
   user:
     edit_avatar: 'Edytuj avatar'
 
@@ -80,6 +81,7 @@ panel:
     create_date: 'Utworzono zawody'
     events: 'Lista zawodów'
     options: 'Opcje'
+    permissions: 'Uprawnienia'
     your_events: 'Zapisane zawody'
     event: 'Zawody'
     edit: 'Edytuj zawody'
@@ -89,6 +91,11 @@ panel:
     verify: 'Zweryfikuj'
     contestant_list: 'Lista zawodników'
     joined: 'Dołaczono do zawodów:'
+    admin: 'Administrator'
+    service: 'Obsługa'
+    contestant: 'Zawodnik'
+    permissions: 'Uprawnienia'
+    change_permissions: 'Zmień uprawnienia'
     confirm:
       confirm: 'Potwierdzenie'
       show_qr: 'Pokarz kod QR na miejscu startu eventu'
@@ -98,8 +105,6 @@ panel:
       no_start_number: 'Numeru nie przydzielono'
       keep_qr: 'Zachowaj kod qr!'
     change_number: 'Zmień numer'
-    permissions: 'Uprawnienia'
-    change_permissions: 'Zmień uprawnienia'
     verification:
       your_name: 'Imię i nazwosko:'
       nick: 'Pseudonim na portalu:'

@@ -70,35 +70,4 @@ class AdminMapControllerTest extends BaseControllerTest
         $this->assertContains($container->get('translator')->trans('admin.title.maps', [], 'controller'), $this->client->getResponse()->getContent());
     }
 
-//    public function testPostEdit()
-//    {
-//        $title = 'Test title post';
-//        $post = $this->em->getRepository(Post::class)->findOneBy([
-//            'id' => 2
-//        ]);
-//        $container = self::$kernel->getContainer();
-//        $crawler = $this->client->request('POSt', '/admin/post/edit/'.$post->getSlug());
-//        $this->assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
-//        $this->assertContains($container->get('translator')->trans('admin.title.posts', [], 'controller'), $this->client->getResponse()->getContent());
-//        $form = $crawler->selectButton($container->get('translator')->trans('submit', [], 'form'))->form();
-//        $form['create_post[title]'] = $title;
-//        $form['create_post[category]']->setValue(2);
-//        $form['create_post[tag]']->setValue([3, 5]);
-//        $form['create_post[content]'] = 'Test post content';
-//        $form['create_post[publishDate][date][day]']->setValue(22);
-//        $form['create_post[publishDate][date][month]']->setValue(2);
-//        $form['create_post[publishDate][date][year]']->setValue(2018);
-//        $form['create_post[publishDate][time][hour]']->setValue(11);
-//        $form['create_post[publishDate][time][minute]']->setValue(29);
-//        $this->client->submit($form);
-//        $this->client->followRedirect();
-//        $this->assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
-//        $this->assertContains($container->get('translator')->trans('flashmsg.success.admin.post_edit', [], 'message'), $this->client->getResponse()->getContent());
-//        $newPost = $this->em->getRepository(Post::class)->findOneBy([
-//            'title' => $title
-//        ])->getTitle();
-//        $this->assertEquals($title, $newPost);
-//    }
-
-
 }

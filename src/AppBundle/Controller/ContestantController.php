@@ -168,7 +168,7 @@ class ContestantController extends BaseController
      * @param EventService $eventService
      * @return void
      */
-    public function EventPDFApplicationAction(Event $event, EventService $eventService)
+    public function eventPDFApplicationAction(Event $event, EventService $eventService)
     {
         $user = $this->getUser();
         $eventSignRepo = $this->getDoctrine()->getRepository(EventSign::class);

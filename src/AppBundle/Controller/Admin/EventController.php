@@ -4,6 +4,7 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\BaseController;
 use AppBundle\Entity\Event;
+use AppBundle\Entity\EventSign;
 use AppBundle\Form\Type\SearchContentType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -33,7 +34,13 @@ class EventController extends BaseController
      */
     public function deleteEventAction(Event $event)
     {
+        $eventSign = $this->getDoctrine()->getRepository(EventSign::class)->findBy([
+            'event' => $event
+        ]);
             $em = $this->getDoctrine()->getManager();
+            foreach ($eventSign as $contestant) {
+                $em->remove($contestant);
+            }
             $em->remove($event);
             $em->flush();
             $this->addFlash('success', $this->get('translator')->trans('flashmsg.success.event.delete', [], 'message'));

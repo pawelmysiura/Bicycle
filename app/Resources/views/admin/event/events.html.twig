@@ -39,7 +39,7 @@
                     <td>{{ event.author.username }}</td>
                     <td>{{ event.createDate|date('d.n.Y H:m:s') }}</td>
                     <td>{{ event.eventDate|date('d.n.Y H:m:s') }}</td>
-                    <td><a style="color: darkred;" href="{{ path('delete_event_admin', {'slug': event.id}) }}" class="fas fa-times"></a></td>
+                    <td><a style="color: darkred;" href="{{ path('delete_event_admin', {'slug': event.slug}) }}" class="fas fa-times"></a></td>
                 </tr>
                     {% endfor %}
                 </tbody>

@@ -29,6 +29,7 @@
                     <th>{{ 'surname'|trans({}, 'controller') }}</th>
                     <th>{{ 'panel.event.number'|trans({}, 'controller') }}</th>
                     <th>{{ 'panel.event.options'|trans({}, 'controller') }}</th>
+                    <th>{{ 'panel.event.permissions'|trans({}, 'controller') }}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -43,6 +44,13 @@
                     <a href="{{ path('event_change_number', {'slug': contestant.event.slug, 'username': contestant.user.username}) }}" class="btn btn-primary">{{ 'panel.event.change_number'|trans({}, 'controller') }}</a>
                     <a href="{{ path('event_permissions', {'slug': contestant.event.slug, 'username': contestant.user.username}) }}" class="btn btn-primary">{{ 'panel.event.permissions'|trans({}, 'controller') }}</a>
                     </td>
+                    <td class="align-middle">{% if contestant.permissions == 2 %}
+                            {{ 'panel.event.admin'|trans({}, 'controller') }}
+                    {% elseif contestant.permissions == 1 %}
+                        {{ 'panel.event.service'|trans({}, 'controller') }}
+                        {% else %}
+                            {{ 'panel.event.contestant'|trans({}, 'controller') }}
+                        {% endif %}</td>
                 </tr>
                     {% endfor %}
                 </tbody>
