@@ -9,6 +9,7 @@ use AppBundle\Form\Type\CreateEventType;
 use AppBundle\Form\Type\EventCommentType;
 use AppBundle\Form\Type\SearchContentType;
 use AppBundle\Service\Event\EventService;
+use AppBundle\Service\Event\FormService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,10 +21,10 @@ class EventController extends BaseController
     /**
      * @Route("/create", name="event_create")
      * @param Request $request
-     * @param EventService $eventService
+     * @param FormService $formService
      * @return Response
      */
-    public function createEventAction(Request $request, EventService $eventService)
+    public function createEventAction(Request $request, FormService $formService)
     {
         $user = $this->getUser();
         if (!$user->getFirstName() && !$user->getSurname()) {
@@ -32,9 +33,13 @@ class EventController extends BaseController
         }
         $event = new Event();
         $form = $this->createForm(CreateEventType::class, $event);
-        $submitForm = $eventService->submitCreateForm($form, $user, $event, $request);
-        if ($submitForm) {
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+        $submitForm = $formService->submitCreateForm($user, $event);
             $this->addFlash($submitForm, $this->get('translator')->trans('flashmsg.'.$submitForm.'.event.create', [], 'message'));
+            return $this->redirectToRoute('event_create');
+        } elseif ($form->isSubmitted() && !$form->isValid()) {
+            $this->addFlash('error', $this->get('translator')->trans('flashmsg.error.event.create', [], 'message'));
             return $this->redirectToRoute('event_create');
         }
         return $this->render('panel/event/createEvent.html.twig', [

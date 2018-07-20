@@ -4,7 +4,7 @@ namespace AppBundle\Service\Event;
 
 use AppBundle\Entity\EventSign;
 use Doctrine\Common\Persistence\ManagerRegistry as doctrine;
-use Symfony\Component\DependencyInjection\Exception\EnvNotFoundException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use WhiteOctober\TCPDFBundle\Controller\TCPDFController;
 
 class EventService
@@ -20,22 +20,25 @@ class EventService
     private $tcpdf;
 
     /**
+     * @var Generator
+     */
+    private $generator;
+
+
+    /**
      * EventService constructor.
      * @param $doctrine
      * @param $tcpdf
+     * @param $generator
      */
-    public function __construct($doctrine, $tcpdf)
+
+    public function __construct($doctrine, $tcpdf, $generator )
     {
         $this->doctrine = $doctrine;
         $this->tcpdf = $tcpdf;
+        $this->generator = $generator;
     }
 
-
-    public function codeGenerator()
-    {
-        $random = random_bytes(30);
-        return base64_encode(bin2hex($random));
-    }
 
     public function applyEvent($user, $event, $permission, $verify)
     {
@@ -46,10 +49,11 @@ class EventService
                 $eventSign = new EventSign();
                 $eventSign->setEvent($event);
                 $eventSign->setUser($user);
-                $eventSign->setCode($this->codeGenerator());
+                $eventSign->setCode($this->generator->codeGenerator());
                 $eventSign->setVerify($verify);
                 $eventSign->setPermissions($permission);
-                $eventSign->setJoinDate(new \DateTime('now'));
+//                $eventSign->setJoinDate(new \DateTime('now'));
+                $eventSign->setJoinDate(\DateTime::createFromFormat('U', time()));
                 $em = $this->doctrine->getManager();
                 $em->persist($eventSign);
                 $em->flush();
@@ -80,6 +84,7 @@ class EventService
         $eventSign->setStartNumber($data['startNumber']);
         $em->persist($eventSign);
         $em->flush();
+        return $eventSign;
     }
 
     public function returnPDFResponseFromHTML($html, $event)
@@ -94,22 +99,7 @@ class EventService
         $filename = $event->getTitle() . '_Application';
         $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $html, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
         $pdf->Output($filename . ".pdf", 'I');
-    }
-
-    public function submitCreateForm($form, $user, $event, $request)
-    {
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $event->setCreateDate(new \DateTime('now'));
-            $event->setAuthor($user);
-            $em = $this->doctrine->getManager();
-            $em->persist($event);
-            $em->flush();
-            $this->applyEvent($user, $event, 2, 1);
-            return 'success';
-        } elseif ($form->isSubmitted() && !$form->isValid()) {
-            return 'error';
-        }
+        return $pdf;
     }
 
     public function isUserAlreadySign($user, $event)
@@ -123,7 +113,8 @@ class EventService
         {
             return false;
         } else {
-            throw new EnvNotFoundException('Już dołączyłeś');
+            throw new NotFoundHttpException('Już dołączyłeś');
         }
     }
+
 }
